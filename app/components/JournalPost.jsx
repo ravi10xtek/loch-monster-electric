@@ -1,4 +1,5 @@
 import OrangeBanner from './OrangeBanner';
+import FaqAccordion from './FaqAccordion';
 
 function formatDate(iso) {
   const d = new Date(iso);
@@ -58,6 +59,9 @@ export default function JournalPost({ post, related }) {
             className="jp-prose"
             dangerouslySetInnerHTML={{ __html: post.body }}
           />
+
+          {/* FAQ accordion — populated from CMS */}
+          <FaqAccordion items={post.faq} />
 
           {/* Tags + share */}
           <div className="jp-post-footer">
