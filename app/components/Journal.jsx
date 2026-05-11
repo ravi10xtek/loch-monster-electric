@@ -1,0 +1,61 @@
+const articles = [
+  {
+    title: 'WHY ARE MY LIGHTS FLICKERING? CAUSES, DANGERS, AND FIXES FOR MINNESOTA & WISCONSIN HOMES',
+    img: 'bulb',
+    excerpt: "Flickering lights aren't just a nuisance — they're often an early sign of electrical issues. Learn what causes light flicker in Minnesota and Wisconsin homes, from loose bulbs to wiring or panel problems, and when to call a licensed electrician.",
+    href: '/journal/why-are-my-lights-flickering',
+  },
+  {
+    title: 'PANEL UPGRADES: WHEN YOUR HOME IS ASKING FOR MORE POWER',
+    img: 'house',
+    excerpt: "Older panels weren't built for modern loads — EVs, heat pumps, induction ranges, hot tubs. We'll walk through how to spot the signs your panel is at its limit and what a clean, code-compliant upgrade looks like.",
+    href: '/journal/panel-upgrades-when-your-home-needs-more-power',
+  },
+  {
+    title: 'EV CHARGER INSTALLATION AT HOME: WHAT YOU ACTUALLY NEED',
+    img: 'panel',
+    excerpt: "Level 2 charging changes how you live with an electric vehicle. Here's the real-world breakdown of circuits, panels, permits, and pricing for installing a home EV charger in the Twin Cities metro.",
+    href: '/journal/ev-charger-installation-at-home-what-you-actually-need',
+  },
+  {
+    title: 'ELECTRICAL SAFETY CHECKLIST EVERY MN HOMEOWNER SHOULD KNOW',
+    img: 'home',
+    excerpt: "Outdated outlets, missing GFCIs, scorched switches — small things that quietly become big problems. Use this homeowner-friendly checklist to spot what needs attention before it turns into an emergency call.",
+    href: '/journal/electrical-safety-checklist-mn-homeowners',
+  },
+  {
+    title: 'SMART HOME WIRING: WHAT TO PLAN BEFORE THE DRYWALL GOES UP',
+    img: 'smart',
+    excerpt: "A little planning during a remodel saves a lot of patching later. Here's what to wire for — from smart switches to networked lighting — so your home is ready for whatever you add next.",
+    href: '/journal/smart-home-wiring-what-to-plan-before-drywall',
+  },
+];
+
+export default function Journal() {
+  return (
+    <section className="journal-section" id="journal">
+      <div className="wrap">
+        <div className="journal-header">
+          <h2 className="journal-heading">THE <span className="text-orange">ELECTRICAL</span> JOURNAL</h2>
+          <a href="/journal" className="explore-btn">EXPLORE</a>
+        </div>
+        <div className="journal-carousel-wrap">
+          <div className="journal-track" id="journalTrack">
+            {articles.map((article) => (
+              <article className="jcard" key={article.img}>
+                <h4 className="jcard-title">{article.title}</h4>
+                <div className="jcard-img" data-img={article.img}></div>
+                <p className="jcard-excerpt">{article.excerpt}</p>
+                <a href={article.href} className="jcard-cta">READ MORE</a>
+              </article>
+            ))}
+          </div>
+        </div>
+        <div className="journal-nav">
+          <button className="cnav-btn cnav-journal" id="jPrev" aria-label="Previous articles">&#8249;</button>
+          <button className="cnav-btn cnav-journal" id="jNext" aria-label="Next articles">&#8250;</button>
+        </div>
+      </div>
+    </section>
+  );
+}
