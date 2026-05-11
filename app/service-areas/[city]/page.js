@@ -8,6 +8,9 @@ import OrangeBanner from '../../components/OrangeBanner'
 import Expect from '../../components/Expect'
 import Services from '../../components/Services'
 import WhyChooseUs from '../../components/WhyChooseUs'
+import JsonLd from '../../components/JsonLd'
+
+const BASE = process.env.SITE_URL || 'https://lochmonsterelectric.com'
 
 export const dynamicParams = true
 
@@ -33,8 +36,39 @@ export default async function CityPage({ params }) {
   const { city } = await params
   const cityData = (await getLocationBySlug(city)) ?? getCityBySlug(city)
   if (!cityData) notFound()
+
+  // City-specific LocalBusiness JSON-LD — areaServed narrows to this city for local SEO
+  const citySchema = {
+    '@context': 'https://schema.org',
+    '@type': 'ElectricalContractor',
+    name: 'Loch Monster Electric',
+    url: BASE,
+    telephone: '+17632921191',
+    email: 'service@lochmonsterelectric.com',
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: '7600 W 27th St #213',
+      addressLocality: 'St Louis Park',
+      addressRegion: 'MN',
+      postalCode: '55426',
+      addressCountry: 'US',
+    },
+    areaServed: {
+      '@type': 'City',
+      name: cityData.name,
+      containedInPlace: {
+        '@type': 'State',
+        name: cityData.state === 'MN' ? 'Minnesota' : 'Wisconsin',
+      },
+    },
+    ...(cityData.lat && cityData.lng ? {
+      geo: { '@type': 'GeoCoordinates', latitude: cityData.lat, longitude: cityData.lng },
+    } : {}),
+  }
+
   return (
     <>
+      <JsonLd schema={citySchema} />
       <HomeInteractions />
       <main>
         <ServiceAreaHero
