@@ -1,3 +1,4 @@
+import { buildPageMetadata } from '../lib/cms'
 import HomeInteractions from '../ui/home-interactions'
 import SmartBreadcrumb from '../ui/smart-breadcrumb'
 import Pricing from '../components/Pricing'
@@ -7,9 +8,11 @@ import WhyChooseUs from '../components/WhyChooseUs'
 import OrangeBanner from '../components/OrangeBanner'
 import FAQ from '../components/FAQ'
 
-export const metadata = {
-  title: 'Pricing & Estimates | Loch Monster Electric',
-  description: 'Transparent electrical pricing for the Twin Cities metro. Time & materials, project estimates, and no hidden fees. Call Loch Monster Electric: 763-292-1191.',
+export async function generateMetadata() {
+  return buildPageMetadata('pricing-estimates', {
+    title: 'Pricing & Estimates | Loch Monster Electric',
+    description: 'Transparent electrical pricing for the Twin Cities metro. Time & materials, project estimates, and no hidden fees. Call Loch Monster Electric: 763-292-1191.',
+  })
 }
 
 const TIERS = [

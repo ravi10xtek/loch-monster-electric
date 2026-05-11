@@ -1,3 +1,4 @@
+import { buildPageMetadata } from '../lib/cms'
 import HomeInteractions from '../ui/home-interactions'
 import ServiceAreaHero from '../components/ServiceAreaHero'
 import CityGrid from '../components/CityGrid'
@@ -9,9 +10,11 @@ import WhyChooseUs from '../components/WhyChooseUs'
 import Journal from '../components/Journal'
 import { allCities } from '../data/serviceAreas'
 
-export const metadata = {
-  title: 'Service Areas | Loch Monster Electric',
-  description: 'Licensed electrician serving the Twin Cities metro — Shoreview, Apple Valley, Plymouth, Bloomington, Eagan, and more. Call 763-292-1191.',
+export async function generateMetadata() {
+  return buildPageMetadata('service-areas', {
+    title: 'Service Areas | Loch Monster Electric',
+    description: 'Licensed electrician serving the Twin Cities metro — Shoreview, Apple Valley, Plymouth, Bloomington, Eagan, and more. Call 763-292-1191.',
+  })
 }
 
 export default function ServiceAreasPage() {

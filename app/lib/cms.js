@@ -182,3 +182,53 @@ export async function getServiceSlugsByHub(parentHub) {
   if (!data?.docs?.length) return null
   return data.docs.map(d => d.slug)
 }
+
+// ── Page SEO ───────────────────────────────────────────────────────────────
+
+/**
+ * Fetch SEO metadata for a static page by its slug.
+ * Slug is the path without leading slash — use '/' for the home page.
+ * Returns null if not found or CMS is unreachable.
+ *
+ * Returned shape:
+ *   { metaTitle, metaDescription, ogImage, canonicalUrl, noIndex }
+ */
+export async function getPageSEO(slug) {
+  const params = new URLSearchParams({ 'where[slug][equals]': slug, depth: '1', limit: '1' })
+  const data = await fetchAPI(`/api/page-seo?${params}`)
+  const doc = data?.docs?.[0]
+  if (!doc) return null
+  return {
+    metaTitle: doc.metaTitle || null,
+    metaDescription: doc.metaDescription || null,
+    // ogImage may be a populated Media object or null
+    ogImage: doc.ogImage?.url ? `${BASE}${doc.ogImage.url}` : null,
+    canonicalUrl: doc.canonicalUrl || null,
+    noIndex: doc.noIndex || false,
+  }
+}
+
+/**
+ * Build a Next.js Metadata object from a PageSEO record, with a fallback.
+ * Pass `fallback` as { title, description } for the hardcoded defaults.
+ */
+export async function buildPageMetadata(pageSlug, fallback = {}) {
+  const seo = await getPageSEO(pageSlug)
+  const title = seo?.metaTitle || fallback.title || 'Loch Monster Electric'
+  const description = seo?.metaDescription || fallback.description || ''
+
+  const metadata = { title, description }
+
+  if (seo?.canonicalUrl) {
+    metadata.alternates = { canonical: seo.canonicalUrl }
+  }
+  if (seo?.noIndex) {
+    metadata.robots = { index: false, follow: false }
+  }
+  if (seo?.ogImage) {
+    metadata.openGraph = { images: [{ url: seo.ogImage }] }
+    metadata.twitter = { images: [seo.ogImage] }
+  }
+
+  return metadata
+}

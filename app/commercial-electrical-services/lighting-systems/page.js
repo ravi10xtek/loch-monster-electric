@@ -1,10 +1,13 @@
+import { buildPageMetadata } from '../../lib/cms'
 import CategoryHubPage from "../../components/CategoryHubPage";
 import { categoryHubs } from "../../data/categoryHubs";
 
-export const metadata = {
-  title: categoryHubs['lighting-systems'].seo.title,
-  description: categoryHubs['lighting-systems'].seo.description,
-};
+export async function generateMetadata() {
+  return buildPageMetadata('commercial-electrical-services/lighting-systems', {
+    title: 'Commercial Lighting Systems | Loch Monster Electric',
+    description: 'Commercial lighting installation, parking lot lighting & LED retrofits in the Twin Cities. Call 763-292-1191.',
+  })
+}
 
 export default function LightingSystemsPage() {
   return <CategoryHubPage data={categoryHubs['lighting-systems']} />;

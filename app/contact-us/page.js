@@ -1,11 +1,14 @@
+import { buildPageMetadata } from '../lib/cms'
 import HomeInteractions from '../ui/home-interactions'
 import ContactHero from '../components/ContactHero'
 import Journal from '../components/Journal'
 import FAQ from '../components/FAQ'
 
-export const metadata = {
-  title: 'Contact Us | Loch Monster Electric',
-  description: 'Call, text, or email the team at Loch Monster Electric. Licensed electricians serving the Twin Cities metro — no call centers, no bots, just real people who know the work.',
+export async function generateMetadata() {
+  return buildPageMetadata('contact-us', {
+    title: 'Contact Us | Loch Monster Electric',
+    description: 'Call, text, or email the team at Loch Monster Electric. Licensed electricians serving the Twin Cities metro — no call centers, no bots, just real people who know the work.',
+  })
 }
 
 const SOCIAL = [

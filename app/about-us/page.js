@@ -1,3 +1,4 @@
+import { buildPageMetadata } from '../lib/cms'
 import HomeInteractions from '../ui/home-interactions'
 import AboutHero from '../components/AboutHero'
 import AboutStory from '../components/AboutStory'
@@ -6,9 +7,11 @@ import ServiceAreas from '../components/ServiceAreas'
 import Expect from '../components/Expect'
 import WhyChooseUs from '../components/WhyChooseUs'
 
-export const metadata = {
-  title: 'About Us | Loch Monster Electric',
-  description: 'From pipes to power — same crew, same heart. Learn the story behind Loch Monster Electric and why Twin Cities homeowners trust us with their electrical work.',
+export async function generateMetadata() {
+  return buildPageMetadata('about-us', {
+    title: 'About Us | Loch Monster Electric',
+    description: 'From pipes to power — same crew, same heart. Learn the story behind Loch Monster Electric and why Twin Cities homeowners trust us with their electrical work.',
+  })
 }
 
 const SOCIAL = [
