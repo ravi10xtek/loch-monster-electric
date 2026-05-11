@@ -10,23 +10,14 @@
  *   toc[].item   → toc[]  (string array)
  */
 
-const BASE = process.env.CMS_URL || 'http://localhost:3001'
+import {
+  normalizePost,
+  normalizeLocation,
+  normalizeService,
+  normalizePage,
+} from './normalize'
 
-/** Transform a raw Payload post into the same shape as journal.js entries */
-function normalizePost(p) {
-  return {
-    // Pass everything through first so extra fields (id, etc.) are available
-    ...p,
-    // Remap field name differences
-    date: p.publishedAt || p.date || null,
-    body: p.bodyHtml || p.body || '',
-    toc: Array.isArray(p.toc)
-      ? p.toc.map(t => (typeof t === 'string' ? t : t?.item ?? ''))
-      : [],
-    // coverImage URL (Payload returns an object, journal.js has no image URL field)
-    coverImage: p.coverImage?.url ? `${BASE}${p.coverImage.url}` : null,
-  }
-}
+const BASE = process.env.CMS_URL || 'http://localhost:3001'
 
 // ── Fetch helpers ──────────────────────────────────────────────────────────
 
@@ -112,14 +103,6 @@ export async function getAllPostSlugs() {
 
 // ── Locations ──────────────────────────────────────────────────────────────
 
-function normalizeLocation(p) {
-  return {
-    ...p,
-    // nearby may be populated objects or IDs — normalize to slug strings
-    nearby: (p.nearby || []).map(n => (typeof n === 'object' ? n.slug : n)),
-  }
-}
-
 export async function getLocations() {
   const params = new URLSearchParams({ limit: '100', depth: '1' })
   const data = await fetchAPI(`/api/locations?${params}`)
@@ -143,28 +126,6 @@ export async function getAllLocationSlugs() {
 
 // ── Services ───────────────────────────────────────────────────────────────
 
-function normalizeService(p) {
-  return {
-    ...p,
-    seo: {
-      title: p.seoTitle,
-      description: p.seoDescription,
-    },
-    hero: {
-      eyebrow: p.heroEyebrow,
-      title: (p.heroTitle || []).map(t => t.line),
-      tagline: p.heroTagline,
-      body: p.heroBody,
-    },
-    whenDoYouNeed: {
-      whenHeading: p.whenHeading,
-      gradient: p.whenGradient,
-      color: p.whenColor,
-      scenarios: (p.scenarios || []).map(s => ({ heading: s.heading, body: s.body })),
-    },
-  }
-}
-
 export async function getServiceBySlug(slug) {
   const params = new URLSearchParams({ 'where[slug][equals]': slug, depth: '0', limit: '1' })
   const data = await fetchAPI(`/api/services?${params}`)
@@ -184,24 +145,6 @@ export async function getServiceSlugsByHub(parentHub) {
 }
 
 // ── Pages ──────────────────────────────────────────────────────────────────
-
-function normalizePage(p) {
-  return {
-    ...p,
-    blocks: (p.blocks || []).map(block => {
-      if (block.image?.url) {
-        return { ...block, image: { ...block.image, url: `${BASE}${block.image.url}` } }
-      }
-      return block
-    }),
-    seo: {
-      title: p.seoTitle || null,
-      description: p.seoDescription || null,
-      ogImage: p.ogImage?.url ? `${BASE}${p.ogImage.url}` : null,
-      noIndex: p.noIndex || false,
-    },
-  }
-}
 
 export async function getPageBySlug(slug) {
   const params = new URLSearchParams({ 'where[slug][equals]': slug, depth: '2', limit: '1' })
