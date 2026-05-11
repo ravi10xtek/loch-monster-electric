@@ -1,0 +1,85 @@
+/**
+ * POST /api/revalidate
+ *
+ * Called by Payload CMS afterChange hooks to bust the Next.js ISR cache.
+ *
+ * Payload sends JSON: { secret, collection, slug? }
+ *   secret      — must match REVALIDATION_SECRET env var
+ *   collection  — 'posts' | 'locations' | 'services' | 'page-seo'
+ *   slug        — (optional) specific record slug for targeted revalidation
+ *
+ * If slug is provided, only that path is revalidated.
+ * Otherwise the entire cache tag for the collection is cleared.
+ *
+ * Setup:
+ *   1. Add REVALIDATION_SECRET to both .env.local (website) and the CMS .env
+ *   2. Add an afterChange hook in Payload that POSTs to this endpoint
+ */
+import { revalidatePath, revalidateTag } from 'next/cache'
+import { NextResponse } from 'next/server'
+
+const SECRET = process.env.REVALIDATION_SECRET
+
+/** Maps collection slug → cache tag and URL path builder */
+const COLLECTION_MAP = {
+  posts: {
+    tag: 'posts',
+    path: (slug) => slug ? `/journal/${slug}` : '/journal',
+  },
+  locations: {
+    tag: 'locations',
+    path: (slug) => slug ? `/service-areas/${slug}` : '/service-areas',
+  },
+  services: {
+    tag: 'services',
+    path: () => null, // services are nested — revalidate by tag only
+  },
+  'page-seo': {
+    tag: 'page-seo',
+    path: (slug) => slug ? `/${slug === '/' ? '' : slug}` : null,
+  },
+}
+
+export async function POST(request) {
+  // Validate secret
+  if (!SECRET) {
+    return NextResponse.json({ error: 'REVALIDATION_SECRET not configured' }, { status: 500 })
+  }
+
+  let body
+  try {
+    body = await request.json()
+  } catch {
+    return NextResponse.json({ error: 'Invalid JSON body' }, { status: 400 })
+  }
+
+  const { secret, collection, slug } = body
+
+  if (secret !== SECRET) {
+    return NextResponse.json({ error: 'Invalid secret' }, { status: 401 })
+  }
+
+  const mapping = COLLECTION_MAP[collection]
+  if (!mapping) {
+    return NextResponse.json({ error: `Unknown collection: ${collection}` }, { status: 400 })
+  }
+
+  const revalidated = []
+
+  // Always clear the collection cache tag
+  revalidateTag(mapping.tag)
+  revalidated.push(`tag:${mapping.tag}`)
+
+  // If a path builder exists, revalidate the specific URL(s)
+  const path = mapping.path(slug)
+  if (path) {
+    revalidatePath(path)
+    revalidated.push(`path:${path}`)
+  }
+
+  // Always revalidate the sitemap (it's dynamic and references all collections)
+  revalidatePath('/sitemap.xml')
+  revalidated.push('path:/sitemap.xml')
+
+  return NextResponse.json({ revalidated, now: Date.now() })
+}
