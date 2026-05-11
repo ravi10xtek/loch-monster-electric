@@ -38,6 +38,10 @@ const COLLECTION_MAP = {
     tag: 'page-seo',
     path: (slug) => slug ? `/${slug === '/' ? '' : slug}` : null,
   },
+  pages: {
+    tag: 'pages',
+    path: (slug) => slug ? `/${slug}` : null,
+  },
 }
 
 export async function POST(request) {

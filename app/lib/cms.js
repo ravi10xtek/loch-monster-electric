@@ -183,6 +183,40 @@ export async function getServiceSlugsByHub(parentHub) {
   return data.docs.map(d => d.slug)
 }
 
+// ── Pages ──────────────────────────────────────────────────────────────────
+
+function normalizePage(p) {
+  return {
+    ...p,
+    blocks: (p.blocks || []).map(block => {
+      if (block.image?.url) {
+        return { ...block, image: { ...block.image, url: `${BASE}${block.image.url}` } }
+      }
+      return block
+    }),
+    seo: {
+      title: p.seoTitle || null,
+      description: p.seoDescription || null,
+      ogImage: p.ogImage?.url ? `${BASE}${p.ogImage.url}` : null,
+      noIndex: p.noIndex || false,
+    },
+  }
+}
+
+export async function getPageBySlug(slug) {
+  const params = new URLSearchParams({ 'where[slug][equals]': slug, depth: '2', limit: '1' })
+  const data = await fetchAPI(`/api/pages?${params}`)
+  const doc = data?.docs?.[0]
+  return doc ? normalizePage(doc) : null
+}
+
+export async function getAllPageSlugs() {
+  const params = new URLSearchParams({ limit: '200', depth: '0' })
+  const data = await fetchAPI(`/api/pages?${params}`, { cache: 'no-store' })
+  if (!data?.docs?.length) return null
+  return data.docs.map(d => d.slug)
+}
+
 // ── Page SEO ───────────────────────────────────────────────────────────────
 
 /**
