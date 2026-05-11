@@ -67,7 +67,7 @@ export default function Pricing() {
               </ul>
               <div className="pc-foot">
                 <a href={card.anchor || '#pricing'} className="pc-readmore">READ MORE</a>
-                <a href="#contact" className={`pc-cta${card.ctaStyle === 'orange' ? ' pc-cta-orange' : ''}`}>CONTACT US</a>
+                <a href="/contact-us" className={`pc-cta${card.ctaStyle === 'orange' ? ' pc-cta-orange' : ''}`}>CONTACT US</a>
               </div>
             </div>
           ))}

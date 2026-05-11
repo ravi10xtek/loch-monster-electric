@@ -39,7 +39,7 @@ export default function ServiceAreas() {
               ))}
             </div>
           </div>
-          <a href="#contact" className="btn-sa">VIEW OUR SERVICE AREA</a>
+          <a href="/contact-us" className="btn-sa">VIEW OUR SERVICE AREA</a>
         </div>
       </div>
     </section>

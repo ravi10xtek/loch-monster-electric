@@ -165,7 +165,7 @@ export default function PricingPage() {
                     <p key={j} className="pt-note-line">{note}</p>
                   ))}
                   <div className="hub-alt-actions">
-                    <a href="#contact" className="btn-dark-sm">START NOW</a>
+                    <a href="/contact-us" className="btn-dark-sm">START NOW</a>
                   </div>
                 </div>
               )

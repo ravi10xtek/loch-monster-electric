@@ -92,7 +92,7 @@ export default function Services() {
                 <p>{tab.body}</p>
               </div>
               <div className="services-intro-right">
-                <a href="#contact" className="btn-orange-sm">{tab.cta}</a>
+                <a href="/contact-us" className="btn-orange-sm">{tab.cta}</a>
               </div>
             </div>
             <ServiceCards tabId={tab.id} ctaCard={tab.ctaCard} ctaHref={tab.ctaHref} />

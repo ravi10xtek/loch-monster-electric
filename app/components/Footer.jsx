@@ -1,10 +1,4 @@
-const cities = [
-  'Shoreview, MN', 'Apple Valley, MN', 'Plymouth, MN', 'Bloomington, MN',
-  'Eagan, MN', 'Burnsville, MN', 'White Bear Lake, MN', 'Richfield, MN',
-  'Maple Grove, MN', 'New Brighton, MN', 'Mounds View, MN', 'Roseville, MN',
-  'Brooklyn Park, MN', 'St. Paul, MN', 'Eden Prairie, MN', 'Minneapolis, MN',
-  'Maplewood, MN', 'Woodbury, MN',
-];
+import { allCities } from '../data/serviceAreas'
 
 export default function Footer() {
   return (
@@ -56,43 +50,45 @@ export default function Footer() {
             <div className="fl-block">
               <h5>RESIDENTIAL</h5>
               <ul>
-                <li><a href="#">Electrical Repairs</a></li>
-                <li><a href="#">Electrical Upgrades</a></li>
-                <li><a href="#">Installations</a></li>
-                <li><a href="#">Safety &amp; Compliance</a></li>
+                <li><a href="/residential-electrical-services/electrical-repairs">Electrical Repairs</a></li>
+                <li><a href="/residential-electrical-services/electrical-upgrades">Electrical Upgrades</a></li>
+                <li><a href="/residential-electrical-services/installations">Installations</a></li>
+                <li><a href="/residential-electrical-services/safety-compliance">Safety &amp; Compliance</a></li>
               </ul>
             </div>
             <div className="fl-block">
               <h5>COMMERCIAL</h5>
               <ul>
-                <li><a href="#">Commercial Repairs</a></li>
-                <li><a href="#">Power &amp; Distribution</a></li>
-                <li><a href="#">Lighting Systems</a></li>
-                <li><a href="#">Compliance &amp; Infrastructure</a></li>
+                <li><a href="/commercial-electrical-services/commercial-repairs">Commercial Repairs</a></li>
+                <li><a href="/commercial-electrical-services/power-distribution">Power &amp; Distribution</a></li>
+                <li><a href="/commercial-electrical-services/lighting-systems">Lighting Systems</a></li>
+                <li><a href="/commercial-electrical-services/compliance-infrastructure">Compliance &amp; Infrastructure</a></li>
               </ul>
             </div>
             <div className="fl-block">
               <h5>PRICING</h5>
               <ul>
-                <li><a href="#">Residential Pricing</a></li>
-                <li><a href="#">Commercial Pricing</a></li>
-                <li><a href="#">Service Call Fees</a></li>
-                <li><a href="#">Financing Options</a></li>
+                <li><a href="/pricing-estimates">Residential Pricing</a></li>
+                <li><a href="/pricing-estimates">Commercial Pricing</a></li>
+                <li><a href="/pricing-estimates">Service Call Fees</a></li>
+                <li><a href="/pricing-estimates">Financing Options</a></li>
               </ul>
             </div>
             <div className="fl-block fl-areas">
               <h5>SERVICE AREAS</h5>
               <ul className="fc-cities">
-                {cities.map((city) => (
-                  <li key={city}><a href="#">{city}</a></li>
+                {allCities.map((city) => (
+                  <li key={city.slug}>
+                    <a href={`/service-areas/${city.slug}`}>{city.name}, {city.state}</a>
+                  </li>
                 ))}
               </ul>
             </div>
             <div className="fl-block">
               <h5>COMPANY</h5>
               <ul>
-                <li><a href="#">About Us</a></li>
-                <li><a href="#">Company Overview</a></li>
+                <li><a href="/about-us">About Us</a></li>
+                <li><a href="/about-us">Company Overview</a></li>
                 <li><a href="#">Licensing &amp; Certifications</a></li>
                 <li><a href="#">Careers</a></li>
               </ul>
@@ -100,9 +96,9 @@ export default function Footer() {
             <div className="fl-block">
               <h5>CONTACT US</h5>
               <ul>
-                <li><a href="#">Schedule Service</a></li>
-                <li><a href="#">Request a Quote</a></li>
-                <li><a href="#">Emergency Contact</a></li>
+                <li><a href="/contact-us">Schedule Service</a></li>
+                <li><a href="/contact-us">Request a Quote</a></li>
+                <li><a href="/contact-us">Emergency Contact</a></li>
               </ul>
             </div>
             <div className="fl-block">
@@ -144,7 +140,7 @@ export default function Footer() {
           <div className="fb-links">
             <a href="#">Privacy Policy</a>
             <a href="#">Terms of Service</a>
-            <a href="#">Sitemap</a>
+            <a href="/sitemap.xml">Sitemap</a>
           </div>
           <span>MN LIC: EA807591 &middot; WI LIC: 1443 — EC</span>
         </div>

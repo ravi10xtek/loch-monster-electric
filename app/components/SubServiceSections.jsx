@@ -28,7 +28,7 @@ export default function SubServiceSections({ subServices }) {
               <p>{para1}</p>
               {para2 && <p>{para2}</p>}
               <div className="hub-alt-actions">
-                <a href="#contact" className="btn-dark-sm">BOOK NOW</a>
+                <a href="/contact-us" className="btn-dark-sm">BOOK NOW</a>
                 <a href={service.readMoreHref} className="btn-outline-sm">READ MORE</a>
               </div>
             </div>

@@ -30,7 +30,7 @@ export default function WhatWeHandle({ data }) {
                 <p>{body}</p>
               </div>
               <div className="services-intro-right">
-                <a href="#contact" className="btn-orange-sm">{cta}</a>
+                <a href="/contact-us" className="btn-orange-sm">{cta}</a>
               </div>
             </div>
 
@@ -45,7 +45,7 @@ export default function WhatWeHandle({ data }) {
                   <a href={card.href || tab.href} className="scard-read-more">READ MORE</a>
                 </div>
               ))}
-              <a href="#contact" className="services-cta-card">
+              <a href="/contact-us" className="services-cta-card">
                 <span>ALL<br />{tab.label}</span>
                 <span className="cta-arrow">&rarr;</span>
               </a>
