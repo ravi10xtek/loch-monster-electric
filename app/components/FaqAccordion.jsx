@@ -1,7 +1,7 @@
 'use client'
 import { useState } from 'react'
 
-export default function FaqAccordion({ items }) {
+export default function FaqAccordion({ items, title = 'Frequently Asked Questions' }) {
   const [openIndex, setOpenIndex] = useState(null)
 
   if (!items?.length) return null
@@ -11,6 +11,8 @@ export default function FaqAccordion({ items }) {
   }
 
   return (
+    <div className="jp-faq-wrap">
+      <h2 className="jp-faq-title">{title}</h2>
     <div className="jp-faq">
       {items.map((item, i) => (
         <div key={i} className="acc-item">
@@ -25,6 +27,7 @@ export default function FaqAccordion({ items }) {
           </div>
         </div>
       ))}
+    </div>
     </div>
   )
 }

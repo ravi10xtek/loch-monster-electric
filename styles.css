@@ -2019,6 +2019,15 @@ textarea { resize: vertical; }
 .jp-diy-box li strong { color: #fff; }
 
 /* FAQ inside article */
+.jp-faq-wrap { margin: 40px 0 8px; }
+.jp-faq-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0 0 16px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
 .jp-faq { margin: 8px 0 28px; }
 .jp-faq .acc-item { border-bottom: 1px solid #ebebeb; }
 .jp-faq .acc-btn {

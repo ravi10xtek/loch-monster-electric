@@ -61,7 +61,7 @@ export default function JournalPost({ post, related }) {
           />
 
           {/* FAQ accordion — populated from CMS */}
-          <FaqAccordion items={post.faq} />
+          <FaqAccordion items={post.faq} title={post.faqTitle} />
 
           {/* Tags + share */}
           <div className="jp-post-footer">
