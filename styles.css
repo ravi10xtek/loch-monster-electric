@@ -1967,6 +1967,29 @@ textarea { resize: vertical; }
   margin-bottom: 8px;
 }
 
+/* Inline images inserted via Payload Lexical editor */
+.jp-inline-img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 6px;
+  margin-bottom: 1.25rem;
+}
+.jp-inline-figure {
+  margin: 1.5rem 0;
+}
+.jp-inline-figure figcaption {
+  font-size: 0.8rem;
+  color: #888;
+  margin-top: 6px;
+  font-style: italic;
+}
+/* Clear floats after a wrapped image */
+.jp-prose::after {
+  content: '';
+  display: table;
+  clear: both;
+}
+
 /* DIY box */
 .jp-diy-box {
   background: #191919;
