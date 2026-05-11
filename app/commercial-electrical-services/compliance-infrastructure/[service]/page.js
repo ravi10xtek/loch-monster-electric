@@ -1,23 +1,30 @@
-import { serviceDetails } from '../../../data/serviceDetails';
-import ServiceDetailPage from '../../../components/ServiceDetailPage';
-import { notFound } from 'next/navigation';
+import { notFound } from 'next/navigation'
+import { getServiceBySlug, getServiceSlugsByHub } from '../../../lib/cms'
+import { serviceDetails } from '../../../data/serviceDetails'
+import ServiceDetailPage from '../../../components/ServiceDetailPage'
 
-export async function generateMetadata({ params }) {
-  const { service } = await params;
-  const d = serviceDetails[service];
-  if (!d) return {};
-  return { title: d.seo.title, description: d.seo.description };
+const PARENT_HUB = 'compliance-infrastructure'
+
+export const dynamicParams = true
+
+export async function generateStaticParams() {
+  const cmsSlugs = await getServiceSlugsByHub(PARENT_HUB)
+  if (cmsSlugs?.length) return cmsSlugs.map(service => ({ service }))
+  return Object.entries(serviceDetails)
+    .filter(([, v]) => v.parentHub === PARENT_HUB)
+    .map(([k]) => ({ service: k }))
 }
 
-export function generateStaticParams() {
-  return Object.entries(serviceDetails)
-    .filter(([, v]) => v.parentHub === 'compliance-infrastructure')
-    .map(([k]) => ({ service: k }));
+export async function generateMetadata({ params }) {
+  const { service } = await params
+  const d = (await getServiceBySlug(service)) ?? serviceDetails[service]
+  if (!d) return {}
+  return { title: d.seo.title, description: d.seo.description }
 }
 
 export default async function Page({ params }) {
-  const { service } = await params;
-  const d = serviceDetails[service];
-  if (!d) notFound();
-  return <ServiceDetailPage data={d} />;
+  const { service } = await params
+  const d = (await getServiceBySlug(service)) ?? serviceDetails[service]
+  if (!d) notFound()
+  return <ServiceDetailPage data={d} />
 }

@@ -109,3 +109,76 @@ export async function getAllPostSlugs() {
   if (!data?.docs?.length) return null
   return data.docs.map(d => d.slug)
 }
+
+// ── Locations ──────────────────────────────────────────────────────────────
+
+function normalizeLocation(p) {
+  return {
+    ...p,
+    // nearby may be populated objects or IDs — normalize to slug strings
+    nearby: (p.nearby || []).map(n => (typeof n === 'object' ? n.slug : n)),
+  }
+}
+
+export async function getLocations() {
+  const params = new URLSearchParams({ limit: '100', depth: '1' })
+  const data = await fetchAPI(`/api/locations?${params}`)
+  if (!data?.docs?.length) return null
+  return data.docs.map(normalizeLocation)
+}
+
+export async function getLocationBySlug(slug) {
+  const params = new URLSearchParams({ 'where[slug][equals]': slug, depth: '1', limit: '1' })
+  const data = await fetchAPI(`/api/locations?${params}`)
+  const doc = data?.docs?.[0]
+  return doc ? normalizeLocation(doc) : null
+}
+
+export async function getAllLocationSlugs() {
+  const params = new URLSearchParams({ limit: '200', depth: '0' })
+  const data = await fetchAPI(`/api/locations?${params}`, { cache: 'no-store' })
+  if (!data?.docs?.length) return null
+  return data.docs.map(d => d.slug)
+}
+
+// ── Services ───────────────────────────────────────────────────────────────
+
+function normalizeService(p) {
+  return {
+    ...p,
+    seo: {
+      title: p.seoTitle,
+      description: p.seoDescription,
+    },
+    hero: {
+      eyebrow: p.heroEyebrow,
+      title: (p.heroTitle || []).map(t => t.line),
+      tagline: p.heroTagline,
+      body: p.heroBody,
+    },
+    whenDoYouNeed: {
+      whenHeading: p.whenHeading,
+      gradient: p.whenGradient,
+      color: p.whenColor,
+      scenarios: (p.scenarios || []).map(s => ({ heading: s.heading, body: s.body })),
+    },
+  }
+}
+
+export async function getServiceBySlug(slug) {
+  const params = new URLSearchParams({ 'where[slug][equals]': slug, depth: '0', limit: '1' })
+  const data = await fetchAPI(`/api/services?${params}`)
+  const doc = data?.docs?.[0]
+  return doc ? normalizeService(doc) : null
+}
+
+export async function getServiceSlugsByHub(parentHub) {
+  const params = new URLSearchParams({
+    'where[parentHub][equals]': parentHub,
+    limit: '100',
+    depth: '0',
+  })
+  const data = await fetchAPI(`/api/services?${params}`, { cache: 'no-store' })
+  if (!data?.docs?.length) return null
+  return data.docs.map(d => d.slug)
+}
