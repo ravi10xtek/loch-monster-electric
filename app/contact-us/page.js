@@ -109,7 +109,7 @@ export default function ContactPage() {
       <Journal />
 
       {/* 4 — FAQ */}
-      <FAQ />
+      <FAQ tag="general" />
     </>
   )
 }

@@ -1,4 +1,4 @@
-import { buildPageMetadata } from '../../lib/cms'
+import { buildPageMetadata, getCategoryHub } from '../../lib/cms'
 import CategoryHubPage from "../../components/CategoryHubPage";
 import { categoryHubs } from "../../data/categoryHubs";
 
@@ -9,6 +9,7 @@ export async function generateMetadata() {
   })
 }
 
-export default function HoaCommonAreasPage() {
-  return <CategoryHubPage data={categoryHubs['hoa-common-areas']} />;
+export default async function HoaCommonAreasPage() {
+  const data = await getCategoryHub('hoa-common-areas') ?? categoryHubs['hoa-common-areas']
+  return <CategoryHubPage data={data} />;
 }

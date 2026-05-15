@@ -17,6 +17,7 @@ export default function CategoryHero({ hero }) {
           </h1>
           <p className="hero-tagline">{hero.tagline}</p>
           <p className="hero-body">{hero.body}</p>
+          {hero.body2 && <p className="hero-body">{hero.body2}</p>}
         </div>
         <div className="hero-form-wrap">
           <div className="hero-form-header">

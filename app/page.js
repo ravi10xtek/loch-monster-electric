@@ -32,7 +32,7 @@ export default function HomePage() {
         <Pricing />
         <OurStory />
         <Journal />
-        <FAQ />
+        <FAQ tag="home" />
       </main>
     </>
   );

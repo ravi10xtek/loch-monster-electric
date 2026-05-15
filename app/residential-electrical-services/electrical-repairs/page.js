@@ -1,4 +1,4 @@
-import { buildPageMetadata } from '../../lib/cms'
+import { buildPageMetadata, getCategoryHub } from '../../lib/cms'
 import CategoryHubPage from "../../components/CategoryHubPage";
 import { categoryHubs } from "../../data/categoryHubs";
 
@@ -9,6 +9,7 @@ export async function generateMetadata() {
   })
 }
 
-export default function ElectricalRepairsPage() {
-  return <CategoryHubPage data={categoryHubs['electrical-repairs']} />;
+export default async function ElectricalRepairsPage() {
+  const data = await getCategoryHub('electrical-repairs') ?? categoryHubs['electrical-repairs']
+  return <CategoryHubPage data={data} />;
 }

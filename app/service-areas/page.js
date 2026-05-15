@@ -1,4 +1,4 @@
-import { buildPageMetadata } from '../lib/cms'
+import { buildPageMetadata, getLocations } from '../lib/cms'
 import HomeInteractions from '../ui/home-interactions'
 import ServiceAreaHero from '../components/ServiceAreaHero'
 import CityGrid from '../components/CityGrid'
@@ -17,7 +17,8 @@ export async function generateMetadata() {
   })
 }
 
-export default function ServiceAreasPage() {
+export default async function ServiceAreasPage() {
+  const cities = (await getLocations()) ?? allCities
   return (
     <>
       <HomeInteractions />
@@ -28,8 +29,8 @@ export default function ServiceAreasPage() {
           body="Your home runs on electricity—and when something goes wrong, it can throw your whole day off. That's why Loch Monster Electric is here to make sure your power's reliable, your setup's safe, and your stress level stays nice and low. We work with homeowners all over the Twin Cities to fix the little things, handle the big jobs, and modernize older homes to keep up with the way we live today. Whether you're dealing with flickering lights, mystery outlets, or adding an EV charger in the garage, we'll get it sorted—fast and without a bunch of guesswork."
           breadcrumb={[{ label: 'Home', href: '/' }, { label: 'Service Areas' }]}
         />
-        <CityGrid cities={allCities} />
-        <ServiceAreaMap cities={allCities} />
+        <CityGrid cities={cities} />
+        <ServiceAreaMap cities={cities} />
         <OrangeBanner />
         <Expect dark />
         <Services />

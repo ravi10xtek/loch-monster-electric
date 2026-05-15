@@ -42,6 +42,41 @@ const COLLECTION_MAP = {
     tag: 'pages',
     path: (slug) => slug ? `/${slug}` : null,
   },
+  'category-hubs': {
+    tag: 'category-hubs',
+    path: (slug) => {
+      const map = {
+        'electrical-repairs': '/residential-electrical-services/electrical-repairs',
+        'electrical-upgrades': '/residential-electrical-services/electrical-upgrades',
+        'installations': '/residential-electrical-services/installations',
+        'safety-compliance': '/residential-electrical-services/safety-compliance',
+        'commercial-repairs': '/commercial-electrical-services/commercial-repairs',
+        'power-distribution': '/commercial-electrical-services/power-distribution',
+        'lighting-systems': '/commercial-electrical-services/lighting-systems',
+        'compliance-infrastructure': '/commercial-electrical-services/compliance-infrastructure',
+        'hoa-common-areas': '/hoa-electrical-services/hoa-common-areas',
+        'hoa-emergency-repairs': '/hoa-electrical-services/hoa-emergency-repairs',
+        'hoa-ev-charging': '/hoa-electrical-services/hoa-ev-charging',
+        'hoa-inspections': '/hoa-electrical-services/hoa-inspections',
+      }
+      return slug ? (map[slug] || null) : null
+    },
+  },
+  faqs: {
+    tag: 'faqs',
+    path: () => '/',
+  },
+  'service-hubs': {
+    tag: 'service-hubs',
+    path: (slug) => {
+      const map = {
+        'residential-electrical-services': '/residential-electrical-services',
+        'commercial-electrical-services': '/commercial-electrical-services',
+        'hoa-electrical-services': '/hoa-electrical-services',
+      }
+      return slug ? (map[slug] || null) : null
+    },
+  },
 }
 
 export async function POST(request) {

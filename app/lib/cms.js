@@ -186,9 +186,61 @@ export async function getPageSEO(slug) {
 }
 
 /**
+ * Fetch a single service hub page by slug (residential, commercial, hoa).
+ */
+export async function getServiceHub(slug) {
+  const params = new URLSearchParams({ 'where[slug][equals]': slug, depth: '2' })
+  const data = await fetchAPI(`/api/service-hubs?${params}`, {
+    next: { tags: ['service-hubs', slug] },
+  })
+  return data?.docs?.[0] || null
+}
+
+/**
  * Build a Next.js Metadata object from a PageSEO record, with a fallback.
  * Pass `fallback` as { title, description } for the hardcoded defaults.
  */
+export async function getCategoryHub(slug) {
+  const params = new URLSearchParams({ 'where[slug][equals]': slug, depth: '2', limit: '1' })
+  const data = await fetchAPI(`/api/category-hubs?${params}`, {
+    next: { tags: ['category-hubs', slug] },
+  })
+  const doc = data?.docs?.[0]
+  if (!doc) return null
+  return {
+    slug: doc.slug || slug,
+    hero: {
+      eyebrow: doc.heroEyebrow || '',
+      title: doc.heroTitleLines?.map(t => t.line) || [],
+      tagline: doc.heroTagline || '',
+      body: doc.heroBody || '',
+      body2: doc.heroBody2 || null,
+      image: doc.heroImage || null,
+    },
+    subServices: (doc.subServices || []).map(s => ({
+      label: s.label,
+      heading: s.heading,
+      tagline: s.tagline || '',
+      body: s.body,
+      readMoreHref: s.readMoreHref || null,
+      color: s.color || '#1a1a1a',
+      gradient: s.gradient || 'linear-gradient(160deg,#111,#2a2a2a)',
+      image: s.image || null,
+    })),
+  }
+}
+
+export async function getFaqs(tag) {
+  const params = new URLSearchParams({ sort: 'sortOrder', limit: '6' })
+  if (tag) {
+    params.set('where[tags][in]', tag)
+  }
+  const data = await fetchAPI(`/api/faqs?${params}`, {
+    next: { tags: ['faqs'] },
+  })
+  return data?.docs || null
+}
+
 export async function buildPageMetadata(pageSlug, fallback = {}) {
   const seo = await getPageSEO(pageSlug)
   const title = seo?.metaTitle || fallback.title || 'Loch Monster Electric'

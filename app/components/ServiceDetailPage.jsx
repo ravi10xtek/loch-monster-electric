@@ -18,7 +18,7 @@ const provider = {
   url: BASE,
 }
 
-export default function ServiceDetailPage({ data }) {
+export default function ServiceDetailPage({ data, faqTag = 'general' }) {
   // Service schema
   const serviceSchema = {
     '@context': 'https://schema.org',
@@ -53,7 +53,7 @@ export default function ServiceDetailPage({ data }) {
       <main>
         <ServiceHero hero={data.hero} />
         <WhenDoYouNeed data={data.whenDoYouNeed} />
-        <OrangeBanner /><Expect dark /><FAQ /><WhyChooseUs /><Services /><ServiceAreas /><Journal />
+        <OrangeBanner /><Expect dark /><FAQ tag={faqTag} /><WhyChooseUs /><Services /><ServiceAreas /><Journal />
       </main>
     </>
   );

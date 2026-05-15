@@ -51,7 +51,7 @@ const tabs = [
 
 function ServiceCards({ tabId, ctaCard, ctaHref }) {
   return (
-    <div className="service-cards-grid">
+    <div className="service-cards-grid service-cards-grid--home">
       {serviceCards[tabId].map((card) => (
         <a className="scard" key={card.label} href={card.href}>
           <div className="scard-img" style={{ backgroundColor: card.color }}>

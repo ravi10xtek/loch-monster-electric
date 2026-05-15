@@ -26,5 +26,5 @@ export default async function Page({ params }) {
   const { service } = await params
   const d = (await getServiceBySlug(service)) ?? serviceDetails[service]
   if (!d) notFound()
-  return <ServiceDetailPage data={d} />
+  return <ServiceDetailPage data={d} faqTag={PARENT_HUB} />
 }

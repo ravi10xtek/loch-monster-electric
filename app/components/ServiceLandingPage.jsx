@@ -9,7 +9,14 @@ import Services from "./Services";
 import ServiceAreas from "./ServiceAreas";
 import Journal from "./Journal";
 
+const SLUG_TO_TAG = {
+  'residential-electrical-services': 'residential',
+  'commercial-electrical-services': 'commercial',
+  'hoa-electrical-services': 'hoa',
+}
+
 export default function ServiceLandingPage({ data }) {
+  const faqTag = SLUG_TO_TAG[data.slug] ?? 'general'
   return (
     <>
       <HomeInteractions />
@@ -18,7 +25,7 @@ export default function ServiceLandingPage({ data }) {
         <WhatWeHandle data={data.whatWeHandle} />
         <OrangeBanner />
         <Expect dark />
-        <FAQ />
+        <FAQ tag={faqTag} />
         <WhyChooseUs />
         <Services />
         <ServiceAreas />

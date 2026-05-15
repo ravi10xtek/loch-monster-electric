@@ -1,4 +1,6 @@
-const articles = [
+import { getPosts } from '../lib/cms'
+
+const FALLBACK_ARTICLES = [
   {
     title: 'WHY ARE MY LIGHTS FLICKERING? CAUSES, DANGERS, AND FIXES FOR MINNESOTA & WISCONSIN HOMES',
     img: 'bulb',
@@ -29,9 +31,14 @@ const articles = [
     excerpt: "A little planning during a remodel saves a lot of patching later. Here's what to wire for — from smart switches to networked lighting — so your home is ready for whatever you add next.",
     href: '/journal/smart-home-wiring-what-to-plan-before-drywall',
   },
-];
+]
 
-export default function Journal() {
+const IMG_CYCLE = ['bulb', 'house', 'panel', 'home', 'smart']
+
+export default async function Journal() {
+  const cmsPosts = await getPosts()
+  const useCMS = cmsPosts?.length > 0
+
   return (
     <section className="journal-section" id="journal">
       <div className="wrap">
@@ -41,14 +48,28 @@ export default function Journal() {
         </div>
         <div className="journal-carousel-wrap">
           <div className="journal-track" id="journalTrack">
-            {articles.map((article) => (
-              <article className="jcard" key={article.img}>
-                <h4 className="jcard-title">{article.title}</h4>
-                <div className="jcard-img" data-img={article.img}></div>
-                <p className="jcard-excerpt">{article.excerpt}</p>
-                <a href={article.href} className="jcard-cta">READ MORE</a>
-              </article>
-            ))}
+            {useCMS
+              ? cmsPosts.map((post, i) => (
+                  <article className="jcard" key={post.slug}>
+                    <h4 className="jcard-title">{post.title?.toUpperCase()}</h4>
+                    <div
+                      className="jcard-img"
+                      data-img={post.coverImage ? null : IMG_CYCLE[i % IMG_CYCLE.length]}
+                      style={post.coverImage ? { backgroundImage: `url(${post.coverImage})`, backgroundSize: 'cover', backgroundPosition: 'center' } : undefined}
+                    />
+                    <p className="jcard-excerpt">{post.excerpt}</p>
+                    <a href={`/journal/${post.slug}`} className="jcard-cta">READ MORE</a>
+                  </article>
+                ))
+              : FALLBACK_ARTICLES.map((article) => (
+                  <article className="jcard" key={article.img}>
+                    <h4 className="jcard-title">{article.title}</h4>
+                    <div className="jcard-img" data-img={article.img} />
+                    <p className="jcard-excerpt">{article.excerpt}</p>
+                    <a href={article.href} className="jcard-cta">READ MORE</a>
+                  </article>
+                ))
+            }
           </div>
         </div>
         <div className="journal-nav">
@@ -57,5 +78,5 @@ export default function Journal() {
         </div>
       </div>
     </section>
-  );
+  )
 }

@@ -18,7 +18,7 @@ export default function CategoryHubPage({ data }) {
         <SubServiceSections subServices={data.subServices} />
         <OrangeBanner />
         <Expect dark />
-        <FAQ />
+        <FAQ tag={data.slug ?? 'general'} />
         <WhyChooseUs />
         <Services />
         <ServiceAreas />

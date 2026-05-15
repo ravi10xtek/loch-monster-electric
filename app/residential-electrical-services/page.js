@@ -1,4 +1,4 @@
-import { buildPageMetadata } from '../lib/cms'
+import { buildPageMetadata, getServiceHub } from '../lib/cms'
 import ServiceLandingPage from "../components/ServiceLandingPage";
 import { servicePages } from "../data/services";
 
@@ -9,6 +9,47 @@ export async function generateMetadata() {
   })
 }
 
-export default function ResidentialPage() {
-  return <ServiceLandingPage data={servicePages.residential} />;
+export default async function ResidentialPage() {
+  const cms = await getServiceHub('residential-electrical-services')
+  const data = cms ? mapHubToPageData(cms) : servicePages.residential
+  return <ServiceLandingPage data={data} />
+}
+
+function mapHubToPageData(cms) {
+  return {
+    slug: cms.slug,
+    hero: {
+      eyebrow: cms.heroEyebrow,
+      title: cms.heroTitleLines?.map(t => t.line) || [],
+      tagline: cms.heroTagline,
+      body: cms.heroBody,
+      body2: cms.heroBody2 || null,
+      image: cms.heroImage || null,
+    },
+    whatWeHandle: {
+      eyebrow: cms.whatEyebrow,
+      heading: cms.whatHeading,
+      body: cms.whatBody,
+      cta: cms.whatCta,
+      tabs: cms.tabs?.map(tab => ({
+        id: tab.id,
+        label: tab.label,
+        heading: tab.heading,
+        body: tab.body,
+        href: tab.href,
+      })) || [],
+      cards: cms.tabs?.reduce((acc, tab) => {
+        acc[tab.id] = (tab.cards || []).map(card => ({
+          label: card.label,
+          body: card.body,
+          href: card.href,
+          color: card.color,
+          gradient: card.gradient,
+          image: card.image || null,
+        }))
+        return acc
+      }, {}) || {},
+      ctaCard: cms.ctaCardLabel,
+    },
+  }
 }

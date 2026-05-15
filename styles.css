@@ -201,7 +201,7 @@ ul { list-style: none; }
   margin: 0 auto;
   padding: 0 26px;
   display: grid;
-  grid-template-columns: 260px 1fr 260px;
+  grid-template-columns: 300px 1fr 240px;
   min-height: 220px;
 }
 
@@ -209,20 +209,21 @@ ul { list-style: none; }
 .mega-hubs {
   background: #fff;
   padding: 24px 0;
-  border-right: 1px solid #ebebeb;
   border-radius: 0 0 0 6px;
   display: flex;
   flex-direction: column;
+  align-items: stretch;
 }
 .mega-hub-item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  display: block;
+  position: relative;
+  width: 100%;
   font-size: 0.875rem;
   font-weight: 400;
   color: #888;
-  padding: 10px 20px;
+  padding: 10px 44px 10px 20px;
   transition: color .15s, background .15s;
+  line-height: 1.3;
 }
 .mega-hub-item:hover {
   color: #1a1a1a;
@@ -232,10 +233,12 @@ ul { list-style: none; }
   font-weight: 700;
 }
 .mega-arrow {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
   font-size: 0.85rem;
   color: #ccc;
-  flex-shrink: 0;
-  margin-left: 10px;
 }
 .mega-hub-item:hover .mega-arrow,
 .mega-hub-item.active .mega-arrow {
@@ -462,7 +465,7 @@ ul { list-style: none; }
   white-space: normal;
 }
 .hero-body {
-  font-size: 0.92rem;
+  font-size: 1rem;
   color: rgba(255,255,255,0.82);
   max-width: 520px;
   line-height: 1.58;
@@ -625,7 +628,7 @@ textarea { resize: vertical; }
 }
 .services-intro-left h2 {
   font-family: var(--OH);
-  font-size: clamp(1.35rem, 2.2vw, 1.85rem);
+  font-size: clamp(1.5rem, 2.2vw, 1.85rem);
   font-weight: 700;
   line-height: 1.12;
   margin-bottom: 8px;
@@ -633,20 +636,25 @@ textarea { resize: vertical; }
   color: #222;
 }
 .services-intro-left p {
-  font-size: 0.86rem;
+  font-size: 0.95rem;
   color: #6b6b6b;
   max-width: 700px;
   margin: 0 auto;
-  line-height: 1.45;
+  line-height: 1.5;
 }
 .services-intro-right { display: none; }
 
 /* Service cards */
 .service-cards-grid {
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(180px, 260px));
   gap: 12px;
   align-items: stretch;
+  justify-content: center;
+}
+.service-cards-grid--home {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  justify-content: stretch;
 }
 .scard {
   border-radius: 0;
@@ -686,10 +694,10 @@ textarea { resize: vertical; }
 }
 .scard-body {
   padding: 10px 12px 6px;
-  font-size: 0.77rem;
+  font-size: 0.875rem;
   color: #1c1c1c;
   background: #efefef;
-  line-height: 1.35;
+  line-height: 1.5;
   text-align: center;
   flex: 1;
   display: flex;
@@ -795,7 +803,7 @@ textarea { resize: vertical; }
   letter-spacing: 0.01em;
 }
 .ob-white { color: #f4f4f4; }
-.ob-text p { font-size: 0.88rem; opacity: 0.95; margin: 0 auto 18px; max-width: 760px; line-height: 1.35; }
+.ob-text p { font-size: 0.95rem; opacity: 0.95; margin: 0 auto 18px; max-width: 760px; line-height: 1.5; }
 .ob-mini {
   font-family: var(--OH);
   font-size: 0.8rem;
@@ -1007,9 +1015,9 @@ textarea { resize: vertical; }
 }
 .expect-text { flex: 1; min-width: 0; }
 .expect-text p {
-  font-size: 0.95rem;
+  font-size: 1rem;
   color: var(--dark);
-  line-height: 1.5;
+  line-height: 1.6;
   margin: 0;
 }
 
@@ -1024,7 +1032,7 @@ textarea { resize: vertical; }
 }
 .why-section h2 {
   font-family: var(--OH);
-  font-size: clamp(1.3rem, 2.2vw, 1.85rem);
+  font-size: clamp(1.5rem, 2.2vw, 1.85rem);
   font-weight: 700;
   text-align: center;
   margin-bottom: 40px;
@@ -1085,7 +1093,7 @@ textarea { resize: vertical; }
   margin-bottom: 6px;
   font-weight: 600;
 }
-.why-card-text p { font-size: 0.79rem; color: rgba(255,255,255,0.6); line-height: 1.55; }
+.why-card-text p { font-size: 0.875rem; color: rgba(255,255,255,0.6); line-height: 1.6; }
 
 /* Review cards (Why Choose Us carousel) */
 .review-card {
@@ -1143,9 +1151,9 @@ textarea { resize: vertical; }
   line-height: 1;
 }
 .rc-text {
-  font-size: 0.82rem;
+  font-size: 0.875rem;
   color: #2a2a2a;
-  line-height: 1.5;
+  line-height: 1.6;
   display: -webkit-box;
   -webkit-line-clamp: 6;
   -webkit-box-orient: vertical;
@@ -1324,7 +1332,7 @@ textarea { resize: vertical; }
   display: block;
 }
 .pt-body {
-  font-size: 0.92rem;
+  font-size: 1rem;
   line-height: 1.65;
   color: rgba(255,255,255,0.65);
   margin-bottom: 22px;
@@ -1344,8 +1352,8 @@ textarea { resize: vertical; }
 .pt-list li {
   position: relative;
   padding-left: 22px;
-  font-size: 0.88rem;
-  line-height: 1.55;
+  font-size: 0.9rem;
+  line-height: 1.6;
   color: rgba(255,255,255,0.75);
 }
 .pt-section:not(.pt-dark) .pt-list li {
@@ -1622,7 +1630,7 @@ textarea { resize: vertical; }
   .pipes-heading { white-space: normal; }
 }
 .pipes-body {
-  font-size: 0.92rem;
+  font-size: 1rem;
   color: rgba(255,255,255,0.78);
   line-height: 1.7;
   margin: 0 auto 18px;
@@ -1706,7 +1714,7 @@ textarea { resize: vertical; }
   margin: 0;
 }
 .ji-feat-excerpt {
-  font-size: 0.92rem;
+  font-size: 1rem;
   color: #555;
   line-height: 1.65;
   max-width: 480px;
@@ -1895,7 +1903,7 @@ textarea { resize: vertical; }
 }
 .jp-post-updated { font-size: 0.78rem; color: #aaa; }
 .jp-hero-excerpt {
-  font-size: 0.92rem;
+  font-size: 1rem;
   color: #555;
   line-height: 1.65;
 }
@@ -1951,7 +1959,7 @@ textarea { resize: vertical; }
   line-height: 1.2;
 }
 .jp-prose p {
-  font-size: 0.92rem;
+  font-size: 1rem;
   line-height: 1.75;
   color: #444;
   margin-bottom: 18px;
@@ -1961,7 +1969,7 @@ textarea { resize: vertical; }
   margin-bottom: 18px;
 }
 .jp-prose li {
-  font-size: 0.92rem;
+  font-size: 1rem;
   line-height: 1.65;
   color: #444;
   margin-bottom: 8px;
@@ -2318,9 +2326,9 @@ textarea { resize: vertical; }
   text-align: left;
   padding: 22px 4px;
   font-family: var(--OH);
-  font-size: 0.86rem;
+  font-size: 0.95rem;
   font-weight: 700;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.03em;
   color: #1a1a1a;
   cursor: pointer;
   display: flex;
@@ -2370,7 +2378,7 @@ textarea { resize: vertical; }
 }
 .acc-body.open { max-height: 500px; }
 .acc-body p {
-  font-size: 0.84rem;
+  font-size: 0.95rem;
   color: #6a6a6a;
   line-height: 1.7;
   padding: 0 80px 22px 4px;
@@ -2521,7 +2529,8 @@ textarea { resize: vertical; }
 
 /* ===== RESPONSIVE ===== */
 @media (max-width: 1024px) {
-  .service-cards-grid { grid-template-columns: repeat(3, 1fr); }
+  .service-cards-grid { grid-template-columns: repeat(auto-fit, minmax(180px, 260px)); justify-content: center; }
+  .service-cards-grid--home { grid-template-columns: repeat(3, 1fr); justify-content: stretch; }
   .expect-grid { grid-template-columns: repeat(2, 1fr); }
   .pricing-grid { grid-template-columns: repeat(2, 1fr); }
   .jcard { flex: 0 0 calc(33.33% - 12px); }
@@ -2552,7 +2561,11 @@ textarea { resize: vertical; }
   .hamburger { display: block; }
   .hero-inner { grid-template-columns: 1fr; padding: 40px 24px; }
   .hero-form-wrap { order: -1; }
-  .service-cards-grid { grid-template-columns: repeat(2, 1fr); }
+  .service-cards-grid { grid-template-columns: repeat(auto-fit, minmax(160px, 240px)); justify-content: center; }
+  .service-cards-grid--home { grid-template-columns: repeat(2, 1fr); justify-content: stretch; }
+  .tabs-row { overflow-x: auto; flex-wrap: nowrap; justify-content: flex-start; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+  .tabs-row::-webkit-scrollbar { display: none; }
+  .tab { white-space: nowrap; flex-shrink: 0; }
   .expect-grid { grid-template-columns: 1fr 1fr; }
   .pricing-grid { grid-template-columns: 1fr; }
   .jcard { flex: 0 0 calc(50% - 9px); }
@@ -2572,7 +2585,9 @@ textarea { resize: vertical; }
 }
 
 @media (max-width: 480px) {
-  .service-cards-grid { grid-template-columns: 1fr; }
+  .service-cards-grid,
+  .service-cards-grid--home { grid-template-columns: 1fr; justify-content: stretch; }
+  .services-section { padding: 36px 0 48px; }
   .expect-grid { grid-template-columns: 1fr; }
   .why-card,
   .review-card { flex: 0 0 100%; }
@@ -3165,7 +3180,7 @@ textarea { resize: vertical; }
   margin-bottom: 18px;
 }
 .contact-body {
-  font-size: 0.92rem;
+  font-size: 1rem;
   color: #1a1a1a;
   line-height: 1.65;
   margin-bottom: 12px;

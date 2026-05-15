@@ -186,7 +186,7 @@ export default function PricingPage() {
         <Expect dark />
         <Services />
         <WhyChooseUs />
-        <FAQ />
+        <FAQ tag="pricing" />
         <OrangeBanner />
 
       </main>
