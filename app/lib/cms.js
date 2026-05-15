@@ -241,6 +241,13 @@ export async function getFaqs(tag) {
   return data?.docs || null
 }
 
+export async function getGlobal(slug) {
+  const data = await fetchAPI(`/api/globals/${slug}`, {
+    next: { tags: ['globals', slug] },
+  })
+  return data || null
+}
+
 export async function buildPageMetadata(pageSlug, fallback = {}) {
   const seo = await getPageSEO(pageSlug)
   const title = seo?.metaTitle || fallback.title || 'Loch Monster Electric'
