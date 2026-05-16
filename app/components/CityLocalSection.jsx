@@ -1,7 +1,4 @@
 export default function CityLocalSection({ city }) {
-  const issues = Array.isArray(city.commonIssues) ? city.commonIssues : []
-  const neighborhoods = Array.isArray(city.neighborhoods) ? city.neighborhoods : []
-
   return (
     <>
       {/* Map + coverage */}
@@ -43,45 +40,6 @@ export default function CityLocalSection({ city }) {
         </div>
         <div className="city-local-img" style={{ background: 'linear-gradient(160deg,#1a1a1a,#2e2e2e)' }}></div>
       </section>
-
-      {city.housingProfile && (
-        <section className="city-housing-section">
-          <div className="wrap">
-            <p className="eyebrow-left">Local Housing Stock</p>
-            <h2>HOMES AND BUILDINGS IN <span className="text-orange">{city.name.toUpperCase()}</span></h2>
-            <p>{city.housingProfile}</p>
-          </div>
-        </section>
-      )}
-
-      {issues.length > 0 && (
-        <section className="city-issues-section">
-          <div className="wrap">
-            <p className="eyebrow-left">What We Fix Most</p>
-            <h2>COMMON ELECTRICAL ISSUES IN <span className="text-orange">{city.name.toUpperCase()}</span></h2>
-            <div className="city-issues-grid">
-              {issues.map((issue, i) => (
-                <div className="city-issue-card" key={i}>
-                  <h3>{issue.heading}</h3>
-                  <p>{issue.body}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
-
-      {neighborhoods.length > 0 && (
-        <section className="city-neighborhoods-section">
-          <div className="wrap">
-            <p className="eyebrow-left">Neighborhoods Served</p>
-            <h2>WHERE WE WORK IN <span className="text-orange">{city.name.toUpperCase()}</span></h2>
-            <ul className="city-neighborhoods-list">
-              {neighborhoods.map((n, i) => <li key={i}>{n}</li>)}
-            </ul>
-          </div>
-        </section>
-      )}
     </>
   )
 }
