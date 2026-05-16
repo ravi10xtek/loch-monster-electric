@@ -73,8 +73,8 @@ export default async function CityPage({ params }) {
       <main>
         <ServiceAreaHero
           heading={`${cityData.name}, ${cityData.state}`}
-          subheading="Keeping the Lights On, the Heat, and the Wi-Fi."
-          body={cityData.blurb}
+          subheading={cityData.heroTagline || 'Keeping the Lights On, the Heat, and the Wi-Fi.'}
+          body={cityData.heroIntro || cityData.blurb}
           breadcrumb={[
             { label: 'Home', href: '/' },
             { label: 'Service Areas', href: '/service-areas' },
