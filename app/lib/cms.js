@@ -15,6 +15,7 @@ import {
   normalizeLocation,
   normalizeService,
   normalizePage,
+  mediaUrl,
 } from './normalize'
 
 const BASE = process.env.CMS_URL || 'http://localhost:3001'
@@ -200,6 +201,29 @@ export async function getServiceHub(slug) {
  * Build a Next.js Metadata object from a PageSEO record, with a fallback.
  * Pass `fallback` as { title, description } for the hardcoded defaults.
  */
+/**
+ * Returns a { [slug]: { url, alt } } map of CategoryHub cardImage uploads.
+ * Used by the shared Services tabs component to show an image per card
+ * when one has been uploaded in the CMS.
+ */
+export async function getCategoryHubCardImages() {
+  const params = new URLSearchParams({ limit: '50', depth: '1' })
+  const data = await fetchAPI(`/api/category-hubs?${params}`, {
+    next: { tags: ['category-hubs'] },
+  })
+  if (!data?.docs?.length) return {}
+  const map = {}
+  for (const doc of data.docs) {
+    if (doc.slug && doc.cardImage?.url) {
+      map[doc.slug] = {
+        url: mediaUrl(doc.cardImage.url),
+        alt: doc.cardImage.alt || doc.title || doc.slug,
+      }
+    }
+  }
+  return map
+}
+
 export async function getCategoryHub(slug) {
   const params = new URLSearchParams({ 'where[slug][equals]': slug, depth: '2', limit: '1' })
   const data = await fetchAPI(`/api/category-hubs?${params}`, {

@@ -1,3 +1,5 @@
+import { getCategoryHubCardImages } from '../lib/cms'
+
 const serviceCards = {
   residential: [
     { color: '#2a2a2a', gradient: 'linear-gradient(160deg,#191919,#333)', label: 'ELECTRICAL REPAIRS', body: 'Fast diagnostics and reliable repairs for outlets, breakers, wiring, and more.', href: '/residential-electrical-services/electrical-repairs' },
@@ -49,18 +51,33 @@ const tabs = [
   },
 ];
 
-function ServiceCards({ tabId, ctaCard, ctaHref }) {
+function slugFromHref(href) {
+  const parts = String(href || '').split('/').filter(Boolean)
+  return parts[parts.length - 1] || ''
+}
+
+function ServiceCards({ tabId, ctaCard, ctaHref, cardImages }) {
   return (
     <div className="service-cards-grid service-cards-grid--home">
-      {serviceCards[tabId].map((card) => (
-        <a className="scard" key={card.label} href={card.href}>
-          <div className="scard-img" style={{ backgroundColor: card.color }}>
-            <div className="scard-img-inner" style={{ background: card.gradient }}></div>
-            <div className="scard-label">{card.label}</div>
-          </div>
-          <div className="scard-body">{card.body}</div>
-        </a>
-      ))}
+      {serviceCards[tabId].map((card) => {
+        const img = cardImages?.[slugFromHref(card.href)]
+        return (
+          <a className="scard" key={card.label} href={card.href}>
+            <div className="scard-img" style={{ backgroundColor: card.color }}>
+              {img ? (
+                <>
+                  <img className="scard-photo" src={img.url} alt={img.alt} />
+                  <div className="scard-photo-overlay"></div>
+                </>
+              ) : (
+                <div className="scard-img-inner" style={{ background: card.gradient }}></div>
+              )}
+              <div className="scard-label">{card.label}</div>
+            </div>
+            <div className="scard-body">{card.body}</div>
+          </a>
+        )
+      })}
       <a href={ctaHref} className="services-cta-card">
         <span>{ctaCard.split('\n').map((line, i) => <span key={i}>{line}{i === 0 && <br />}</span>)}</span>
         <span className="cta-arrow">&rarr;</span>
@@ -69,7 +86,8 @@ function ServiceCards({ tabId, ctaCard, ctaHref }) {
   );
 }
 
-export default function Services() {
+export default async function Services() {
+  const cardImages = await getCategoryHubCardImages()
   return (
     <section className="services-section" id="residential">
       <div className="wrap">
@@ -95,7 +113,7 @@ export default function Services() {
                 <a href="/contact-us" className="btn-orange-sm">{tab.cta}</a>
               </div>
             </div>
-            <ServiceCards tabId={tab.id} ctaCard={tab.ctaCard} ctaHref={tab.ctaHref} />
+            <ServiceCards tabId={tab.id} ctaCard={tab.ctaCard} ctaHref={tab.ctaHref} cardImages={cardImages} />
           </div>
         ))}
       </div>

@@ -676,6 +676,20 @@ textarea { resize: vertical; }
   position: absolute;
   inset: 0;
 }
+.scard-photo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.scard-photo-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,0) 35%, rgba(0,0,0,0.55) 100%);
+  z-index: 1;
+}
 .scard-label {
   position: absolute;
   left: 0;
