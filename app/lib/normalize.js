@@ -55,6 +55,8 @@ export function normalizeService(p) {
       whenHeading: p.whenHeading,
       gradient: p.whenGradient,
       color: p.whenColor,
+      image: p.whenImage?.url ? mediaUrl(p.whenImage.url) : null,
+      imageAlt: p.whenImage?.alt || null,
       scenarios: (p.scenarios || []).map(s => ({ heading: s.heading, body: s.body })),
     },
   }

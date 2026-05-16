@@ -13,10 +13,16 @@ function ColorHeading({ heading }) {
 }
 
 export default function WhenDoYouNeed({ data }) {
-  const { whenHeading, scenarios, gradient, color } = data;
+  const { whenHeading, scenarios, gradient, color, image, imageAlt } = data;
   return (
     <section className="wynd-section">
-      <div className="wynd-img" style={{ background: gradient || color }}></div>
+      {image ? (
+        <div className="wynd-img wynd-img--photo">
+          <img src={image} alt={imageAlt || whenHeading} />
+        </div>
+      ) : (
+        <div className="wynd-img" style={{ background: gradient || color }}></div>
+      )}
       <div className="wynd-content">
         <p className="eyebrow-left">When Do You Need</p>
         <ColorHeading heading={whenHeading} />

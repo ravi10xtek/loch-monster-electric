@@ -127,7 +127,7 @@ export async function getAllLocationSlugs() {
 // ── Services ───────────────────────────────────────────────────────────────
 
 export async function getServiceBySlug(slug) {
-  const params = new URLSearchParams({ 'where[slug][equals]': slug, depth: '0', limit: '1' })
+  const params = new URLSearchParams({ 'where[slug][equals]': slug, depth: '1', limit: '1' })
   const data = await fetchAPI(`/api/services?${params}`)
   const doc = data?.docs?.[0]
   return doc ? normalizeService(doc) : null
