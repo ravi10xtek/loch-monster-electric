@@ -1,7 +1,12 @@
-export default function ServiceAreaHero({ heading, subheading, body, breadcrumb }) {
+export default function ServiceAreaHero({ heading, subheading, body, breadcrumb, heroImage, heroImageAlt }) {
   return (
     <section className="hero" id="home">
-      <div className="hero-bg"></div>
+      <div
+        className="hero-bg"
+        style={heroImage ? {
+          backgroundImage: `linear-gradient(90deg, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.62) 45%, rgba(0,0,0,0.68) 100%), url('${heroImage}')`,
+        } : undefined}
+      ></div>
 
       {breadcrumb && (
         <nav className="breadcrumb-nav" aria-label="breadcrumb">

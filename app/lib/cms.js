@@ -239,7 +239,8 @@ export async function getCategoryHub(slug) {
       tagline: doc.heroTagline || '',
       body: doc.heroBody || '',
       body2: doc.heroBody2 || null,
-      image: doc.heroImage || null,
+      image: doc.heroImage?.url ? mediaUrl(doc.heroImage.url) : null,
+      imageAlt: doc.heroImage?.alt || null,
     },
     subServices: (doc.subServices || []).map(s => ({
       label: s.label,

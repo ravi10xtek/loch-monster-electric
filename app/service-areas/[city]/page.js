@@ -75,6 +75,8 @@ export default async function CityPage({ params }) {
           heading={`${cityData.name}, ${cityData.state}`}
           subheading={cityData.heroTagline || 'Keeping the Lights On, the Heat, and the Wi-Fi.'}
           body={cityData.heroIntro || cityData.blurb}
+          heroImage={cityData.heroImage || null}
+          heroImageAlt={cityData.heroImageAlt || null}
           breadcrumb={[
             { label: 'Home', href: '/' },
             { label: 'Service Areas', href: '/service-areas' },

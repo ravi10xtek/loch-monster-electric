@@ -1,4 +1,5 @@
 import { buildPageMetadata, getServiceHub } from '../lib/cms'
+import { mediaUrl } from '../lib/normalize'
 import ServiceLandingPage from "../components/ServiceLandingPage";
 import { servicePages } from "../data/services";
 
@@ -24,7 +25,8 @@ function mapHubToPageData(cms) {
       tagline: cms.heroTagline,
       body: cms.heroBody,
       body2: cms.heroBody2 || null,
-      image: cms.heroImage || null,
+      image: cms.heroImage?.url ? mediaUrl(cms.heroImage.url) : null,
+      imageAlt: cms.heroImage?.alt || null,
     },
     whatWeHandle: {
       eyebrow: cms.whatEyebrow,

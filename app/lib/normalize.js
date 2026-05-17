@@ -35,6 +35,8 @@ export function normalizeLocation(p) {
   return {
     ...p,
     nearby: (p.nearby || []).map(n => (typeof n === 'object' ? n.slug : n)),
+    heroImage: p.heroImage?.url ? mediaUrl(p.heroImage.url) : null,
+    heroImageAlt: p.heroImage?.alt || null,
   }
 }
 
@@ -50,6 +52,8 @@ export function normalizeService(p) {
       title: (p.heroTitle || []).map(t => t.line),
       tagline: p.heroTagline,
       body: p.heroBody,
+      image: p.heroImage?.url ? mediaUrl(p.heroImage.url) : null,
+      imageAlt: p.heroImage?.alt || null,
     },
     whenDoYouNeed: {
       whenHeading: p.whenHeading,

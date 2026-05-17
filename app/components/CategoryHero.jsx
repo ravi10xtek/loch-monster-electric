@@ -3,7 +3,12 @@ import SmartBreadcrumb from "../ui/smart-breadcrumb";
 export default function CategoryHero({ hero }) {
   return (
     <section className="hero" id="home">
-      <div className="hero-bg"></div>
+      <div
+        className="hero-bg"
+        style={hero.image ? {
+          backgroundImage: `linear-gradient(90deg, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.62) 45%, rgba(0,0,0,0.68) 100%), url('${hero.image}')`,
+        } : undefined}
+      ></div>
       <SmartBreadcrumb />
       <div className="hero-inner">
         <div className="hero-left">
