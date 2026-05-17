@@ -77,6 +77,22 @@ const COLLECTION_MAP = {
       return slug ? (map[slug] || null) : null
     },
   },
+  // A media file changed (replaced upload, alt edit, etc). We don't know
+  // which docs reference it, so invalidate every tag that *could* embed
+  // a media URL, and revalidate the home + service-areas roots.
+  media: {
+    tag: [
+      'posts',
+      'locations',
+      'services',
+      'pages',
+      'category-hubs',
+      'service-hubs',
+      'page-seo',
+      'globals',
+    ],
+    path: () => '/',
+  },
 }
 
 export async function POST(request) {
@@ -105,9 +121,12 @@ export async function POST(request) {
 
   const revalidated = []
 
-  // Always clear the collection cache tag
-  revalidateTag(mapping.tag)
-  revalidated.push(`tag:${mapping.tag}`)
+  // Always clear the collection cache tag(s)
+  const tags = Array.isArray(mapping.tag) ? mapping.tag : [mapping.tag]
+  for (const tag of tags) {
+    revalidateTag(tag)
+    revalidated.push(`tag:${tag}`)
+  }
 
   // If a path builder exists, revalidate the specific URL(s)
   const path = mapping.path(slug)
