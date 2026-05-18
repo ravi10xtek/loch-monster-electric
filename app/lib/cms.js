@@ -16,6 +16,7 @@ import {
   normalizeService,
   normalizePage,
   normalizeProject,
+  normalizeSocialPost,
   mediaUrl,
 } from './normalize'
 
@@ -282,6 +283,14 @@ export async function getProjects() {
     next: { tags: ['projects'] },
   })
   return data?.docs?.map(normalizeProject) || []
+}
+
+export async function getSocialPosts() {
+  const params = new URLSearchParams({ limit: '12', depth: '1', sort: '-publishedAt' })
+  const data = await fetchAPI(`/api/social-posts?${params}`, {
+    next: { tags: ['social-posts'] },
+  })
+  return data?.docs?.map(normalizeSocialPost) || []
 }
 
 export async function buildPageMetadata(pageSlug, fallback = {}) {

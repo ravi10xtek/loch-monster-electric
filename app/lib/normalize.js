@@ -84,6 +84,16 @@ export function normalizeProject(p) {
   }
 }
 
+export function normalizeSocialPost(p) {
+  return {
+    ...p,
+    thumbnail: p.thumbnail?.url ? {
+      url: mediaUrl(p.thumbnail.url),
+      alt: p.thumbnail.alt || p.caption || '',
+    } : null,
+  }
+}
+
 export function normalizePage(p) {
   return {
     ...p,

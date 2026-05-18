@@ -81,6 +81,10 @@ const COLLECTION_MAP = {
     tag: 'projects',
     path: () => '/media',
   },
+  'social-posts': {
+    tag: 'social-posts',
+    path: () => '/media',
+  },
   // A media file changed (replaced upload, alt edit, etc). We don't know
   // which docs reference it, so invalidate every tag that *could* embed
   // a media URL, and revalidate the home + service-areas roots.
@@ -95,6 +99,7 @@ const COLLECTION_MAP = {
       'page-seo',
       'globals',
       'projects',
+      'social-posts',
     ],
     path: () => '/',
   },
