@@ -90,7 +90,7 @@ export default function ProjectScroller({ projects = [] }) {
     <section className="projects-section" id="projects">
       <div className="wrap">
         <p className="eyebrow-center">Portfolio</p>
-        <h2 className="center-heading">Our <span className="text-orange">Projects</span></h2>
+        <h2 className="center-heading">OUR <span className="text-orange">PROJECTS</span></h2>
         <p className="projects-intro-text">From residential panel upgrades to large-scale commercial installations — browse our completed work.</p>
 
         <div className="tabs-row">

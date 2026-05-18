@@ -8,7 +8,7 @@ export default function StayConnected({ posts = [] }) {
     <section className="stay-connected" id="stay-connected">
       <div className="wrap">
         <p className="eyebrow-center">Social</p>
-        <h2 className="center-heading">Stay <span className="text-orange">Connected</span></h2>
+        <h2 className="center-heading">STAY <span className="text-orange">CONNECTED</span></h2>
         <p className="stay-connected-sub">
           Follow us for project updates, electrical tips, and behind-the-scenes moments.
         </p>
