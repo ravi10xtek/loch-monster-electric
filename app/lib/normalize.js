@@ -66,6 +66,24 @@ export function normalizeService(p) {
   }
 }
 
+export function normalizeProject(p) {
+  return {
+    ...p,
+    coverImage: p.coverImage?.url ? {
+      url: mediaUrl(p.coverImage.url),
+      alt: p.coverImage.alt || p.title || '',
+      sizes: p.coverImage.sizes || {},
+    } : null,
+    photos: (p.photos || []).map(photo => ({
+      ...photo,
+      image: photo.image?.url ? {
+        url: mediaUrl(photo.image.url),
+        alt: photo.image.alt || '',
+      } : null,
+    })),
+  }
+}
+
 export function normalizePage(p) {
   return {
     ...p,

@@ -15,6 +15,7 @@ import {
   normalizeLocation,
   normalizeService,
   normalizePage,
+  normalizeProject,
   mediaUrl,
 } from './normalize'
 
@@ -273,6 +274,14 @@ export async function getGlobal(slug) {
     next: { tags: ['globals', slug] },
   })
   return data || null
+}
+
+export async function getProjects() {
+  const params = new URLSearchParams({ limit: '100', depth: '1', sort: '-completedAt' })
+  const data = await fetchAPI(`/api/projects?${params}`, {
+    next: { tags: ['projects'] },
+  })
+  return data?.docs?.map(normalizeProject) || []
 }
 
 export async function buildPageMetadata(pageSlug, fallback = {}) {
