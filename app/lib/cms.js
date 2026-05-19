@@ -236,17 +236,15 @@ export async function getServiceHubWithImages(slug) {
 
   const staticData = STATIC_HUB_DATA[slug]
 
-  if (doc.tabs?.length) {
-    doc.tabs = doc.tabs.map(cmsTab => {
-      // Match CMS tab → static tab by href (authoritative slug/label/id)
-      const staticTab = staticData?.whatWeHandle?.tabs?.find(st => st.href === cmsTab.href)
-      // Static cards are authoritative (correct labels + hrefs matching the mega menu)
-      const sourceCards = staticTab
-        ? (staticData.whatWeHandle.cards[staticTab.id] || [])
-        : (cmsTab.cards || [])
+  if (staticData?.whatWeHandle?.tabs?.length) {
+    // Iterate over STATIC tabs (authoritative order, labels, ids, hrefs).
+    // CMS tabs are only consulted for per-tab editorial fields (heading, body).
+    doc.tabs = staticData.whatWeHandle.tabs.map(staticTab => {
+      const cmsTab = doc.tabs?.find(ct => ct.href === staticTab.href) || {}
+      const sourceCards = staticData.whatWeHandle.cards[staticTab.id] || []
 
       const enrichedCards = sourceCards.map(card => {
-        if (card.image) return card  // explicit image already set — keep it
+        if (card.image) return card
         const rawLabel = card.label?.trim().toUpperCase() || ''
         const resolvedLabel = CARD_LABEL_ALIASES[rawLabel] || rawLabel
         const byLabel = serviceImages[resolvedLabel] || null
@@ -256,9 +254,11 @@ export async function getServiceHubWithImages(slug) {
       })
 
       return {
+        // Pull any CMS editorial fields (heading, body) then overwrite structural ones
         ...cmsTab,
-        // Override structural fields with static values so they match the mega menu
-        ...(staticTab ? { id: staticTab.id, label: staticTab.label, href: staticTab.href } : {}),
+        id: staticTab.id,
+        label: staticTab.label,
+        href: staticTab.href,
         cards: enrichedCards,
       }
     })
