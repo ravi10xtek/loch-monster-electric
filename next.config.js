@@ -7,7 +7,12 @@ const nextConfig = {
         protocol: 'http',
         hostname: 'localhost',
         port: '3001',
-        pathname: '/media/**',
+        pathname: '/api/media/file/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'loch-monster-electric-cms.vercel.app',
+        pathname: '/api/media/file/**',
       },
       {
         protocol: 'https',
