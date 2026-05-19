@@ -66,6 +66,30 @@ const COLLECTION_MAP = {
     tag: 'faqs',
     path: () => '/',
   },
+  'global-home-page': {
+    tag: 'globals',
+    path: () => '/',
+  },
+  'global-about-page': {
+    tag: 'globals',
+    path: () => '/about-us',
+  },
+  'global-contact-page': {
+    tag: 'globals',
+    path: () => '/contact-us',
+  },
+  'global-pricing-page': {
+    tag: 'globals',
+    path: () => '/pricing-estimates',
+  },
+  'global-service-areas-page': {
+    tag: 'globals',
+    path: () => '/service-areas',
+  },
+  'global-shared-sections': {
+    tag: 'globals',
+    path: () => null,
+  },
   'global-media-page': {
     tag: 'globals',
     path: () => '/media',
