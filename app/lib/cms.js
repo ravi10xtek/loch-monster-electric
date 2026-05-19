@@ -218,8 +218,10 @@ export async function getServiceHubWithImages(slug) {
       ...tab,
       cards: (tab.cards || []).map(card => {
         if (card.image) return card  // explicit image already set — keep it
-        const serviceSlug = card.href?.split('/').filter(Boolean).pop()
-        const fallbackUrl = serviceSlug ? (serviceImages[serviceSlug] || null) : null
+        // Try matching by label (title) first, then by slug from href
+        const byLabel = card.label ? serviceImages[card.label.trim().toUpperCase()] : null
+        const bySlug = card.href ? serviceImages[card.href.split('/').filter(Boolean).pop()] : null
+        const fallbackUrl = byLabel || bySlug || null
         return { ...card, image: fallbackUrl ? { url: fallbackUrl } : null }
       }),
     }))
@@ -266,9 +268,12 @@ async function getServiceImageMap() {
   })
   const map = {}
   for (const doc of data?.docs || []) {
-    if (doc.slug && doc.heroImage?.url) {
-      map[doc.slug] = mediaUrl(doc.heroImage.url)
-    }
+    if (!doc.heroImage?.url) continue
+    const url = mediaUrl(doc.heroImage.url)
+    // Key by slug (for CategoryHub readMoreHref matching)
+    if (doc.slug) map[doc.slug] = url
+    // Also key by uppercase title (for ServiceHub card label matching)
+    if (doc.title) map[doc.title.trim().toUpperCase()] = url
   }
   return map
 }
