@@ -24,6 +24,7 @@ const LABELS = {
   'media': 'Media',
   'gallery': 'Gallery',
   'contact-us': 'Contact Us',
+  'electrical-glossary': 'Electrical Glossary',
 };
 
 function toLabel(slug) {

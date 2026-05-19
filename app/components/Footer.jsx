@@ -113,11 +113,11 @@ export default function Footer() {
             <div className="fl-block">
               <h5>ELECTRICAL GLOSSARY</h5>
               <ul>
-                <li><a href="#">GFCI</a></li>
-                <li><a href="#">AFCI</a></li>
-                <li><a href="#">Load Calculation</a></li>
-                <li><a href="#">Three-Phase Power</a></li>
-                <li><a href="#">NEC Code</a></li>
+                <li><a href="/electrical-glossary#gfci">GFCI</a></li>
+                <li><a href="/electrical-glossary#afci">AFCI</a></li>
+                <li><a href="/electrical-glossary#load-calculation">Load Calculation</a></li>
+                <li><a href="/electrical-glossary#three-phase-power">Three-Phase Power</a></li>
+                <li><a href="/electrical-glossary#nec-code">NEC Code</a></li>
               </ul>
             </div>
             <div className="fl-block">

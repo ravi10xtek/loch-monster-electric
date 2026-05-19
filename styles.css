@@ -3786,3 +3786,193 @@ textarea { resize: vertical; }
 @media (max-width: 480px) {
   .social-posts-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
 }
+
+/* ─────────────────────────────────────────────────────────
+   ELECTRICAL GLOSSARY PAGE
+───────────────────────────────────────────────────────── */
+
+/* Hero */
+.glossary-hero {
+  position: relative;
+  background: #0d0d0d;
+  padding: 120px 0 72px;
+  overflow: hidden;
+}
+.glossary-hero-bg {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #111 0%, #1a1a1a 100%);
+  z-index: 0;
+}
+.glossary-hero-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 70% 50%, rgba(255, 107, 0, 0.07) 0%, transparent 65%);
+}
+.glossary-hero-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 740px;
+}
+.glossary-hero-tagline {
+  font-size: 1.05rem;
+  color: rgba(255, 255, 255, 0.62);
+  line-height: 1.7;
+  margin-top: 20px;
+  max-width: 620px;
+}
+
+/* Letter nav */
+.glossary-letter-nav {
+  background: #fff;
+  border-bottom: 1px solid #e8e8e8;
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  padding: 0;
+}
+.glossary-letter-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0;
+}
+.glossary-letter-link {
+  display: inline-block;
+  padding: 14px 18px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #555;
+  text-decoration: none;
+  transition: color 0.18s, background 0.18s;
+  border-right: 1px solid #f0f0f0;
+}
+.glossary-letter-link:hover {
+  color: var(--orange);
+  background: #fff8f4;
+}
+
+/* Terms section */
+.glossary-section {
+  background: #f7f7f7;
+  padding: 64px 0 80px;
+}
+.glossary-group {
+  margin-bottom: 56px;
+}
+.glossary-group:last-child {
+  margin-bottom: 0;
+}
+.glossary-group-letter {
+  font-size: 2.4rem;
+  font-weight: 800;
+  color: #e5e5e5;
+  letter-spacing: -0.02em;
+  margin-bottom: 20px;
+  line-height: 1;
+  font-family: var(--OH), sans-serif;
+}
+.glossary-cards {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+.glossary-card {
+  background: #fff;
+  border: 1px solid #ebebeb;
+  border-radius: 10px;
+  padding: 28px 28px 26px;
+  scroll-margin-top: 80px;
+  transition: box-shadow 0.2s, border-color 0.2s;
+}
+.glossary-card:hover {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.07);
+  border-color: #d8d8d8;
+}
+.glossary-card-term {
+  margin-bottom: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 6px;
+}
+.glossary-term-name {
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--orange);
+  font-family: var(--OH), sans-serif;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+}
+.glossary-term-full {
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: #888;
+}
+.glossary-card-def {
+  font-size: 0.9rem;
+  color: #444;
+  line-height: 1.72;
+  margin: 0;
+}
+
+/* CTA Banner */
+.glossary-cta {
+  background: #111;
+  padding: 64px 0;
+}
+.glossary-cta-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+.glossary-cta-eyebrow {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--orange);
+  margin-bottom: 8px;
+}
+.glossary-cta-heading {
+  font-size: 1.9rem;
+  font-weight: 800;
+  color: #fff;
+  margin: 0 0 10px;
+  font-family: var(--OH), sans-serif;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+}
+.glossary-cta-body {
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.55);
+  margin: 0;
+  max-width: 480px;
+  line-height: 1.6;
+}
+.glossary-cta .btn-orange {
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .glossary-cards { grid-template-columns: 1fr; }
+}
+@media (max-width: 768px) {
+  .glossary-hero { padding: 100px 0 56px; }
+  .glossary-hero-inner h1 { font-size: clamp(2rem, 8vw, 3rem); }
+  .glossary-letter-link { padding: 12px 13px; font-size: 0.75rem; }
+  .glossary-cta-inner { flex-direction: column; align-items: flex-start; }
+  .glossary-cta-heading { font-size: 1.5rem; }
+}
+@media (max-width: 480px) {
+  .glossary-card { padding: 22px 18px; }
+  .glossary-letter-link { padding: 10px 10px; }
+}
