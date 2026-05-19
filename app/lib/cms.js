@@ -19,6 +19,14 @@ import {
   normalizeSocialPost,
   mediaUrl,
 } from './normalize'
+import { servicePages } from '../data/services'
+
+// Maps service hub slug → static page data (authoritative tab/card structure)
+const STATIC_HUB_DATA = {
+  'residential-electrical-services': servicePages.residential,
+  'commercial-electrical-services':  servicePages.commercial,
+  'hoa-electrical-services':         servicePages.hoa,
+}
 
 const BASE = process.env.CMS_URL || 'http://localhost:3001'
 
@@ -226,10 +234,18 @@ export async function getServiceHubWithImages(slug) {
   ])
   if (!doc) return null
 
+  const staticData = STATIC_HUB_DATA[slug]
+
   if (doc.tabs?.length) {
-    doc.tabs = doc.tabs.map(tab => ({
-      ...tab,
-      cards: (tab.cards || []).map(card => {
+    doc.tabs = doc.tabs.map(cmsTab => {
+      // Match CMS tab → static tab by href (authoritative slug/label/id)
+      const staticTab = staticData?.whatWeHandle?.tabs?.find(st => st.href === cmsTab.href)
+      // Static cards are authoritative (correct labels + hrefs matching the mega menu)
+      const sourceCards = staticTab
+        ? (staticData.whatWeHandle.cards[staticTab.id] || [])
+        : (cmsTab.cards || [])
+
+      const enrichedCards = sourceCards.map(card => {
         if (card.image) return card  // explicit image already set — keep it
         const rawLabel = card.label?.trim().toUpperCase() || ''
         const resolvedLabel = CARD_LABEL_ALIASES[rawLabel] || rawLabel
@@ -237,8 +253,15 @@ export async function getServiceHubWithImages(slug) {
         const bySlug = card.href ? serviceImages[card.href.split('/').filter(Boolean).pop()] : null
         const fallbackUrl = byLabel || bySlug || null
         return { ...card, image: fallbackUrl ? { url: fallbackUrl } : null }
-      }),
-    }))
+      })
+
+      return {
+        ...cmsTab,
+        // Override structural fields with static values so they match the mega menu
+        ...(staticTab ? { id: staticTab.id, label: staticTab.label, href: staticTab.href } : {}),
+        cards: enrichedCards,
+      }
+    })
   }
   return doc
 }
