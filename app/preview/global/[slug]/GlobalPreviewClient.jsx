@@ -11,6 +11,7 @@ import OurStory from '../../../components/OurStory'
 import AboutHero from '../../../components/AboutHero'
 import AboutStory from '../../../components/AboutStory'
 import ContactHero from '../../../components/ContactHero'
+import MediaHero from '../../../components/MediaHero'
 
 const CMS_URL = process.env.NEXT_PUBLIC_CMS_URL || 'http://localhost:3001'
 
@@ -116,6 +117,14 @@ export default function GlobalPreviewClient({ slug, initialData }) {
       <main>
         <ServiceAreaHeroPreview data={data} />
         <OrangeBanner heading={data?.bannerHeading} body={data?.bannerBody} />
+      </main>
+    )
+  }
+
+  if (slug === 'media-page') {
+    return (
+      <main>
+        <MediaHero data={data} />
       </main>
     )
   }
