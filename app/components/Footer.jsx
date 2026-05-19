@@ -89,8 +89,6 @@ export default function Footer() {
               <ul>
                 <li><a href="/about-us">About Us</a></li>
                 <li><a href="/about-us">Company Overview</a></li>
-                <li><a href="#">Licensing &amp; Certifications</a></li>
-                <li><a href="#">Careers</a></li>
               </ul>
             </div>
             <div className="fl-block">
@@ -104,10 +102,8 @@ export default function Footer() {
             <div className="fl-block">
               <h5>MEDIA</h5>
               <ul>
-                <li><a href="#">Photo Gallery</a></li>
-                <li><a href="#">Video Library</a></li>
-                <li><a href="#">Press &amp; Mentions</a></li>
-                <li><a href="#">Brand Assets</a></li>
+                <li><a href="/media#projects">Photo Gallery</a></li>
+                <li><a href="/media#stay-connected">Video Library</a></li>
               </ul>
             </div>
             <div className="fl-block">
