@@ -3814,7 +3814,10 @@ textarea { resize: vertical; }
   position: relative;
   z-index: 1;
   max-width: 740px;
+  color: #fff;
 }
+.glossary-hero-inner .hero-eyebrow { color: #fff; }
+.glossary-hero-inner h1 { color: #fff; }
 .glossary-hero-tagline {
   font-size: 1.05rem;
   color: rgba(255, 255, 255, 0.62);
