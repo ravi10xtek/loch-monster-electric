@@ -3,10 +3,11 @@
 import { useState, useRef, useEffect } from 'react'
 
 const TABS = [
-  { id: 'all', label: 'All Projects' },
-  { id: 'residential', label: 'Residential' },
-  { id: 'commercial', label: 'Commercial' },
-  { id: 'team-events', label: 'Team & Events' },
+  { id: 'all',        label: 'ALL' },
+  { id: 'residential', label: 'RESIDENTIAL' },
+  { id: 'commercial',  label: 'COMMERCIAL' },
+  { id: 'hoa',         label: 'HOA' },
+  { id: 'team-events', label: 'TEAM & EVENTS' },
 ]
 
 export default function ProjectScroller({ projects = [] }) {
@@ -89,7 +90,7 @@ export default function ProjectScroller({ projects = [] }) {
   return (
     <section className="projects-section" id="projects">
       <div className="wrap">
-        <p className="eyebrow-center">Portfolio</p>
+        <p className="eyebrow-center">Projects</p>
         <h2 className="center-heading">OUR <span className="text-orange">PROJECTS</span></h2>
         <p className="projects-intro-text">From residential panel upgrades to large-scale commercial installations — browse our completed work.</p>
 

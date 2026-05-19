@@ -3387,10 +3387,6 @@ textarea { resize: vertical; }
 }
 
 /* ===== MEDIA PAGE ===== */
-.media-hero-inner {
-  grid-template-columns: 1fr !important;
-  max-width: 720px !important;
-}
 .media-hero-ctas {
   display: flex;
   gap: 14px;

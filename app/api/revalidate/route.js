@@ -66,6 +66,10 @@ const COLLECTION_MAP = {
     tag: 'faqs',
     path: () => '/',
   },
+  'global-media-page': {
+    tag: 'globals',
+    path: () => '/media',
+  },
   'service-hubs': {
     tag: 'service-hubs',
     path: (slug) => {

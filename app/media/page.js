@@ -1,4 +1,4 @@
-import { getProjects, getSocialPosts } from '../lib/cms'
+import { getProjects, getSocialPosts, getGlobal } from '../lib/cms'
 import MediaHero from '../components/MediaHero'
 import ProjectScroller from '../components/ProjectScroller'
 import StayConnected from '../components/StayConnected'
@@ -10,10 +10,14 @@ export const metadata = {
 }
 
 export default async function MediaPage() {
-  const [projects, socialPosts] = await Promise.all([getProjects(), getSocialPosts()])
+  const [projects, socialPosts, mediaPageData] = await Promise.all([
+    getProjects(),
+    getSocialPosts(),
+    getGlobal('media-page'),
+  ])
   return (
     <main>
-      <MediaHero />
+      <MediaHero data={mediaPageData} />
       <ProjectScroller projects={projects} />
       <OrangeBanner />
       <StayConnected posts={socialPosts} />
