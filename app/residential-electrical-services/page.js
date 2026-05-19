@@ -1,4 +1,4 @@
-import { buildPageMetadata, getServiceHub } from '../lib/cms'
+import { buildPageMetadata, getServiceHubWithImages } from '../lib/cms'
 import { mediaUrl } from '../lib/normalize'
 import ServiceLandingPage from "../components/ServiceLandingPage";
 import { servicePages } from "../data/services";
@@ -11,7 +11,7 @@ export async function generateMetadata() {
 }
 
 export default async function ResidentialPage() {
-  const cms = await getServiceHub('residential-electrical-services')
+  const cms = await getServiceHubWithImages('residential-electrical-services')
   const data = cms ? mapHubToPageData(cms) : servicePages.residential
   return <ServiceLandingPage data={data} />
 }

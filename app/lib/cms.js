@@ -202,6 +202,32 @@ export async function getServiceHub(slug) {
 }
 
 /**
+ * Like getServiceHub but auto-fills each tab card's image from the
+ * matching individual Service's heroImage when no explicit image is set.
+ * card.href last segment (e.g. "circuit-breaker-repair") is used to match.
+ */
+export async function getServiceHubWithImages(slug) {
+  const [doc, serviceImages] = await Promise.all([
+    getServiceHub(slug),
+    getServiceImageMap(),
+  ])
+  if (!doc) return null
+
+  if (doc.tabs?.length) {
+    doc.tabs = doc.tabs.map(tab => ({
+      ...tab,
+      cards: (tab.cards || []).map(card => {
+        if (card.image) return card  // explicit image already set — keep it
+        const serviceSlug = card.href?.split('/').filter(Boolean).pop()
+        const fallbackUrl = serviceSlug ? (serviceImages[serviceSlug] || null) : null
+        return { ...card, image: fallbackUrl ? { url: fallbackUrl } : null }
+      }),
+    }))
+  }
+  return doc
+}
+
+/**
  * Build a Next.js Metadata object from a PageSEO record, with a fallback.
  * Pass `fallback` as { title, description } for the hardcoded defaults.
  */
