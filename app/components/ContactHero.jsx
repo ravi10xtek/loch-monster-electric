@@ -14,36 +14,36 @@ export default function ContactHero({ cms }) {
   const bodyParagraphs = c.bodyParagraphs?.length
     ? c.bodyParagraphs.map(p => p.text)
     : [
-        'Call, text, email, or fill out the form—whatever works for you.',
-        "Whether you've got a small repair, a bigger project, or something that suddenly stopped working—reach out. We're here to help.",
-        "At Loch Monster Electric, you'll always talk to a real team member who knows the work. No call centers. No bots. No runaround. Just solid communication and a plan to get your power back on track.",
+        'Call, text, email, or fill out the form — whatever works for you.',
+        "Whether you've got a small repair, a bigger project, or something that suddenly stopped working — reach out. We're here to help.",
       ]
 
+  // Split heading into two lines for orange treatment — last word gets orange
+  const words = heading.trim().split(/\s+/)
+  const line1 = words.slice(0, -1).join(' ')
+  const line2 = words[words.length - 1]
+
   return (
-    <section className={`contact-section${bgImage ? ' contact-section--img' : ''}`}>
-
-      {/* Background image */}
-      {bgImage && (
-        <div
-          className="contact-bg"
-          style={{
-            backgroundImage: `linear-gradient(90deg, rgba(0,0,0,0.78) 0%, rgba(0,0,0,0.65) 50%, rgba(0,0,0,0.55) 100%), url('${bgImage}')`,
-          }}
-        />
-      )}
-
+    <section className="hero" id="home">
+      <div
+        className="hero-bg"
+        style={bgImage ? {
+          backgroundImage: `linear-gradient(90deg, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.62) 45%, rgba(0,0,0,0.68) 100%), url('${bgImage}')`,
+        } : undefined}
+      />
       <SmartBreadcrumb />
-
-      <div className="contact-inner wrap">
+      <div className="hero-inner">
 
         {/* ── Left — info ──────────────────────────────────── */}
-        <div className="contact-left">
-          <h1 className="contact-heading">{heading}</h1>
+        <div className="hero-left">
+          <p className="hero-eyebrow">Contact Us</p>
+          <h1>
+            {line1 && <span className="hero-title-line">{line1}</span>}
+            <span className="hero-title-line"><span className="text-orange">{line2}</span></span>
+          </h1>
 
           {bodyParagraphs.map((text, i) => (
-            <p key={i} className={`contact-body${i === 0 ? ' contact-body-white' : ''}`}>
-              {text}
-            </p>
+            <p key={i} className="hero-body" style={i > 0 ? { marginTop: '10px' } : undefined}>{text}</p>
           ))}
 
           <div className="contact-details">
@@ -71,8 +71,8 @@ export default function ContactHero({ cms }) {
         </div>
 
         {/* ── Right — form ─────────────────────────────────── */}
-        <div className="contact-right">
-          <div className="hero-form-header contact-form-header">
+        <div className="hero-form-wrap">
+          <div className="hero-form-header">
             <strong>{formHeader}</strong>
           </div>
           <form className="hero-form" action="#" method="post">

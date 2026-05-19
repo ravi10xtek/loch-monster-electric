@@ -3179,67 +3179,7 @@ textarea { resize: vertical; }
 
 /* ===== CONTACT US PAGE ===== */
 
-.contact-section {
-  position: relative;
-  background: var(--orange);
-  padding: 76px 0 64px;
-}
-
-/* Background image layer */
-.contact-bg {
-  position: absolute;
-  inset: 0;
-  background-size: cover;
-  background-position: center;
-  z-index: 0;
-}
-
-/* When a hero image is set — switch to dark theme */
-.contact-section--img {
-  background: #0d0d0d;
-}
-.contact-section--img .contact-inner { position: relative; z-index: 1; }
-.contact-section--img .contact-heading { color: #fff; }
-.contact-section--img .contact-body { color: rgba(255,255,255,0.75); }
-.contact-section--img .contact-body-white { color: #fff; }
-.contact-section--img .contact-detail-row { color: #fff; }
-.contact-section--img .contact-form-header { color: rgba(255,255,255,0.85); }
-.contact-section--img .breadcrumb-nav { position: relative; z-index: 1; }
-.contact-section--img .breadcrumb a { color: rgba(255,255,255,0.6); }
-.contact-section--img .breadcrumb a:hover { color: #fff; }
-.contact-section--img .breadcrumb li[aria-current="page"] { color: rgba(255,255,255,0.9); }
-.contact-section--img .breadcrumb li:not(:last-child)::after { color: rgba(255,255,255,0.35); }
-
-.contact-inner {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 52px;
-  align-items: start;
-}
-
-/* Breadcrumb colours on orange background (default) */
-.contact-section .breadcrumb a { color: rgba(0,0,0,0.55); }
-.contact-section .breadcrumb a:hover { color: #000; }
-.contact-section .breadcrumb li[aria-current="page"] { color: #1a1a1a; }
-.contact-section .breadcrumb li:not(:last-child)::after { color: rgba(0,0,0,0.35); }
-
-/* Left copy */
-.contact-heading {
-  font-family: var(--OH);
-  font-size: clamp(2.2rem, 4vw, 3.2rem);
-  font-weight: 900;
-  color: #1a1a1a;
-  text-transform: uppercase;
-  line-height: 1.05;
-  margin-bottom: 18px;
-}
-.contact-body {
-  font-size: 1rem;
-  color: #1a1a1a;
-  line-height: 1.65;
-  margin-bottom: 12px;
-}
-.contact-body-white { color: #fff; }
+/* ── Contact page — detail rows inside standard .hero ── */
 .contact-details {
   margin-top: 28px;
   display: flex;
@@ -3253,7 +3193,7 @@ textarea { resize: vertical; }
   font-family: var(--OH);
   font-size: 0.9rem;
   font-weight: 700;
-  color: #1a1a1a;
+  color: #fff;
   text-decoration: none;
   letter-spacing: 0.02em;
   line-height: 1.4;
@@ -3265,38 +3205,6 @@ textarea { resize: vertical; }
   height: 18px;
   flex-shrink: 0;
   margin-top: 2px;
-}
-
-/* Right form — reuses .hero-form but on orange bg */
-.contact-right {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-.contact-form-header {
-  font-family: var(--OB);
-  font-size: clamp(0.88rem, 1.4vw, 0.96rem);
-  font-weight: 400;
-  color: #1a1a1a;
-  line-height: 1.4;
-}
-.contact-right .hero-form input[type="text"],
-.contact-right .hero-form input[type="tel"],
-.contact-right .hero-form input[type="email"],
-.contact-right .hero-form textarea {
-  background: #fff;
-  border: 1px solid #1a1a1a;
-  color: #111;
-}
-.contact-right .hero-form .btn-orange-full {
-  background: #1a1a1a;
-  color: #fff;
-}
-.contact-right .hero-form .btn-orange-full:hover { background: #000; }
-
-/* Contact responsive */
-@media (max-width: 860px) {
-  .contact-inner { grid-template-columns: 1fr; gap: 36px; }
 }
 
 /* ===== ABOUT US PAGE ===== */
