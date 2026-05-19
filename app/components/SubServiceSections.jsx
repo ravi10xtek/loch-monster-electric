@@ -16,7 +16,10 @@ export default function SubServiceSections({ subServices }) {
             <div
               key={`${service.label}-img`}
               className="hub-alt-img"
-              style={{ background: service.gradient || service.color }}
+              style={service.image
+                ? { backgroundImage: `url('${service.image}')`, backgroundSize: 'cover', backgroundPosition: 'center' }
+                : { background: service.gradient || service.color }
+              }
             >
               <span className="hub-alt-label">{service.label}</span>
             </div>

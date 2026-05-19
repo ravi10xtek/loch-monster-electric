@@ -228,11 +228,30 @@ export async function getCategoryHubCardImages() {
   return map
 }
 
+/**
+ * Fetches all service-hubs and returns a slug → heroImage URL map.
+ * Used as a fallback when a CategoryHub subService has no explicit image.
+ */
+async function getServiceHubImageMap() {
+  const params = new URLSearchParams({ limit: '50', depth: '1' })
+  const data = await fetchAPI(`/api/service-hubs?${params}`, {
+    next: { tags: ['service-hubs'] },
+  })
+  const map = {}
+  for (const doc of data?.docs || []) {
+    if (doc.slug && doc.heroImage?.url) {
+      map[doc.slug] = mediaUrl(doc.heroImage.url)
+    }
+  }
+  return map
+}
+
 export async function getCategoryHub(slug) {
   const params = new URLSearchParams({ 'where[slug][equals]': slug, depth: '2', limit: '1' })
-  const data = await fetchAPI(`/api/category-hubs?${params}`, {
-    next: { tags: ['category-hubs', slug] },
-  })
+  const [data, serviceHubImages] = await Promise.all([
+    fetchAPI(`/api/category-hubs?${params}`, { next: { tags: ['category-hubs', slug] } }),
+    getServiceHubImageMap(),
+  ])
   const doc = data?.docs?.[0]
   if (!doc) return null
   return {
@@ -246,16 +265,23 @@ export async function getCategoryHub(slug) {
       image: doc.heroImage?.url ? mediaUrl(doc.heroImage.url) : null,
       imageAlt: doc.heroImage?.alt || null,
     },
-    subServices: (doc.subServices || []).map(s => ({
-      label: s.label,
-      heading: s.heading,
-      tagline: s.tagline || '',
-      body: s.body,
-      readMoreHref: s.readMoreHref || null,
-      color: s.color || '#1a1a1a',
-      gradient: s.gradient || 'linear-gradient(160deg,#111,#2a2a2a)',
-      image: s.image || null,
-    })),
+    subServices: (doc.subServices || []).map(s => {
+      // Extract the hub slug from the readMoreHref URL (last path segment)
+      const hubSlug = s.readMoreHref
+        ? s.readMoreHref.split('/').filter(Boolean).pop()
+        : null
+      const fallbackImage = hubSlug ? (serviceHubImages[hubSlug] || null) : null
+      return {
+        label: s.label,
+        heading: s.heading,
+        tagline: s.tagline || '',
+        body: s.body,
+        readMoreHref: s.readMoreHref || null,
+        color: s.color || '#1a1a1a',
+        gradient: s.gradient || 'linear-gradient(160deg,#111,#2a2a2a)',
+        image: s.image?.url ? mediaUrl(s.image.url) : fallbackImage,
+      }
+    }),
   }
 }
 
