@@ -202,9 +202,22 @@ export async function getServiceHub(slug) {
 }
 
 /**
+ * Manual aliases for card labels that don't exactly match a service title.
+ * Keys are the card label (uppercase), values are the service title to use instead.
+ */
+const CARD_LABEL_ALIASES = {
+  'PANEL UPGRADES':          'ELECTRICAL PANEL UPGRADE',
+  'LIGHTING & CEILING FANS': 'CEILING FAN INSTALLATION',
+  'GFCI / AFCI UPGRADES':    'GFCI & AFCI INSTALLATION',
+  'SAFETY & COMPLIANCE':     'ELECTRICAL INSPECTIONS',
+  'CODE INSPECTIONS':        'ELECTRICAL INSPECTIONS',
+  'SERVICE UPGRADES':        'COMMERCIAL PANEL UPGRADES',
+}
+
+/**
  * Like getServiceHub but auto-fills each tab card's image from the
  * matching individual Service's heroImage when no explicit image is set.
- * card.href last segment (e.g. "circuit-breaker-repair") is used to match.
+ * Matches by card label → service title (with alias fallbacks).
  */
 export async function getServiceHubWithImages(slug) {
   const [doc, serviceImages] = await Promise.all([
@@ -218,8 +231,9 @@ export async function getServiceHubWithImages(slug) {
       ...tab,
       cards: (tab.cards || []).map(card => {
         if (card.image) return card  // explicit image already set — keep it
-        // Try matching by label (title) first, then by slug from href
-        const byLabel = card.label ? serviceImages[card.label.trim().toUpperCase()] : null
+        const rawLabel = card.label?.trim().toUpperCase() || ''
+        const resolvedLabel = CARD_LABEL_ALIASES[rawLabel] || rawLabel
+        const byLabel = serviceImages[resolvedLabel] || null
         const bySlug = card.href ? serviceImages[card.href.split('/').filter(Boolean).pop()] : null
         const fallbackUrl = byLabel || bySlug || null
         return { ...card, image: fallbackUrl ? { url: fallbackUrl } : null }
