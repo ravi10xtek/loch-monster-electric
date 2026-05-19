@@ -236,7 +236,7 @@ export default function Header() {
             <a href="/pricing-estimates">PRICING</a>
             <a href="/journal">JOURNAL</a>
             <a href="/media">MEDIA</a>
-            <a href="/glossary">GLOSSARY</a>
+            <a href="/electrical-glossary">GLOSSARY</a>
             <a href="/about-us">ABOUT US</a>
             <a href="/contact-us">CONTACT US</a>
           </nav>
