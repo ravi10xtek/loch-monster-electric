@@ -18,10 +18,10 @@ export default function ContactHero({ cms }) {
         "Whether you've got a small repair, a bigger project, or something that suddenly stopped working — reach out. We're here to help.",
       ]
 
-  // Split heading into two lines for orange treatment — last word gets orange
+  // Split heading — all words except last are white, last word is orange, all on one line
   const words = heading.trim().split(/\s+/)
-  const line1 = words.slice(0, -1).join(' ')
-  const line2 = words[words.length - 1]
+  const firstWords = words.slice(0, -1).join(' ')
+  const lastWord = words[words.length - 1]
 
   return (
     <section className="hero" id="home">
@@ -38,8 +38,9 @@ export default function ContactHero({ cms }) {
         <div className="hero-left">
           <p className="hero-eyebrow">Contact Us</p>
           <h1>
-            {line1 && <span className="hero-title-line">{line1}</span>}
-            <span className="hero-title-line"><span className="text-orange">{line2}</span></span>
+            <span className="hero-title-line">
+              {firstWords && <>{firstWords} </>}<span className="text-orange">{lastWord}</span>
+            </span>
           </h1>
 
           {bodyParagraphs.map((text, i) => (
