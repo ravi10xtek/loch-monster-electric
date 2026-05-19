@@ -5,7 +5,6 @@ import OrangeBanner from "./OrangeBanner";
 import Expect from "./Expect";
 import FAQ from "./FAQ";
 import WhyChooseUs from "./WhyChooseUs";
-import Services from "./Services";
 import ServiceAreas from "./ServiceAreas";
 import Journal from "./Journal";
 
@@ -27,7 +26,6 @@ export default function ServiceLandingPage({ data }) {
         <Expect dark />
         <FAQ tag={faqTag} />
         <WhyChooseUs />
-        <Services />
         <ServiceAreas />
         <Journal />
       </main>
