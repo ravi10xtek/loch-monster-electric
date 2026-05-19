@@ -229,13 +229,14 @@ export async function getCategoryHubCardImages() {
 }
 
 /**
- * Fetches all service-hubs and returns a slug → heroImage URL map.
- * Used as a fallback when a CategoryHub subService has no explicit image.
+ * Fetches all individual services and returns a slug → heroImage URL map.
+ * Used as a fallback when a CategoryHub subService has no explicit image set.
+ * Matches against the last path segment of each subService's readMoreHref.
  */
-async function getServiceHubImageMap() {
-  const params = new URLSearchParams({ limit: '50', depth: '1' })
-  const data = await fetchAPI(`/api/service-hubs?${params}`, {
-    next: { tags: ['service-hubs'] },
+async function getServiceImageMap() {
+  const params = new URLSearchParams({ limit: '100', depth: '1' })
+  const data = await fetchAPI(`/api/services?${params}`, {
+    next: { tags: ['services'] },
   })
   const map = {}
   for (const doc of data?.docs || []) {
@@ -248,9 +249,9 @@ async function getServiceHubImageMap() {
 
 export async function getCategoryHub(slug) {
   const params = new URLSearchParams({ 'where[slug][equals]': slug, depth: '2', limit: '1' })
-  const [data, serviceHubImages] = await Promise.all([
+  const [data, serviceImages] = await Promise.all([
     fetchAPI(`/api/category-hubs?${params}`, { next: { tags: ['category-hubs', slug] } }),
-    getServiceHubImageMap(),
+    getServiceImageMap(),
   ])
   const doc = data?.docs?.[0]
   if (!doc) return null
@@ -270,7 +271,7 @@ export async function getCategoryHub(slug) {
       const hubSlug = s.readMoreHref
         ? s.readMoreHref.split('/').filter(Boolean).pop()
         : null
-      const fallbackImage = hubSlug ? (serviceHubImages[hubSlug] || null) : null
+      const fallbackImage = hubSlug ? (serviceImages[hubSlug] || null) : null
       return {
         label: s.label,
         heading: s.heading,
