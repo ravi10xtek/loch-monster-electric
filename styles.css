@@ -3182,8 +3182,34 @@ textarea { resize: vertical; }
 .contact-section {
   position: relative;
   background: var(--orange);
-  padding: 76px 0 64px; /* top clears the absolute breadcrumb */
+  padding: 76px 0 64px;
 }
+
+/* Background image layer */
+.contact-bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  z-index: 0;
+}
+
+/* When a hero image is set — switch to dark theme */
+.contact-section--img {
+  background: #0d0d0d;
+}
+.contact-section--img .contact-inner { position: relative; z-index: 1; }
+.contact-section--img .contact-heading { color: #fff; }
+.contact-section--img .contact-body { color: rgba(255,255,255,0.75); }
+.contact-section--img .contact-body-white { color: #fff; }
+.contact-section--img .contact-detail-row { color: #fff; }
+.contact-section--img .contact-form-header { color: rgba(255,255,255,0.85); }
+.contact-section--img .breadcrumb-nav { position: relative; z-index: 1; }
+.contact-section--img .breadcrumb a { color: rgba(255,255,255,0.6); }
+.contact-section--img .breadcrumb a:hover { color: #fff; }
+.contact-section--img .breadcrumb li[aria-current="page"] { color: rgba(255,255,255,0.9); }
+.contact-section--img .breadcrumb li:not(:last-child)::after { color: rgba(255,255,255,0.35); }
+
 .contact-inner {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -3191,7 +3217,7 @@ textarea { resize: vertical; }
   align-items: start;
 }
 
-/* Breadcrumb colours on orange background */
+/* Breadcrumb colours on orange background (default) */
 .contact-section .breadcrumb a { color: rgba(0,0,0,0.55); }
 .contact-section .breadcrumb a:hover { color: #000; }
 .contact-section .breadcrumb li[aria-current="page"] { color: #1a1a1a; }

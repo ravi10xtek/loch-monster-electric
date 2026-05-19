@@ -1,4 +1,4 @@
-import { buildPageMetadata, getSocialPosts } from '../lib/cms'
+import { buildPageMetadata, getSocialPosts, getGlobal } from '../lib/cms'
 import HomeInteractions from '../ui/home-interactions'
 import ContactHero from '../components/ContactHero'
 import StayConnected from '../components/StayConnected'
@@ -13,14 +13,17 @@ export async function generateMetadata() {
 }
 
 export default async function ContactPage() {
-  const socialPosts = await getSocialPosts()
+  const [socialPosts, contactData] = await Promise.all([
+    getSocialPosts(),
+    getGlobal('contact-page'),
+  ])
 
   return (
     <>
       <HomeInteractions />
 
       {/* 1 — Contact form section */}
-      <ContactHero />
+      <ContactHero cms={contactData} />
 
       {/* 2 — Stay Connected */}
       <StayConnected posts={socialPosts} />
