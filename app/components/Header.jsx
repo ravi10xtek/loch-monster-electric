@@ -2,8 +2,11 @@
 import { useState, useRef } from 'react';
 import { allCities } from '../data/serviceAreas';
 
-const MENUS = {
+// ── Static fallbacks (used when CMS navigation is not yet configured) ────────
+
+const STATIC_MENUS = {
   residential: {
+    label: 'RESIDENTIAL',
     topHref: '/residential-electrical-services',
     hubs: [
       {
@@ -44,6 +47,7 @@ const MENUS = {
     ],
   },
   commercial: {
+    label: 'COMMERCIAL',
     topHref: '/commercial-electrical-services',
     hubs: [
       {
@@ -84,6 +88,7 @@ const MENUS = {
     ],
   },
   hoa: {
+    label: 'HOA',
     topHref: '/hoa-electrical-services',
     hubs: [
       {
@@ -126,8 +131,49 @@ const MENUS = {
   },
 };
 
-function MegaMenu({ menuKey, hubImages }) {
-  const menu = MENUS[menuKey];
+const STATIC_TOP_LINKS = [
+  { label: 'PRICING', href: '/pricing-estimates' },
+  { label: 'JOURNAL', href: '/journal' },
+  { label: 'MEDIA', href: '/media' },
+  { label: 'GLOSSARY', href: '/electrical-glossary' },
+  { label: 'ABOUT US', href: '/about-us' },
+  { label: 'CONTACT US', href: '/contact-us' },
+]
+
+const STATIC_MOBILE_LINKS = [
+  { label: 'RESIDENTIAL', href: '/residential-electrical-services' },
+  { label: 'COMMERCIAL', href: '/commercial-electrical-services' },
+  { label: 'HOA', href: '/hoa-electrical-services' },
+  { label: 'SERVICE AREAS', href: '/service-areas' },
+  { label: 'PRICING', href: '/pricing-estimates' },
+  { label: 'JOURNAL', href: '/journal' },
+  { label: 'ABOUT US', href: '/about-us' },
+  { label: 'CONTACT US', href: '/contact-us' },
+]
+
+// ── Build menus object from CMS data ─────────────────────────────────────────
+
+function buildMenus(navigation) {
+  if (!navigation?.serviceMenus?.length) return STATIC_MENUS
+  const menus = {}
+  for (const sm of navigation.serviceMenus) {
+    if (!sm.key) continue
+    menus[sm.key] = {
+      topHref: sm.topHref,
+      hubs: (sm.hubs || []).map(hub => ({
+        label: hub.label,
+        href: hub.href,
+        services: (hub.services || []).map(s => ({ label: s.label, href: s.href })),
+      })),
+    }
+  }
+  return Object.keys(menus).length ? menus : STATIC_MENUS
+}
+
+// ── Components ────────────────────────────────────────────────────────────────
+
+function MegaMenu({ menuKey, hubImages, menus }) {
+  const menu = menus[menuKey];
   const [activeHub, setActiveHub] = useState(0);
   const hub = menu.hubs[activeHub];
   // Hub slug = last path segment of its href (e.g. "electrical-repairs")
@@ -200,9 +246,13 @@ function ServiceAreasMegaMenu() {
   );
 }
 
-export default function Header({ hubImages }) {
+export default function Header({ hubImages, navigation }) {
   const [openMenu, setOpenMenu] = useState(null);
   const closeTimer = useRef(null);
+
+  const menus = buildMenus(navigation)
+  const topLinks = navigation?.topLinks?.length ? navigation.topLinks : STATIC_TOP_LINKS
+  const mobileLinks = navigation?.mobileLinks?.length ? navigation.mobileLinks : STATIC_MOBILE_LINKS
 
   function handleEnter(key) {
     clearTimeout(closeTimer.current);
@@ -221,17 +271,17 @@ export default function Header({ hubImages }) {
             <img src="/logo-header.png" alt="Loch Monster Electric logo" className="logo-image" />
           </a>
           <nav className="main-nav">
-            {['residential', 'commercial', 'hoa'].map((key) => (
+            {Object.keys(menus).map((key) => (
               <div
                 key={key}
                 className={`nav-item-wrap${openMenu === key ? ' nav-item-open' : ''}`}
                 onMouseEnter={() => handleEnter(key)}
                 onMouseLeave={handleLeave}
               >
-                <a href={MENUS[key].topHref} className="nav-top-link">
-                  {key === 'hoa' ? 'HOA' : key.toUpperCase()}
+                <a href={menus[key].topHref} className="nav-top-link">
+                  {menus[key].label || (key === 'hoa' ? 'HOA' : key.toUpperCase())}
                 </a>
-                {openMenu === key && <MegaMenu menuKey={key} hubImages={hubImages} />}
+                {openMenu === key && <MegaMenu menuKey={key} hubImages={hubImages} menus={menus} />}
               </div>
             ))}
             <div
@@ -242,26 +292,18 @@ export default function Header({ hubImages }) {
               <a href="/service-areas" className="nav-top-link">SERVICE AREAS</a>
               {openMenu === 'serviceAreas' && <ServiceAreasMegaMenu />}
             </div>
-            <a href="/pricing-estimates">PRICING</a>
-            <a href="/journal">JOURNAL</a>
-            <a href="/media">MEDIA</a>
-            <a href="/electrical-glossary">GLOSSARY</a>
-            <a href="/about-us">ABOUT US</a>
-            <a href="/contact-us">CONTACT US</a>
+            {topLinks.map((link) => (
+              <a key={link.href} href={link.href}>{link.label}</a>
+            ))}
           </nav>
           <button className="hamburger" id="hamburger">&#9776;</button>
         </div>
       </header>
       <div className="mobile-nav" id="mobileNav">
         <button className="mobile-close" id="mobileClose">&times;</button>
-        <a href="/residential-electrical-services">RESIDENTIAL</a>
-        <a href="/commercial-electrical-services">COMMERCIAL</a>
-        <a href="/hoa-electrical-services">HOA</a>
-        <a href="/service-areas">SERVICE AREAS</a>
-        <a href="/pricing-estimates">PRICING</a>
-        <a href="/journal">JOURNAL</a>
-        <a href="/about-us">ABOUT US</a>
-        <a href="/contact-us">CONTACT US</a>
+        {mobileLinks.map((link) => (
+          <a key={link.href} href={link.href}>{link.label}</a>
+        ))}
       </div>
     </>
   );

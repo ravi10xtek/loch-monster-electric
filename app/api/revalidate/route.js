@@ -96,7 +96,11 @@ const COLLECTION_MAP = {
   },
   'global-site-settings': {
     tag: 'site-settings',
-    path: () => null, // used in layout — tag invalidation covers all pages
+    path: () => null,
+  },
+  'global-navigation': {
+    tag: 'navigation',
+    path: () => null,
   },
   'service-hubs': {
     tag: 'service-hubs',
