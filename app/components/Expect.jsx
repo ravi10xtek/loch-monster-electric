@@ -32,8 +32,10 @@ const items = [
     text: 'Local Folks Who Care About Doing Things The Right Way—Not Just The Fast Way',
     icon: (
       <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
-        <path fill="#f97316" d="M14 30c0-10 8-17 18-17s18 7 18 17H14z" />
-        <rect x="29" y="14" width="6" height="16" rx="1" fill="#fff" />
+        <g transform="translate(32,30) scale(0.78) translate(-32,-30)">
+          <path fill="#f97316" d="M14 30c0-10 8-17 18-17s18 7 18 17H14z" />
+          <rect x="29" y="14" width="6" height="16" rx="1" fill="#fff" />
+        </g>
         <rect x="9" y="30" width="46" height="4.5" rx="2" fill="#f97316" />
         <path fill="#f97316" d="M24 34h16v6.5c0 4.5-3.6 8-8 8s-8-3.5-8-8V34z" />
         <path fill="#f97316" d="M10 60c0-7.5 7.5-12 22-12s22 4.5 22 12H10z" />
