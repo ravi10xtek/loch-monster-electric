@@ -42,15 +42,31 @@ const localBusiness = {
   priceRange: '$$',
   description:
     'Licensed electrical contractor serving the Twin Cities metro. Residential, commercial & HOA electrical services.',
-  hasCredential: [
-    { '@type': 'EducationalOccupationalCredential', credentialCategory: 'license', name: 'MN LIC: EA807591' },
-    { '@type': 'EducationalOccupationalCredential', credentialCategory: 'license', name: 'WI LIC: 1443 — EC' },
+  additionalProperty: [
+    { '@type': 'PropertyValue', name: 'Minnesota Electrical License', value: 'EA807591' },
+    { '@type': 'PropertyValue', name: 'Wisconsin Electrical License', value: '1443 — EC' },
+  ],
+  sameAs: [
+    'https://share.google/bXtXI9GaooHQCDDPA',
+    'https://www.yelp.com/biz/loch-monster-electric-st-louis-park-2',
+    'https://www.facebook.com/lochmonsterelectric',
+    'https://www.instagram.com/lochmonsterelectric/',
+    'https://www.tiktok.com/@lochmonsterelectric',
   ],
 }
 
 export const metadata = {
+  metadataBase: new URL(process.env.SITE_URL || 'https://lochmonsterelectric.com'),
   title: "Loch Monster Electric | Legendary Electrical Work, Done Right",
   description: "Licensed electrical contractor serving the Twin Cities metro. Residential, commercial & HOA electrical services. Call 763-292-1191.",
+  openGraph: {
+    siteName: 'Loch Monster Electric',
+    images: [{ url: '/logo-footer-mark.png', width: 1200, height: 630, alt: 'Loch Monster Electric' }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    images: ['/logo-footer-mark.png'],
+  },
 };
 
 export default function RootLayout({ children }) {

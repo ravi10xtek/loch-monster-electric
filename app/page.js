@@ -10,6 +10,21 @@ import Pricing from "./components/Pricing";
 import OurStory from "./components/OurStory";
 import Journal from "./components/Journal";
 import FAQ from "./components/FAQ";
+import JsonLd from "./components/JsonLd";
+
+const BASE = process.env.SITE_URL || 'https://lochmonsterelectric.com'
+
+const websiteSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: 'Loch Monster Electric',
+  url: BASE,
+  potentialAction: {
+    '@type': 'SearchAction',
+    target: `${BASE}/journal?q={search_term_string}`,
+    'query-input': 'required name=search_term_string',
+  },
+}
 
 export async function generateMetadata() {
   return buildPageMetadata('/', {
@@ -21,6 +36,7 @@ export async function generateMetadata() {
 export default function HomePage() {
   return (
     <>
+      <JsonLd schema={websiteSchema} />
       <HomeInteractions />
       <main>
         <Hero />
