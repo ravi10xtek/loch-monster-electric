@@ -1982,6 +1982,12 @@ textarea { resize: vertical; }
   padding-left: 22px;
   margin-bottom: 18px;
 }
+.jp-prose ul {
+  list-style: disc;
+}
+.jp-prose ol {
+  list-style: decimal;
+}
 .jp-prose li {
   font-size: 1rem;
   line-height: 1.65;
