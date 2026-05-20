@@ -3,12 +3,13 @@ import ServiceHero from "./ServiceHero";
 import WhenDoYouNeed from "./WhenDoYouNeed";
 import OrangeBanner from "./OrangeBanner";
 import Expect from "./Expect";
-import FAQ from "./FAQ";
+import FAQ, { FALLBACK_FAQS } from "./FAQ";
 import WhyChooseUs from "./WhyChooseUs";
 import Services from "./Services";
 import ServiceAreas from "./ServiceAreas";
 import Journal from "./Journal";
 import JsonLd from "./JsonLd";
+import { getFaqs } from "../lib/cms";
 
 const BASE = process.env.SITE_URL || 'https://lochmonsterelectric.com'
 
@@ -18,7 +19,11 @@ const provider = {
   url: BASE,
 }
 
-export default function ServiceDetailPage({ data, faqTag = 'general' }) {
+export default async function ServiceDetailPage({ data, faqTag = 'general' }) {
+  // Fetch FAQs once — used for both the JSON-LD schema and the visible FAQ section
+  const cmsFaqs = await getFaqs(faqTag)
+  const faqs = cmsFaqs?.length ? cmsFaqs : FALLBACK_FAQS
+
   // Service schema
   const serviceSchema = {
     '@context': 'https://schema.org',
@@ -33,15 +38,14 @@ export default function ServiceDetailPage({ data, faqTag = 'general' }) {
     serviceType: data.hero?.eyebrow ?? 'Electrical Service',
   }
 
-  // FAQPage schema — built from "When Do You Need" scenarios
-  const scenarios = data.whenDoYouNeed?.scenarios ?? []
-  const faqSchema = scenarios.length > 0 ? {
+  // FAQPage schema — built from the actual CMS FAQ questions
+  const faqSchema = faqs.length > 0 ? {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
-    mainEntity: scenarios.map(s => ({
+    mainEntity: faqs.map(f => ({
       '@type': 'Question',
-      name: s.heading,
-      acceptedAnswer: { '@type': 'Answer', text: s.body },
+      name: f.question,
+      acceptedAnswer: { '@type': 'Answer', text: f.answer },
     })),
   } : null
 
@@ -53,7 +57,7 @@ export default function ServiceDetailPage({ data, faqTag = 'general' }) {
       <main>
         <ServiceHero hero={data.hero} />
         <WhenDoYouNeed data={data.whenDoYouNeed} />
-        <OrangeBanner /><Expect dark /><FAQ tag={faqTag} /><WhyChooseUs /><Services /><ServiceAreas /><Journal />
+        <OrangeBanner /><Expect dark /><FAQ faqs={faqs} /><WhyChooseUs /><Services /><ServiceAreas /><Journal />
       </main>
     </>
   );

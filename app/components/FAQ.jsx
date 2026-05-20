@@ -1,6 +1,6 @@
 import { getFaqs } from '../lib/cms'
 
-const FALLBACK_FAQS = [
+export const FALLBACK_FAQS = [
   {
     question: 'WHAT ELECTRICAL SERVICES DO YOU OFFER?',
     answer: 'We offer a full range of electrical services including repairs, panel upgrades, EV charger installation, new circuits, lighting, smart home wiring, and safety inspections for residential, commercial, and HOA clients throughout the Twin Cities metro.',
@@ -27,9 +27,9 @@ const FALLBACK_FAQS = [
   },
 ]
 
-export default async function FAQ({ tag }) {
-  const cmsFaqs = await getFaqs(tag)
-  const faqs = cmsFaqs?.length ? cmsFaqs : FALLBACK_FAQS
+export default async function FAQ({ tag, faqs: prefetched }) {
+  const faqs = prefetched ?? (await getFaqs(tag))?.filter(Boolean) ?? FALLBACK_FAQS
+  const list = faqs.length ? faqs : FALLBACK_FAQS
 
   return (
     <section className="faq-section" id="faq">
@@ -39,7 +39,7 @@ export default async function FAQ({ tag }) {
             <h2>FREQUENTLY<br />ASKED<br /><span className="text-orange">QUESTIONS</span></h2>
           </div>
           <div className="faq-right">
-            {faqs.map((faq, i) => (
+            {list.map((faq, i) => (
               <div className="acc-item" key={faq.id ?? i}>
                 <button className="acc-btn">{faq.question} <span className="acc-plus">+</span></button>
                 <div className="acc-body"><p>{faq.answer}</p></div>
