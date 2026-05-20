@@ -1,4 +1,4 @@
-import OrangeBanner from './OrangeBanner';
+import OrangeBannerView from './OrangeBannerView';
 import FaqAccordion from './FaqAccordion';
 
 function formatDate(iso) {
@@ -11,7 +11,11 @@ export default function JournalPost({ post, related }) {
     <main>
 
       {/* ── Full-width hero with breadcrumb overlay ──────── */}
-      <section className="jp-hero" style={{ background: post.coverGradient }}>
+      <section className="jp-hero" style={post.coverImage ? {
+        backgroundImage: `linear-gradient(rgba(0,0,0,0.52), rgba(0,0,0,0.52)), url('${post.coverImage}')`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+      } : { background: post.coverGradient || '#1a1a1a' }}>
         <nav className="breadcrumb-nav" aria-label="breadcrumb">
           <div className="wrap">
             <ol className="breadcrumb">
@@ -129,7 +133,12 @@ export default function JournalPost({ post, related }) {
         </div>
       </section>
 
-      <OrangeBanner />
+      <OrangeBannerView
+        heading='WHERE <span class="ob-white">MINNESOTA</span> &amp; WISCONSIN<br /><span class="ob-white">LIVE, WORK &amp; MANAGE</span>&mdash;WE&apos;RE THERE'
+        body="If you've got an emergency—sparking wires, no power, or something that just doesn't feel right—call our 24/7 emergency line. We'll get someone out as soon as possible."
+        note="WE RESPOND FAST. NO RUNAROUND."
+        ctaLabel="📞 CALL NOW!  763-292-1191"
+      />
     </main>
   );
 }
