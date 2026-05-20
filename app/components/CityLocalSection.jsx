@@ -1,4 +1,9 @@
+import { getCityBySlug } from '../data/serviceAreas'
+
 export default function CityLocalSection({ city }) {
+  const nearbyCities = (city.nearby || [])
+    .map(slug => getCityBySlug(slug))
+    .filter(Boolean)
   return (
     <>
       {/* Map + coverage */}
@@ -37,6 +42,17 @@ export default function CityLocalSection({ city }) {
             <a href="/residential-electrical-services" className="btn-dark-sm">ALL SERVICES</a>
             <a href="/pricing" className="btn-outline-sm">OUR PRICING</a>
           </div>
+          {nearbyCities.length > 0 && (
+            <p className="city-nearby">
+              Also serving:{' '}
+              {nearbyCities.map((c, i) => (
+                <span key={c.slug}>
+                  <a href={`/service-areas/${c.slug}`}>{c.name}</a>
+                  {i < nearbyCities.length - 1 ? ', ' : ''}
+                </span>
+              ))}
+            </p>
+          )}
         </div>
         <div className="city-local-img" style={{ background: 'linear-gradient(160deg,#1a1a1a,#2e2e2e)' }}></div>
       </section>
