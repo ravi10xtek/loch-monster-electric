@@ -3,7 +3,7 @@
 import { useLivePreview } from '@payloadcms/live-preview-react'
 import Hero from '../../../components/Hero'
 import Services from '../../../components/Services'
-import OrangeBanner from '../../../components/OrangeBanner'
+import OrangeBanner from '../../../components/OrangeBannerView'
 import Expect from '../../../components/Expect'
 import WhyChooseUs from '../../../components/WhyChooseUs'
 import Pricing from '../../../components/Pricing'

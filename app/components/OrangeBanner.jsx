@@ -1,20 +1,21 @@
-export default function OrangeBanner() {
+import { getGlobal } from '../lib/cms'
+import OrangeBannerView from './OrangeBannerView'
+
+const FALLBACK = {
+  heading: 'WHERE <span class="ob-white">MINNESOTA</span> &amp; WISCONSIN<br /><span class="ob-white">LIVE, WORK &amp; MANAGE</span>&mdash;WE\'RE THERE',
+  body: "If you've got an emergency—sparking wires, no power, or something that just doesn't feel right—call our 24/7 emergency line. We'll get someone out as soon as possible.",
+  note: 'WE RESPOND FAST. NO RUNAROUND.',
+  ctaLabel: '📞 CALL NOW!  763-292-1191',
+}
+
+export default async function OrangeBanner() {
+  const data = await getGlobal('shared-sections')
   return (
-    <section className="orange-banner" id="commercial">
-      <div className="orange-banner-inner">
-        <div className="ob-text">
-          <h2>
-            WHERE <span className="ob-white">MINNESOTA</span> &amp; WISCCONSIN<br />
-            <span className="ob-white">LIVE, WORK &amp; MANAGE</span>&mdash;WE&rsquo;RE THERE
-          </h2>
-          <p>
-            If you&rsquo;ve got an emergency&mdash;sparking wires, no power, or something that just doesn&rsquo;t
-            feel right&mdash;call our 24/7 emergency line. We&rsquo;ll get someone out as soon as possible.
-          </p>
-          <p className="ob-mini">WE RESPOND FAST. NO RUNAROUND.</p>
-          <a href="tel:7632921191" className="btn-dark-sm">📞 CALL NOW! &nbsp;763-292-1191</a>
-        </div>
-      </div>
-    </section>
-  );
+    <OrangeBannerView
+      heading={data?.orangeBannerHeading || FALLBACK.heading}
+      body={data?.orangeBannerBody || FALLBACK.body}
+      note={data?.orangeBannerNote || FALLBACK.note}
+      ctaLabel={data?.orangeBannerCtaLabel || FALLBACK.ctaLabel}
+    />
+  )
 }

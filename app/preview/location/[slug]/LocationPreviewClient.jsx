@@ -6,7 +6,7 @@ import CityLocalSection from '../../../components/CityLocalSection'
 import Expect from '../../../components/Expect'
 import Services from '../../../components/Services'
 import WhyChooseUs from '../../../components/WhyChooseUs'
-import OrangeBanner from '../../../components/OrangeBanner'
+import OrangeBanner from '../../../components/OrangeBannerView'
 
 const PAYLOAD_URL = process.env.NEXT_PUBLIC_CMS_URL || 'http://localhost:3001'
 
@@ -37,7 +37,12 @@ export default function LocationPreviewClient({ initialData }) {
       <Expect dark />
       <Services />
       <WhyChooseUs />
-      <OrangeBanner />
+      <OrangeBanner
+        heading='WHERE <span class="ob-white">MINNESOTA</span> &amp; WISCONSIN<br /><span class="ob-white">LIVE, WORK &amp; MANAGE</span>&mdash;WE&apos;RE THERE'
+        body="If you've got an emergency—sparking wires, no power, or something that just doesn't feel right—call our 24/7 emergency line. We'll get someone out as soon as possible."
+        note="WE RESPOND FAST. NO RUNAROUND."
+        ctaLabel="📞 CALL NOW!  763-292-1191"
+      />
     </main>
   )
 }
