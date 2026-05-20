@@ -1,7 +1,7 @@
 /* ===== RESET ===== */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
-body { font-family: 'Open Sans', sans-serif; color: #111; background: #fff; line-height: 1.6; overflow-x: hidden; }
+body { font-family: var(--font-work-sans), sans-serif; color: #111; background: #fff; line-height: 1.6; overflow-x: hidden; }
 a { text-decoration: none; color: inherit; }
 ul { list-style: none; }
 
@@ -14,8 +14,8 @@ ul { list-style: none; }
   --mid: #444;
   --light: #F5F5F5;
   --white: #FFFFFF;
-  --OH: 'Work Sans', sans-serif;
-  --OB: 'Work Sans', sans-serif;
+  --OH: var(--font-work-sans), sans-serif;
+  --OB: var(--font-work-sans), sans-serif;
 }
 
 /* ===== UTILS ===== */

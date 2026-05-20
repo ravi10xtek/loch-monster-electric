@@ -1,8 +1,17 @@
 import "../styles.css";
+import { Work_Sans } from 'next/font/google'
 import TopBar from "./components/TopBar";
 import HeaderWrapper from "./components/HeaderWrapper";
 import Footer from "./components/Footer";
 import JsonLd from "./components/JsonLd";
+
+const workSans = Work_Sans({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700', '800'],
+  style: ['normal', 'italic'],
+  variable: '--font-work-sans',
+  display: 'swap',
+})
 
 const BASE = process.env.SITE_URL || 'https://lochmonsterelectric.com'
 
@@ -71,14 +80,8 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    <html lang="en" className={workSans.variable}>
       <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Oswald:wght@400;500;600;700&family=Open+Sans:ital,wght@0,400;0,600;0,700;1,400&display=swap"
-          rel="stylesheet"
-        />
         <JsonLd schema={localBusiness} />
       </head>
       <body>
