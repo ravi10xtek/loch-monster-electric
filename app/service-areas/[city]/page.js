@@ -84,16 +84,6 @@ export default async function CityPage({ params }) {
             { label: `${cityData.name}, ${cityData.state}` },
           ]}
         />
-        <section className="city-intro-section">
-          <div className="wrap">
-            <h2 className="city-intro-h2">
-              Electrical Services in {cityData.name}, {cityData.state}
-            </h2>
-            {cityData.housingProfile && (
-              <p className="city-intro-body">{cityData.housingProfile}</p>
-            )}
-          </div>
-        </section>
         <CityLocalSection city={cityData} />
         <FAQ tag="service-areas" />
         <Expect dark />
