@@ -126,10 +126,13 @@ const MENUS = {
   },
 };
 
-function MegaMenu({ menuKey }) {
+function MegaMenu({ menuKey, hubImages }) {
   const menu = MENUS[menuKey];
   const [activeHub, setActiveHub] = useState(0);
   const hub = menu.hubs[activeHub];
+  // Hub slug = last path segment of its href (e.g. "electrical-repairs")
+  const hubSlug = hub.href.split('/').filter(Boolean).pop();
+  const hubImg = hubImages?.[hubSlug];
 
   return (
     <div className="mega-menu">
@@ -154,7 +157,13 @@ function MegaMenu({ menuKey }) {
             </a>
           ))}
         </div>
-        <div className="mega-img" style={{ background: 'linear-gradient(160deg,#1a1a1a,#2e2e2e)' }}>
+        <div
+          className="mega-img"
+          style={hubImg
+            ? { backgroundImage: `url('${hubImg.url}')`, backgroundSize: 'cover', backgroundPosition: 'center' }
+            : { background: 'linear-gradient(160deg,#1a1a1a,#2e2e2e)' }
+          }
+        >
           <div className="mega-img-label">{hub.label}</div>
         </div>
       </div>
@@ -191,7 +200,7 @@ function ServiceAreasMegaMenu() {
   );
 }
 
-export default function Header() {
+export default function Header({ hubImages }) {
   const [openMenu, setOpenMenu] = useState(null);
   const closeTimer = useRef(null);
 
@@ -222,7 +231,7 @@ export default function Header() {
                 <a href={MENUS[key].topHref} className="nav-top-link">
                   {key === 'hoa' ? 'HOA' : key.toUpperCase()}
                 </a>
-                {openMenu === key && <MegaMenu menuKey={key} />}
+                {openMenu === key && <MegaMenu menuKey={key} hubImages={hubImages} />}
               </div>
             ))}
             <div

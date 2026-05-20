@@ -372,6 +372,13 @@ export async function getGlobal(slug) {
   return data || null
 }
 
+export async function getSiteSettings() {
+  const data = await fetchAPI('/api/globals/site-settings', {
+    next: { tags: ['site-settings'] },
+  })
+  return data || null
+}
+
 export async function getProjects() {
   const params = new URLSearchParams({ limit: '100', depth: '1', sort: '-completedAt' })
   const data = await fetchAPI(`/api/projects?${params}`, {

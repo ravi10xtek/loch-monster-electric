@@ -1,6 +1,6 @@
 import "../styles.css";
 import TopBar from "./components/TopBar";
-import Header from "./components/Header";
+import HeaderWrapper from "./components/HeaderWrapper";
 import Footer from "./components/Footer";
 import JsonLd from "./components/JsonLd";
 
@@ -67,7 +67,7 @@ export default function RootLayout({ children }) {
       </head>
       <body>
         <TopBar />
-        <Header />
+        <HeaderWrapper />
         {children}
         <Footer />
       </body>

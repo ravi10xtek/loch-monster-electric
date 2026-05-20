@@ -94,6 +94,10 @@ const COLLECTION_MAP = {
     tag: 'globals',
     path: () => '/media',
   },
+  'global-site-settings': {
+    tag: 'site-settings',
+    path: () => null, // used in layout — tag invalidation covers all pages
+  },
   'service-hubs': {
     tag: 'service-hubs',
     path: (slug) => {
