@@ -12,6 +12,7 @@ import AboutHero from '../../../components/AboutHero'
 import AboutStory from '../../../components/AboutStory'
 import ContactHero from '../../../components/ContactHero'
 import MediaHero from '../../../components/MediaHero'
+import Header from '../../../components/Header'
 
 const CMS_URL = process.env.NEXT_PUBLIC_CMS_URL || 'http://localhost:3001'
 
@@ -63,7 +64,7 @@ function ServiceAreaHeroPreview({ data }) {
   )
 }
 
-export default function GlobalPreviewClient({ slug, initialData }) {
+export default function GlobalPreviewClient({ slug, initialData, hubImages = {} }) {
   const { data } = useLivePreview({
     initialData,
     serverURL: CMS_URL,
@@ -141,6 +142,61 @@ export default function GlobalPreviewClient({ slug, initialData }) {
           ctaLabel={data?.orangeBannerCtaLabel}
         />
       </main>
+    )
+  }
+
+  if (slug === 'navigation') {
+    return (
+      <div style={{ minHeight: '100vh', background: '#111' }}>
+        <Header navigation={data} hubImages={hubImages} />
+        <div style={{
+          padding: '6rem 2rem 2rem',
+          textAlign: 'center',
+          color: '#555',
+          fontSize: '0.875rem',
+          letterSpacing: '0.1em',
+          textTransform: 'uppercase',
+        }}>
+          Hover over the nav items above to preview mega menus
+        </div>
+      </div>
+    )
+  }
+
+  if (slug === 'site-settings') {
+    const phone         = data?.phone         || '763-292-1191'
+    const email         = data?.email         || 'service@lochmonsterelectric.com'
+    const address       = data?.address       || '7600 W 27th St # 213, St Louis Park, MN 55426'
+    const hours         = data?.businessHours || 'Monday–Friday: 8:00 AM – 5:00 PM'
+    const emergency     = data?.emergencyNote || 'Emergency service available 24/7'
+    const licenseMN     = data?.licenseMN     || 'EA807591'
+    const licenseWI     = data?.licenseWI     || '1443 — EC'
+    const areaNote      = data?.serviceAreaNote || 'Licensed Minnesota & Wisconsin Electrical Contractor'
+    const copyrightName = data?.copyrightName || 'Loch Monster Electric'
+    return (
+      <div style={{ background: '#0a0a0a', minHeight: '100vh', color: '#ccc', fontFamily: 'sans-serif', padding: '3rem 2rem' }}>
+        <p style={{ color: '#555', fontSize: '0.75rem', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '2rem' }}>
+          Site Settings Preview — footer contact &amp; license fields
+        </p>
+        <div style={{ display: 'grid', gap: '0.75rem', maxWidth: 600 }}>
+          {[
+            ['Phone',     phone],
+            ['Email',     email],
+            ['Address',   address],
+            ['Hours',     hours],
+            ['Emergency', emergency],
+            ['MN License', licenseMN],
+            ['WI License', licenseWI],
+            ['Area Note', areaNote],
+            ['Copyright', `© 2026 ${copyrightName}`],
+          ].map(([label, value]) => (
+            <div key={label} style={{ display: 'flex', gap: '1rem', borderBottom: '1px solid #1f1f1f', paddingBottom: '0.5rem' }}>
+              <span style={{ color: '#f60', minWidth: 110, fontSize: '0.75rem', letterSpacing: '0.05em', textTransform: 'uppercase', paddingTop: 2 }}>{label}</span>
+              <span style={{ color: '#ddd', fontSize: '0.875rem' }}>{value}</span>
+            </div>
+          ))}
+        </div>
+      </div>
     )
   }
 
