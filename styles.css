@@ -3130,15 +3130,15 @@ textarea { resize: vertical; }
 /* City local electrician section */
 .city-local-section {
   display: grid;
-  grid-template-columns: 55fr 45fr;
-  min-height: 520px;
+  grid-template-columns: 1fr 1fr;
+  min-height: 480px;
 }
 .city-local-content {
-  padding: 72px 64px;
+  padding: 60px 52px;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 20px;
+  gap: 16px;
   background: #fff;
 }
 .city-local-content h2 {
@@ -3150,9 +3150,9 @@ textarea { resize: vertical; }
   color: #1a1a1a;
 }
 .city-local-content p {
-  font-size: 1rem;
+  font-size: 0.95rem;
   color: #444;
-  line-height: 1.8;
+  line-height: 1.75;
 }
 .city-local-cta-label {
   font-weight: 600;
