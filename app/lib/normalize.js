@@ -19,11 +19,75 @@ export function mediaUrl(url) {
   return `${CMS_BASE}${url}`
 }
 
+function escapeHtml(str) {
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+}
+
+function serializeTextNode(node) {
+  let text = escapeHtml(node.text || '')
+  const fmt = node.format || 0
+  if (fmt & 1)  text = `<strong>${text}</strong>`
+  if (fmt & 2)  text = `<em>${text}</em>`
+  if (fmt & 8)  text = `<code>${text}</code>`
+  if (fmt & 4)  text = `<u>${text}</u>`
+  if (fmt & 16) text = `<s>${text}</s>`
+  return text
+}
+
+function serializeChildren(children) {
+  return (children || []).map(serializeNode).join('')
+}
+
+function serializeNode(node) {
+  const type = node.type
+  if (type === 'text') return serializeTextNode(node)
+  if (type === 'linebreak') return '<br />'
+  if (type === 'paragraph') {
+    const inner = serializeChildren(node.children)
+    return inner.trim() ? `<p>${inner}</p>` : ''
+  }
+  if (type === 'heading') {
+    const tag = node.tag || 'h2'
+    return `<${tag}>${serializeChildren(node.children)}</${tag}>`
+  }
+  if (type === 'list') {
+    const tag = node.listType === 'number' ? 'ol' : 'ul'
+    return `<${tag}>${serializeChildren(node.children)}</${tag}>`
+  }
+  if (type === 'listitem') {
+    return `<li>${serializeChildren(node.children)}</li>`
+  }
+  if (type === 'link') {
+    const url = node.fields?.url || node.url || '#'
+    return `<a href="${escapeHtml(url)}">${serializeChildren(node.children)}</a>`
+  }
+  if (type === 'quote') {
+    return `<blockquote>${serializeChildren(node.children)}</blockquote>`
+  }
+  if (type === 'horizontalrule') return '<hr />'
+  // Unknown — render children
+  return serializeChildren(node.children)
+}
+
+function lexicalToHtml(body) {
+  if (!body || typeof body !== 'object') return ''
+  const children = body?.root?.children
+  if (!Array.isArray(children)) return ''
+  return children.map(serializeNode).join('')
+}
+
 export function normalizePost(p) {
+  const bodyHtml = typeof p.body === 'object' && p.body?.root
+    ? lexicalToHtml(p.body)
+    : (p.bodyHtml || (typeof p.body === 'string' ? p.body : '') || '')
   return {
     ...p,
     date: p.publishedAt || p.date || null,
-    body: p.bodyHtml || p.body || '',
+    body: bodyHtml,
     toc: Array.isArray(p.toc)
       ? p.toc.map(t => (typeof t === 'string' ? t : t?.item ?? ''))
       : [],
