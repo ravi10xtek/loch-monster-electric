@@ -581,7 +581,7 @@ textarea { resize: vertical; }
 .wwh-tabs {
   margin-bottom: 48px;
 }
-.wwh-tabs .tab:first-child {
+.wwh-tabs .tab.wwh-active {
   color: var(--orange);
   border-bottom-color: var(--orange);
 }

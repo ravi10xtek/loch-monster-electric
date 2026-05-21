@@ -18,6 +18,28 @@ export default function WhatWeHandle({ data }) {
           ))}
         </div>
 
+        {/* Tab active-state script — sets first tab active, switches on click */}
+        <script dangerouslySetInnerHTML={{ __html: `
+          (function() {
+            function initTabs() {
+              var tabs = document.querySelectorAll('.wwh-tabs .tab');
+              if (!tabs.length) return;
+              tabs[0].classList.add('wwh-active');
+              tabs.forEach(function(tab) {
+                tab.addEventListener('click', function() {
+                  tabs.forEach(function(t) { t.classList.remove('wwh-active'); });
+                  tab.classList.add('wwh-active');
+                });
+              });
+            }
+            if (document.readyState === 'loading') {
+              document.addEventListener('DOMContentLoaded', initTabs);
+            } else {
+              initTabs();
+            }
+          })();
+        `}} />
+
         {/* All sections stacked — fully server-rendered */}
         {tabs.map((tab) => (
           <div key={tab.id} id={tab.id} className="wwh-section">
