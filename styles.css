@@ -227,16 +227,18 @@ ul { list-style: none; }
   display: flex;
   flex-direction: column;
 }
-.mega-col-link {
+.mega-menu .mega-col-link {
   font-family: var(--font-work-sans), sans-serif;
   font-size: 0.875rem;
-  font-weight: 300;
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: none;
   color: #555;
   padding: 5px 0;
   line-height: 1.4;
   transition: color .15s;
 }
-.mega-col-link:hover {
+.mega-menu .mega-col-link:hover {
   color: var(--orange);
 }
 
