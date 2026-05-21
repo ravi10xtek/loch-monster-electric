@@ -12,7 +12,7 @@ export const servicePages = {
       body: "Rome wasn't built in a day—and when something goes wrong, it can throw your whole day off. That's why Loch Monster Electric is here to make sure your power is safe, your setup is solid, and your home stays right—and done right. We work with homeowners across the Twin Cities to fix the little things before they turn into big ones, and handle the big ones when they show up. Whether you're dealing with flickering lights, mystery outlets, or adding an EV charger in the garage, we'll get in there—and make a bunch of problems disappear.",
     },
     whatWeHandle: {
-      eyebrow: 'What We Handle',
+      eyebrow: 'Our Services',
       heading: 'FIX ELECTRICAL ISSUES BEFORE THEY TURN INTO BIGGER PROBLEMS.',
       body: 'From panel upgrades and rewiring to light fixtures, EV chargers, and smart home setups—we make homes work the way they should.',
       cta: 'ALL RESIDENTIAL SERVICES ›',
@@ -60,7 +60,7 @@ export const servicePages = {
       body: "Your business can't afford to stop. Whether it's a tripped breaker at the worst time, a lighting retrofit that needs to be done over a weekend, or a full office buildout from the ground up—Loch Monster Electric shows up ready to work around your schedule. We handle commercial jobs across the Twin Cities for offices, retail, warehouses, and multi-unit properties. Licensed, insured, and built around getting the job done without the runaround.",
     },
     whatWeHandle: {
-      eyebrow: 'What We Handle',
+      eyebrow: 'Our Services',
       heading: 'KEEP YOUR BUSINESS RUNNING WITHOUT ELECTRICAL SURPRISES.',
       body: 'From office buildouts and lighting retrofits to panel upgrades and code compliance—we keep your business powered and protected.',
       cta: 'ALL COMMERCIAL SERVICES ›',
@@ -108,7 +108,7 @@ export const servicePages = {
       body: "HOAs and property managers have a lot to keep track of. When electrical issues come up in common areas, amenities, or tenant units, you need someone who shows up on time, communicates clearly, and gets it done right the first time. Loch Monster Electric works with HOAs and property managers across the Twin Cities—handling everything from emergency repairs to scheduled maintenance, annual inspections, and EV charging station installs.",
     },
     whatWeHandle: {
-      eyebrow: 'What We Handle',
+      eyebrow: 'Our Services',
       heading: 'ELECTRICAL MANAGEMENT BUILT FOR HOAS AND PROPERTY MANAGERS.',
       body: "We work on a schedule that fits your operations—minimizing disruption to residents and keeping your properties safe and up to code.",
       cta: 'HOA SERVICES ›',
