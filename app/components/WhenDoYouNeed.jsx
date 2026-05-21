@@ -36,8 +36,8 @@ export default function WhenDoYouNeed({ data }) {
         </div>
         <p className="wynd-want">Want {whenHeading.toLowerCase().replace(/\b\w/g, c => c.toUpperCase())}</p>
         <div className="wynd-actions">
-          <a href="/contact-us" className="btn-dark-sm">BOOK NOW</a>
-          <a href="#pricing" className="btn-outline-sm">OUR PRICING</a>
+          <a href="tel:7632921191" className="btn-dark-sm">CALL NOW</a>
+          <a href="/pricing-estimates" className="btn-outline-sm">OUR PRICING</a>
         </div>
       </div>
     </section>

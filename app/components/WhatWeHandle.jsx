@@ -58,7 +58,7 @@ export default function WhatWeHandle({ data }) {
                     <div className="scard-label">{card.label}</div>
                   </div>
                   <div className="scard-body">{card.body}</div>
-                  <a href={card.href || tab.href} className="scard-read-more">READ MORE</a>
+                  <a href={card.href || tab.href} className="scard-read-more">LEARN MORE</a>
                 </div>
               ))}
               <a href={tab.href} className="services-cta-card">
