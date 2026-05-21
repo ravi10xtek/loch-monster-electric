@@ -172,46 +172,22 @@ function buildMenus(navigation) {
 
 // ── Components ────────────────────────────────────────────────────────────────
 
-function MegaMenu({ menuKey, hubImages, menus }) {
+function MegaMenu({ menuKey, menus }) {
   const menu = menus[menuKey];
-  const [activeHub, setActiveHub] = useState(0);
-  const hub = menu.hubs[activeHub];
-  // Hub slug = last path segment of its href (e.g. "electrical-repairs")
-  const hubSlug = hub.href.split('/').filter(Boolean).pop();
-  const hubImg = hubImages?.[hubSlug];
 
   return (
     <div className="mega-menu">
-      <div className="mega-inner">
-        <div className="mega-hubs">
-          {menu.hubs.map((h, i) => (
-            <a
-              key={h.href}
-              href={h.href}
-              className={`mega-hub-item${i === activeHub ? ' active' : ''}`}
-              onMouseEnter={() => setActiveHub(i)}
-            >
-              {h.label}
-              <span className="mega-arrow">{i === activeHub ? '→' : '→'}</span>
-            </a>
-          ))}
-        </div>
-        <div className="mega-services">
-          {hub.services.map((s) => (
-            <a key={s.href} href={s.href} className="mega-service-item">
-              {s.label}
-            </a>
-          ))}
-        </div>
-        <div
-          className="mega-img"
-          style={hubImg
-            ? { backgroundImage: `url('${hubImg.url}')`, backgroundSize: 'cover', backgroundPosition: 'center' }
-            : { background: 'linear-gradient(160deg,#1a1a1a,#2e2e2e)' }
-          }
-        >
-          <div className="mega-img-label">{hub.label}</div>
-        </div>
+      <div className="mega-grid">
+        {menu.hubs.map((hub) => (
+          <div key={hub.href} className="mega-col">
+            <a href={hub.href} className="mega-col-heading">{hub.label}</a>
+            <div className="mega-col-links">
+              {hub.services.map((s) => (
+                <a key={s.href} href={s.href} className="mega-col-link">{s.label}</a>
+              ))}
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );
@@ -281,7 +257,7 @@ export default function Header({ hubImages, navigation }) {
                 <a href={menus[key].topHref} className="nav-top-link">
                   {menus[key].label || (key === 'hoa' ? 'HOA' : key.toUpperCase())}
                 </a>
-                {openMenu === key && <MegaMenu menuKey={key} hubImages={hubImages} menus={menus} />}
+                {openMenu === key && <MegaMenu menuKey={key} menus={menus} />}
               </div>
             ))}
             <div
