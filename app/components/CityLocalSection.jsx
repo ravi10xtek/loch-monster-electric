@@ -40,7 +40,7 @@ export default function CityLocalSection({ city }) {
           <p className="city-local-cta-label">Want to Know More?</p>
           <div className="city-local-actions">
             <a href="/residential-electrical-services" className="btn-dark-sm">ALL SERVICES</a>
-            <a href="/pricing" className="btn-outline-sm">OUR PRICING</a>
+            <a href="/pricing-estimates" className="btn-outline-sm">OUR PRICING</a>
           </div>
           {nearbyCities.length > 0 && (
             <p className="city-nearby">
