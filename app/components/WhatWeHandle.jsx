@@ -1,47 +1,35 @@
-'use client'
-
-import { useState } from 'react'
 import Image from 'next/image'
 import { mediaUrl } from '../lib/normalize'
 
 export default function WhatWeHandle({ data }) {
-  const { eyebrow, heading, body, cta, tabs, cards, ctaCard } = data;
-  const [activeTab, setActiveTab] = useState(tabs[0]?.id)
+  const { eyebrow, tabs, cards } = data;
 
   return (
     <section className="services-section">
       <div className="wrap">
         <p className="eyebrow-center">{eyebrow}</p>
 
-        <div className="tabs-row">
+        {/* Tab nav — pure anchor links, no JS, all content always in DOM */}
+        <div className="tabs-row wwh-tabs">
           {tabs.map((tab) => (
-            <button
-              key={tab.id}
-              className={`tab${tab.id === activeTab ? ' active' : ''}`}
-              onClick={() => setActiveTab(tab.id)}
-            >
+            <a key={tab.id} href={`#${tab.id}`} className="tab">
               {tab.label}
-            </button>
+            </a>
           ))}
         </div>
 
+        {/* All sections stacked — fully server-rendered, crawlable */}
         {tabs.map((tab) => (
-          <div
-            key={tab.id}
-            className={`tab-pane${tab.id === activeTab ? ' active' : ''}`}
-          >
+          <div key={tab.id} id={tab.id} className="wwh-section">
             <div className="services-intro">
               <div className="services-intro-left">
-                <h2>{tab.heading || heading}</h2>
-                <p>{tab.body || body}</p>
-              </div>
-              <div className="services-intro-right">
-                <a href="/contact-us" className="btn-orange-sm">{cta}</a>
+                <h2>{tab.heading}</h2>
+                <p>{tab.body}</p>
               </div>
             </div>
 
             <div className="service-cards-grid">
-              {cards[tab.id].map((card) => (
+              {(cards[tab.id] || []).map((card) => (
                 <div className="scard" key={card.label}>
                   <div className="scard-img" style={{ backgroundColor: card.color }}>
                     {card.image?.url ? (

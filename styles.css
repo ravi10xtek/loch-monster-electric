@@ -577,6 +577,28 @@ textarea { resize: vertical; }
 .tab-pane { display: none; }
 .tab-pane.active { display: block; }
 
+/* WhatWeHandle — stacked sections with sticky tab nav */
+.wwh-tabs {
+  position: sticky;
+  top: 68px;
+  background: #fff;
+  z-index: 50;
+  padding: 10px 0;
+  margin-bottom: 40px;
+  border-bottom: 1px solid #efefef;
+}
+.wwh-section {
+  scroll-margin-top: 140px;
+  padding-bottom: 64px;
+  border-bottom: 1px solid #efefef;
+  margin-bottom: 64px;
+}
+.wwh-section:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
 .services-intro {
   display: block;
   margin-bottom: 22px;
