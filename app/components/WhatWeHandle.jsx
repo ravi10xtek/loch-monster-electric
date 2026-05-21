@@ -2,7 +2,7 @@ import Image from 'next/image'
 import { mediaUrl } from '../lib/normalize'
 
 export default function WhatWeHandle({ data }) {
-  const { eyebrow, tabs, cards } = data;
+  const { eyebrow, heading, body, tabs, cards } = data;
 
   return (
     <section className="services-section">
@@ -25,8 +25,8 @@ export default function WhatWeHandle({ data }) {
             {/* Section header */}
             <div className="wwh-section-header">
               <span className="wwh-category-tag">{tab.label}</span>
-              {tab.heading && <h2 className="wwh-section-heading">{tab.heading}</h2>}
-              {tab.body && <p className="wwh-section-body">{tab.body}</p>}
+              {(tab.heading || heading) && <h2 className="wwh-section-heading">{tab.heading || heading}</h2>}
+              {(tab.body || body) && <p className="wwh-section-body">{tab.body || body}</p>}
             </div>
 
             <div className="service-cards-grid">
