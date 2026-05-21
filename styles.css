@@ -207,7 +207,7 @@ ul { list-style: none; }
 .mega-col {
   padding: 0;
 }
-.mega-col-heading {
+.mega-menu .mega-col-heading {
   display: block;
   font-family: var(--OH);
   font-size: 0.875rem;
@@ -220,7 +220,7 @@ ul { list-style: none; }
   border-bottom: 2px solid #c8c8c8;
   transition: color .15s;
 }
-.mega-col-heading:hover {
+.mega-menu .mega-col-heading:hover {
   color: var(--orange);
 }
 .mega-col-links {
