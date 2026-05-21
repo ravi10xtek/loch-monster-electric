@@ -29,7 +29,7 @@ function mapHubToPageData(cms) {
       imageAlt: cms.heroImage?.alt || null,
     },
     whatWeHandle: {
-      eyebrow: cms.whatEyebrow,
+      eyebrow: 'Our Services',
       heading: cms.whatHeading,
       body: cms.whatBody,
       cta: cms.whatCta,

@@ -581,6 +581,10 @@ textarea { resize: vertical; }
 .wwh-tabs {
   margin-bottom: 48px;
 }
+.wwh-tabs .tab:first-child {
+  color: var(--orange);
+  border-bottom-color: var(--orange);
+}
 .wwh-section {
   scroll-margin-top: 140px;
   padding-bottom: 72px;
