@@ -7,7 +7,7 @@ import JsonLd from "./components/JsonLd";
 
 const workSans = Work_Sans({
   subsets: ['latin'],
-  weight: ['400', '500', '600', '700', '800'],
+  weight: ['300', '400', '500', '600', '700', '800'],
   style: ['normal', 'italic'],
   variable: '--font-work-sans',
   display: 'swap',
