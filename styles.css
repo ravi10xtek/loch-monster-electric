@@ -228,9 +228,10 @@ ul { list-style: none; }
   flex-direction: column;
 }
 .mega-col-link {
+  font-family: var(--font-work-sans), sans-serif;
   font-size: 0.875rem;
   font-weight: 300;
-  color: #3a3a3a;
+  color: #555;
   padding: 5px 0;
   line-height: 1.4;
   transition: color .15s;
