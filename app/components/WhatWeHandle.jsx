@@ -9,7 +9,7 @@ export default function WhatWeHandle({ data }) {
       <div className="wrap">
         <p className="eyebrow-center">{eyebrow}</p>
 
-        {/* Tab nav — pure anchor links, no JS, all content always in DOM */}
+        {/* Sticky anchor-link tab nav */}
         <div className="tabs-row wwh-tabs">
           {tabs.map((tab) => (
             <a key={tab.id} href={`#${tab.id}`} className="tab">
@@ -18,14 +18,15 @@ export default function WhatWeHandle({ data }) {
           ))}
         </div>
 
-        {/* All sections stacked — fully server-rendered, crawlable */}
+        {/* All sections stacked — fully server-rendered */}
         {tabs.map((tab) => (
           <div key={tab.id} id={tab.id} className="wwh-section">
-            <div className="services-intro">
-              <div className="services-intro-left">
-                <h2>{tab.heading}</h2>
-                <p>{tab.body}</p>
-              </div>
+
+            {/* Section header */}
+            <div className="wwh-section-header">
+              <span className="wwh-category-tag">{tab.label}</span>
+              {tab.heading && <h2 className="wwh-section-heading">{tab.heading}</h2>}
+              {tab.body && <p className="wwh-section-body">{tab.body}</p>}
             </div>
 
             <div className="service-cards-grid">

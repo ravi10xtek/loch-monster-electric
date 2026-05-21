@@ -584,19 +584,47 @@ textarea { resize: vertical; }
   background: #fff;
   z-index: 50;
   padding: 10px 0;
-  margin-bottom: 40px;
+  margin-bottom: 48px;
   border-bottom: 1px solid #efefef;
 }
 .wwh-section {
   scroll-margin-top: 140px;
-  padding-bottom: 64px;
+  padding-bottom: 72px;
   border-bottom: 1px solid #efefef;
-  margin-bottom: 64px;
+  margin-bottom: 72px;
 }
 .wwh-section:last-child {
   border-bottom: none;
   margin-bottom: 0;
   padding-bottom: 0;
+}
+.wwh-section-header {
+  margin-bottom: 32px;
+}
+.wwh-category-tag {
+  display: inline-block;
+  font-family: var(--OH);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--orange);
+  margin-bottom: 10px;
+}
+.wwh-section-heading {
+  font-family: var(--OH);
+  font-size: clamp(1.4rem, 2.5vw, 2rem);
+  font-weight: 800;
+  color: #1a1a1a;
+  line-height: 1.15;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+.wwh-section-body {
+  font-size: 0.95rem;
+  color: #555;
+  max-width: 620px;
+  line-height: 1.7;
 }
 
 .services-intro {
