@@ -116,6 +116,7 @@ export function normalizeService(p) {
       title: (p.heroTitle || []).map(t => t.line),
       tagline: p.heroTagline,
       body: p.heroBody,
+      body2: p.heroBody2 || null,
       image: p.heroImage?.url ? mediaUrl(p.heroImage.url) : null,
       imageAlt: p.heroImage?.alt || null,
     },

@@ -9,6 +9,7 @@ export default function MediaHero({ data }) {
     : ['EXPLORE OUR', 'WORK IN ACTION']
   const tagline    = d.heroTagline    || 'Real projects. Real results. From panel upgrades to full commercial builds.'
   const body       = d.heroBody       || 'Step into our world of precision, safety, and innovation. Every project tells the story of how we deliver reliable electrical solutions every day.'
+  const body2      = d.heroBody2      || null
   const cta1Label  = d.heroCta1Label  || 'VIEW PROJECTS'
   const cta1Href   = d.heroCta1Href   || '#projects'
   const cta2Label  = d.heroCta2Label  || 'FOLLOW US'
@@ -38,6 +39,7 @@ export default function MediaHero({ data }) {
           </h1>
           <p className="hero-tagline">{tagline}</p>
           <p className="hero-body">{body}</p>
+          {body2 && <p className="hero-body">{body2}</p>}
           <div className="media-hero-ctas">
             <a href={cta1Href} className="btn-dark-outline">{cta1Label}</a>
             <a href={cta2Href} className="btn-orange">{cta2Label}</a>
