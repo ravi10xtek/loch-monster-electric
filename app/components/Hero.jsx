@@ -1,3 +1,5 @@
+import HeroForm from "./HeroForm";
+
 export default function Hero() {
   return (
     <section className="hero" id="home">
@@ -21,14 +23,7 @@ export default function Hero() {
           <div className="hero-form-header">
             <strong>Phone Is Usually The Fastest Way To Reach You,</strong> But We&apos;re Happy To Follow Up However Works Best.
           </div>
-          <form className="hero-form" action="#" method="post">
-            <div className="form-row-2">
-              <input type="text" placeholder="First &amp; Last name *" required />
-              <input type="tel" placeholder="Phone number *" required />
-            </div>
-            <input type="email" placeholder="Email*" required />
-            <button type="submit" className="btn-orange-full">NEXT</button>
-          </form>
+          <HeroForm />
         </div>
       </div>
     </section>

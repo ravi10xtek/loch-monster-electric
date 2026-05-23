@@ -1,4 +1,5 @@
 import SmartBreadcrumb from '../ui/smart-breadcrumb'
+import ContactPageForm from './ContactPageForm'
 
 export default function ContactHero({ cms }) {
   const c = cms || {}
@@ -76,15 +77,7 @@ export default function ContactHero({ cms }) {
           <div className="hero-form-header">
             <strong>{formHeader}</strong>
           </div>
-          <form className="hero-form" action="#" method="post">
-            <div className="form-row-2">
-              <input type="text" placeholder="First &amp; Last name *" required />
-              <input type="tel" placeholder="Phone number *" required />
-            </div>
-            <input type="email" placeholder="Email*" required />
-            <textarea placeholder="Write your message.." rows="5"></textarea>
-            <button type="submit" className="btn-orange-full">SUBMIT</button>
-          </form>
+          <ContactPageForm />
         </div>
 
       </div>
