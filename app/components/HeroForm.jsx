@@ -3,31 +3,57 @@
 import { useState } from 'react'
 
 export default function HeroForm() {
-  const [status, setStatus] = useState('idle') // idle | loading | success | error
+  // stage: 'step1' (name/phone/email)  → 'step2' (message)
+  // status: 'idle' | 'loading' | 'success' | 'error'
+  const [stage, setStage] = useState('step1')
+  const [status, setStatus] = useState('idle')
   const [errorMsg, setErrorMsg] = useState('')
+  const [fields, setFields] = useState({ name: '', phone: '', email: '', message: '' })
+
+  function update(name) {
+    return (e) => setFields((f) => ({ ...f, [name]: e.target.value }))
+  }
+
+  function isValidEmail(v) {
+    return /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v)
+  }
+
+  function handleNext(e) {
+    e.preventDefault()
+    setErrorMsg('')
+    const name = fields.name.trim()
+    const phone = fields.phone.trim()
+    const email = fields.email.trim()
+    if (!name || !phone || !email) {
+      setErrorMsg('Please fill in your name, phone, and email.')
+      return
+    }
+    if (!isValidEmail(email)) {
+      setErrorMsg('Please enter a valid email address.')
+      return
+    }
+    setStage('step2')
+  }
 
   async function handleSubmit(e) {
     e.preventDefault()
     setStatus('loading')
     setErrorMsg('')
 
-    const form = e.currentTarget
-    const data = {
-      name: form.name.value.trim(),
-      phone: form.phone.value.trim(),
-      email: form.email.value.trim(),
-    }
-
     try {
       const res = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data),
+        body: JSON.stringify({
+          name: fields.name.trim(),
+          phone: fields.phone.trim(),
+          email: fields.email.trim(),
+          message: fields.message.trim(),
+        }),
       })
       const json = await res.json()
       if (json.ok) {
         setStatus('success')
-        form.reset()
       } else {
         setStatus('error')
         setErrorMsg(json.message || 'Something went wrong. Please try again.')
@@ -48,18 +74,45 @@ export default function HeroForm() {
     )
   }
 
+  const isStep2 = stage === 'step2'
+  const isLoading = status === 'loading'
+
   return (
-    <form className="hero-form" onSubmit={handleSubmit} noValidate>
+    <form
+      className="hero-form"
+      onSubmit={isStep2 ? handleSubmit : handleNext}
+      noValidate
+    >
       <div className="form-row-2">
-        <input name="name" type="text" placeholder="First &amp; Last name *" required disabled={status === 'loading'} />
-        <input name="phone" type="tel" placeholder="Phone number *" required disabled={status === 'loading'} />
+        <input
+          name="name" type="text" placeholder="First &amp; Last name *"
+          value={fields.name} onChange={update('name')}
+          required disabled={isLoading}
+        />
+        <input
+          name="phone" type="tel" placeholder="Phone number *"
+          value={fields.phone} onChange={update('phone')}
+          required disabled={isLoading}
+        />
       </div>
-      <input name="email" type="email" placeholder="Email *" required disabled={status === 'loading'} />
-      {status === 'error' && (
+      <input
+        name="email" type="email" placeholder="Email *"
+        value={fields.email} onChange={update('email')}
+        required disabled={isLoading}
+      />
+      {isStep2 && (
+        <textarea
+          name="message" placeholder="Anything we should know? (optional)"
+          rows={4}
+          value={fields.message} onChange={update('message')}
+          disabled={isLoading}
+        />
+      )}
+      {errorMsg && (
         <p style={{ color: '#f97316', fontSize: '0.875rem', margin: '-0.5rem 0 0' }}>{errorMsg}</p>
       )}
-      <button type="submit" className="btn-orange-full" disabled={status === 'loading'}>
-        {status === 'loading' ? 'SENDING…' : 'NEXT'}
+      <button type="submit" className="btn-orange-full" disabled={isLoading}>
+        {isLoading ? 'SENDING…' : isStep2 ? 'SUBMIT' : 'NEXT'}
       </button>
     </form>
   )

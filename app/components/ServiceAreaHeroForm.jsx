@@ -3,24 +3,51 @@
 import { useState } from 'react'
 
 export default function ServiceAreaHeroForm() {
-  const [status, setStatus] = useState('idle') // idle | loading | success | error
+  const [stage, setStage] = useState('step1') // 'step1' | 'step2'
+  const [status, setStatus] = useState('idle') // 'idle' | 'loading' | 'success' | 'error'
   const [errorMsg, setErrorMsg] = useState('')
+  const [fields, setFields] = useState({ name: '', phone: '', email: '', message: '' })
+
+  function update(name) {
+    return (e) => setFields((f) => ({ ...f, [name]: e.target.value }))
+  }
+
+  function isValidEmail(v) {
+    return /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v)
+  }
+
+  function handleNext(e) {
+    e.preventDefault()
+    setErrorMsg('')
+    const name = fields.name.trim()
+    const phone = fields.phone.trim()
+    const email = fields.email.trim()
+    if (!name || !phone || !email) {
+      setErrorMsg('Please fill in your name, phone, and email.')
+      return
+    }
+    if (!isValidEmail(email)) {
+      setErrorMsg('Please enter a valid email address.')
+      return
+    }
+    setStage('step2')
+  }
 
   async function handleSubmit(e) {
     e.preventDefault()
     setStatus('loading')
     setErrorMsg('')
 
-    const form = e.currentTarget
-    const name = form.elements['name'].value.trim()
-    const phone = form.elements['phone'].value.trim()
-    const email = form.elements['email'].value.trim()
-
     try {
       const res = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, phone, email }),
+        body: JSON.stringify({
+          name: fields.name.trim(),
+          phone: fields.phone.trim(),
+          email: fields.email.trim(),
+          message: fields.message.trim(),
+        }),
       })
       const data = await res.json()
       if (!res.ok || !data.ok) {
@@ -47,34 +74,45 @@ export default function ServiceAreaHeroForm() {
     )
   }
 
+  const isStep2 = stage === 'step2'
+  const isLoading = status === 'loading'
+
   return (
-    <form className="hero-form" onSubmit={handleSubmit} noValidate>
+    <form
+      className="hero-form"
+      onSubmit={isStep2 ? handleSubmit : handleNext}
+      noValidate
+    >
       <div className="form-row-2">
         <input
-          type="text"
-          name="name"
-          placeholder="First &amp; Last name *"
-          required
-          disabled={status === 'loading'}
+          type="text" name="name" placeholder="First &amp; Last name *"
+          value={fields.name} onChange={update('name')}
+          required disabled={isLoading}
         />
         <input
-          type="tel"
-          name="phone"
-          placeholder="Phone number *"
-          required
-          disabled={status === 'loading'}
+          type="tel" name="phone" placeholder="Phone number *"
+          value={fields.phone} onChange={update('phone')}
+          required disabled={isLoading}
         />
       </div>
       <input
-        type="email"
-        name="email"
-        placeholder="Email *"
-        required
-        disabled={status === 'loading'}
+        type="email" name="email" placeholder="Email *"
+        value={fields.email} onChange={update('email')}
+        required disabled={isLoading}
       />
+      {isStep2 && (
+        <textarea
+          name="message"
+          placeholder="Anything we should know? (optional)"
+          rows={4}
+          value={fields.message}
+          onChange={update('message')}
+          disabled={isLoading}
+        />
+      )}
       {errorMsg && <p className="hero-form-error">{errorMsg}</p>}
-      <button type="submit" className="btn-orange-full" disabled={status === 'loading'}>
-        {status === 'loading' ? 'SENDING…' : 'NEXT'}
+      <button type="submit" className="btn-orange-full" disabled={isLoading}>
+        {isLoading ? 'SENDING…' : isStep2 ? 'SUBMIT' : 'NEXT'}
       </button>
     </form>
   )
