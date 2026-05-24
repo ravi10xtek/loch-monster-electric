@@ -19,10 +19,8 @@ const provider = {
   url: BASE,
 }
 
-export default async function ServiceDetailPage({ data, faqTag = 'general', prefetchedFaqs }) {
-  // Use prefetchedFaqs when called from a client-component preview context
-  // (avoids client-side fetch to CMS which would fall back to localhost)
-  const cmsFaqs = prefetchedFaqs ?? await getFaqs(faqTag)
+export default async function ServiceDetailPage({ data, faqTag = 'general' }) {
+  const cmsFaqs = await getFaqs(faqTag)
   const faqs = cmsFaqs?.length ? cmsFaqs : FALLBACK_FAQS
 
   // Service schema

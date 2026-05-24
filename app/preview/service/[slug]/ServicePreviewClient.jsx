@@ -1,11 +1,18 @@
 'use client'
+
 import { useLivePreview } from '@payloadcms/live-preview-react'
 import { normalizeService } from '../../../lib/normalize'
-import ServiceDetailPage from '../../../components/ServiceDetailPage'
+import ServiceHero from '../../../components/ServiceHero'
+import WhenDoYouNeed from '../../../components/WhenDoYouNeed'
+
+// Only import sync components — async server components (OrangeBanner, Services,
+// Journal, FAQ, etc.) cannot run inside a client component without triggering
+// server-only env vars (CMS_URL) on the client, causing localhost:3001 fetches.
+// The preview shows only the editable service-specific sections.
 
 const PAYLOAD_URL = process.env.NEXT_PUBLIC_CMS_URL || 'http://localhost:3001'
 
-export default function ServicePreviewClient({ initialData, initialFaqs }) {
+export default function ServicePreviewClient({ initialData }) {
   const { data } = useLivePreview({
     initialData,
     serverURL: PAYLOAD_URL,
@@ -14,10 +21,12 @@ export default function ServicePreviewClient({ initialData, initialFaqs }) {
 
   if (!data) return <p style={{ padding: '2rem' }}>Loading preview…</p>
 
-  // Apply the same normalisation the server would do so the component
-  // receives hero, whenDoYouNeed, seo in the shape it expects
   const normalised = normalizeService(data)
 
-  // Pass FAQs fetched server-side — prevents client-side fetch to CMS
-  return <ServiceDetailPage data={normalised} prefetchedFaqs={initialFaqs} />
+  return (
+    <main>
+      <ServiceHero hero={normalised.hero} />
+      {normalised.whenDoYouNeed && <WhenDoYouNeed data={normalised.whenDoYouNeed} />}
+    </main>
+  )
 }
