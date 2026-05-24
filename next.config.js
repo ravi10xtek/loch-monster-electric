@@ -21,6 +21,25 @@ const nextConfig = {
       },
     ],
   },
+
+  // Allow the Payload CMS admin to embed /preview/* routes in an iframe
+  async headers() {
+    return [
+      {
+        source: '/preview/:path*',
+        headers: [
+          {
+            key: 'Content-Security-Policy',
+            value: [
+              "frame-ancestors 'self'",
+              'http://localhost:3001',
+              'https://loch-monster-electric-cms.vercel.app',
+            ].join(' '),
+          },
+        ],
+      },
+    ]
+  },
 }
 
 module.exports = nextConfig
