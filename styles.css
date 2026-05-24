@@ -491,7 +491,7 @@ ul { list-style: none; }
   display: flex;
   align-items: center;
   gap: 18px;
-  background: var(--orange);
+  background: #ff5f25;
   color: #fff;
   padding: 20px 22px;
   border-radius: 4px;
@@ -527,8 +527,8 @@ ul { list-style: none; }
 .form-success-icon svg {
   width: 26px;
   height: 26px;
-  color: var(--orange);
-  stroke: var(--orange);
+  color: #ff5f25;
+  stroke: #ff5f25;
 }
 input, textarea {
   width: 100%;
