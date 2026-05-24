@@ -1,5 +1,6 @@
-import { buildPageMetadata } from '../lib/cms'
+import { buildPageMetadata, getPageSEO } from '../lib/cms'
 import GlossaryPage from '../components/GlossaryPage'
+import JsonLd from '../components/JsonLd'
 
 export async function generateMetadata() {
   return buildPageMetadata('electrical-glossary', {
@@ -8,6 +9,12 @@ export async function generateMetadata() {
   })
 }
 
-export default function ElectricalGlossaryPage() {
-  return <GlossaryPage />
+export default async function ElectricalGlossaryPage() {
+  const seo = await getPageSEO('electrical-glossary')
+  return (
+    <>
+      {seo?.schemaMarkup && <JsonLd schema={seo.schemaMarkup} />}
+      <GlossaryPage />
+    </>
+  )
 }

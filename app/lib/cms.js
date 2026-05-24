@@ -195,6 +195,7 @@ export async function getPageSEO(slug) {
     ogImage: doc.ogImage?.url ? `${BASE}${doc.ogImage.url}` : null,
     canonicalUrl: doc.canonicalUrl || null,
     noIndex: doc.noIndex || false,
+    schemaMarkup: doc.schemaMarkup || null,
   }
 }
 

@@ -1,6 +1,7 @@
-import { buildPageMetadata, getCategoryHub } from '../../lib/cms'
+import { buildPageMetadata, getCategoryHub, getPageSEO } from '../../lib/cms'
 import CategoryHubPage from "../../components/CategoryHubPage";
 import { categoryHubs } from "../../data/categoryHubs";
+import JsonLd from "../../components/JsonLd";
 
 export async function generateMetadata() {
   return buildPageMetadata('residential-electrical-services/installations', {
@@ -10,6 +11,15 @@ export async function generateMetadata() {
 }
 
 export default async function InstallationsPage() {
-  const data = await getCategoryHub('installations') ?? categoryHubs['installations']
-  return <CategoryHubPage data={data} />;
+  const [hub, seo] = await Promise.all([
+    getCategoryHub('installations'),
+    getPageSEO('residential-electrical-services/installations'),
+  ])
+  const data = hub ?? categoryHubs['installations']
+  return (
+    <>
+      {seo?.schemaMarkup && <JsonLd schema={seo.schemaMarkup} />}
+      <CategoryHubPage data={data} />
+    </>
+  );
 }

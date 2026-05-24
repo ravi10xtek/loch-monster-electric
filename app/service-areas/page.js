@@ -1,4 +1,5 @@
-import { buildPageMetadata, getLocations } from '../lib/cms'
+import { buildPageMetadata, getLocations, getPageSEO } from '../lib/cms'
+import JsonLd from '../components/JsonLd'
 import HomeInteractions from '../ui/home-interactions'
 import ServiceAreaHero from '../components/ServiceAreaHero'
 import CityGrid from '../components/CityGrid'
@@ -18,9 +19,13 @@ export async function generateMetadata() {
 }
 
 export default async function ServiceAreasPage() {
-  const cities = (await getLocations()) ?? allCities
+  const [cities, seo] = await Promise.all([
+    getLocations().then(r => r ?? allCities),
+    getPageSEO('service-areas'),
+  ])
   return (
     <>
+      {seo?.schemaMarkup && <JsonLd schema={seo.schemaMarkup} />}
       <HomeInteractions />
       <main>
         <ServiceAreaHero

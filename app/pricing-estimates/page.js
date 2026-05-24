@@ -1,4 +1,5 @@
-import { buildPageMetadata } from '../lib/cms'
+import { buildPageMetadata, getPageSEO } from '../lib/cms'
+import JsonLd from '../components/JsonLd'
 import HomeInteractions from '../ui/home-interactions'
 import SmartBreadcrumb from '../ui/smart-breadcrumb'
 import Pricing from '../components/Pricing'
@@ -97,9 +98,11 @@ const TIERS = [
   },
 ]
 
-export default function PricingPage() {
+export default async function PricingPage() {
+  const seo = await getPageSEO('pricing-estimates')
   return (
     <>
+      {seo?.schemaMarkup && <JsonLd schema={seo.schemaMarkup} />}
       <HomeInteractions />
       <main>
 

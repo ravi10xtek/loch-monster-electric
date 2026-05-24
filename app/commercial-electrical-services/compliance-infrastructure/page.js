@@ -1,6 +1,7 @@
-import { buildPageMetadata, getCategoryHub } from '../../lib/cms'
+import { buildPageMetadata, getCategoryHub, getPageSEO } from '../../lib/cms'
 import CategoryHubPage from "../../components/CategoryHubPage";
 import { categoryHubs } from "../../data/categoryHubs";
+import JsonLd from "../../components/JsonLd";
 
 export async function generateMetadata() {
   return buildPageMetadata('commercial-electrical-services/compliance-infrastructure', {
@@ -10,6 +11,15 @@ export async function generateMetadata() {
 }
 
 export default async function ComplianceInfrastructurePage() {
-  const data = await getCategoryHub('compliance-infrastructure') ?? categoryHubs['compliance-infrastructure']
-  return <CategoryHubPage data={data} />;
+  const [hub, seo] = await Promise.all([
+    getCategoryHub('compliance-infrastructure'),
+    getPageSEO('commercial-electrical-services/compliance-infrastructure'),
+  ])
+  const data = hub ?? categoryHubs['compliance-infrastructure']
+  return (
+    <>
+      {seo?.schemaMarkup && <JsonLd schema={seo.schemaMarkup} />}
+      <CategoryHubPage data={data} />
+    </>
+  );
 }

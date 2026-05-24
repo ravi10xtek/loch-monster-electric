@@ -1,7 +1,8 @@
-import { buildPageMetadata, getServiceHubWithImages } from '../lib/cms'
+import { buildPageMetadata, getServiceHubWithImages, getPageSEO } from '../lib/cms'
 import { mediaUrl } from '../lib/normalize'
 import ServiceLandingPage from "../components/ServiceLandingPage";
 import { servicePages } from "../data/services";
+import JsonLd from "../components/JsonLd";
 
 export async function generateMetadata() {
   return buildPageMetadata('residential-electrical-services', {
@@ -11,9 +12,17 @@ export async function generateMetadata() {
 }
 
 export default async function ResidentialPage() {
-  const cms = await getServiceHubWithImages('residential-electrical-services')
+  const [cms, seo] = await Promise.all([
+    getServiceHubWithImages('residential-electrical-services'),
+    getPageSEO('residential-electrical-services'),
+  ])
   const data = cms ? mapHubToPageData(cms) : servicePages.residential
-  return <ServiceLandingPage data={data} />
+  return (
+    <>
+      {seo?.schemaMarkup && <JsonLd schema={seo.schemaMarkup} />}
+      <ServiceLandingPage data={data} />
+    </>
+  )
 }
 
 function mapHubToPageData(cms) {

@@ -1,4 +1,5 @@
-import { buildPageMetadata } from '../lib/cms'
+import { buildPageMetadata, getPageSEO } from '../lib/cms'
+import JsonLd from '../components/JsonLd'
 import HomeInteractions from '../ui/home-interactions'
 import AboutHero from '../components/AboutHero'
 import AboutStory from '../components/AboutStory'
@@ -55,9 +56,11 @@ const SOCIAL = [
   },
 ]
 
-export default function AboutPage() {
+export default async function AboutPage() {
+  const seo = await getPageSEO('about-us')
   return (
     <>
+      {seo?.schemaMarkup && <JsonLd schema={seo.schemaMarkup} />}
       <HomeInteractions />
 
       {/* 1 — Hero */}

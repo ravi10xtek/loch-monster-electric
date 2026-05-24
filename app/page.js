@@ -1,4 +1,4 @@
-import { buildPageMetadata } from './lib/cms'
+import { buildPageMetadata, getPageSEO } from './lib/cms'
 import HomeInteractions from "./ui/home-interactions";
 import Hero from "./components/Hero";
 import Services from "./components/Services";
@@ -33,10 +33,12 @@ export async function generateMetadata() {
   })
 }
 
-export default function HomePage() {
+export default async function HomePage() {
+  const seo = await getPageSEO('/')
   return (
     <>
       <JsonLd schema={websiteSchema} />
+      {seo?.schemaMarkup && <JsonLd schema={seo.schemaMarkup} />}
       <HomeInteractions />
       <main>
         <Hero />

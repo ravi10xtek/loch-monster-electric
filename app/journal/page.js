@@ -1,7 +1,8 @@
 import HomeInteractions from '../ui/home-interactions'
 import JournalIndex from '../components/JournalIndex'
 import OrangeBanner from '../components/OrangeBanner'
-import { buildPageMetadata, getPosts } from '../lib/cms'
+import { buildPageMetadata, getPosts, getPageSEO } from '../lib/cms'
+import JsonLd from '../components/JsonLd'
 import { posts as staticPosts } from '../data/journal'
 
 export async function generateMetadata() {
@@ -15,11 +16,13 @@ export async function generateMetadata() {
 export const dynamic = 'force-dynamic'
 
 export default async function JournalPage() {
-  // Try CMS first; fall back to static file if CMS is unreachable
-  const posts = (await getPosts()) ?? staticPosts
-
+  const [posts, seo] = await Promise.all([
+    getPosts().then(r => r ?? staticPosts),
+    getPageSEO('journal'),
+  ])
   return (
     <>
+      {seo?.schemaMarkup && <JsonLd schema={seo.schemaMarkup} />}
       <HomeInteractions />
       <JournalIndex posts={posts} />
       <OrangeBanner />
