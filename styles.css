@@ -26,13 +26,14 @@ ul { list-style: none; }
 /* ===== TOP BAR ===== */
 .top-bar {
   background: #ff6a2a;
-  padding: 10px 20px 9px;
+  padding: 10px 0 9px;
   color: #111;
   border-bottom: 1px solid rgba(0,0,0,0.08);
 }
 .top-bar-inner {
   max-width: 1280px;
   margin: 0 auto;
+  padding: 0 26px;
   display: grid;
   grid-template-columns: 1fr auto;
   align-items: center;
