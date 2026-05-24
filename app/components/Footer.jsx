@@ -18,6 +18,7 @@ export default async function Footer() {
   const facebook  = s.facebook  || '#'
   const instagram = s.instagram || '#'
   const tiktok    = s.tiktok    || '#'
+  const youtube   = s.youtube   || '#'
 
   return (
     <footer className="site-footer" id="contact">
@@ -49,11 +50,23 @@ export default async function Footer() {
               <a href={tiktok} aria-label="TikTok">
                 <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5.8 20.1a6.34 6.34 0 0 0 10.86-4.43V8.69a8.16 8.16 0 0 0 4.77 1.52V6.86a4.85 4.85 0 0 1-1.84-.17z" /></svg>
               </a>
+              <a href={youtube} aria-label="YouTube">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1c.5-1.9.5-5.8.5-5.8s0-3.9-.5-5.8zM9.6 15.6V8.4l6.3 3.6-6.3 3.6z" /></svg>
+              </a>
             </div>
             <div className="fc-meta-block">
               <p className="fc-meta">{hours}<br />{emergency}</p>
               <p className="fc-meta">{areaNote}</p>
               <p className="fc-meta">MN LIC: {licenseMN}<br />WI LIC: {licenseWI}</p>
+            </div>
+            <div className="fc-map">
+              <iframe
+                title={`${copyrightName} on Google Maps`}
+                src={`https://www.google.com/maps?q=${encodeURIComponent(address)}&output=embed`}
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                allowFullScreen
+              />
             </div>
           </div>
 
