@@ -64,12 +64,17 @@ export default function ServiceAreaHeroForm() {
 
   if (status === 'success') {
     return (
-      <div className="hero-form-success">
-        <p className="hero-form-success-heading">Got it — we&apos;ll be in touch shortly.</p>
-        <p className="hero-form-success-body">
+      <div className="form-success-card" role="status">
+        <div className="form-success-text">
+          <strong>Got it — we&apos;ll be in touch shortly.</strong>
           Prefer to talk now? Call us at{' '}
           <a href="tel:7632921191">763-292-1191</a>.
-        </p>
+        </div>
+        <div className="form-success-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+            <polyline points="5 13 9 17 19 7" />
+          </svg>
+        </div>
       </div>
     )
   }

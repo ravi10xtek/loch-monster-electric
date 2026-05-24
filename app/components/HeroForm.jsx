@@ -66,10 +66,17 @@ export default function HeroForm() {
 
   if (status === 'success') {
     return (
-      <div style={{ padding: '2rem', background: '#1a2a1a', border: '1px solid #2a5a2a', color: '#7ecb7e', borderRadius: '4px', lineHeight: 1.6 }}>
-        <strong style={{ display: 'block', marginBottom: '0.5rem' }}>Message received!</strong>
-        We&rsquo;ll be in touch soon. If it&rsquo;s urgent, call us at{' '}
-        <a href="tel:7632921191" style={{ color: '#f97316' }}>763-292-1191</a>.
+      <div className="form-success-card" role="status">
+        <div className="form-success-text">
+          <strong>Message received!</strong>
+          We&rsquo;ll be in touch soon. If it&rsquo;s urgent, call us at{' '}
+          <a href="tel:7632921191">763-292-1191</a>.
+        </div>
+        <div className="form-success-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+            <polyline points="5 13 9 17 19 7" />
+          </svg>
+        </div>
       </div>
     )
   }
