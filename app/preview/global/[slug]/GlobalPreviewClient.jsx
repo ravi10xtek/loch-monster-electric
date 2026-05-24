@@ -105,10 +105,65 @@ export default function GlobalPreviewClient({ slug, initialData, hubImages = {} 
   }
 
   if (slug === 'pricing-page') {
+    const tiers = data?.tiers?.length
+      ? data.tiers.map(t => ({
+          id: t.id,
+          label: t.label,
+          gradient: t.gradient || 'linear-gradient(160deg,#1a1a1a,#2e2e2e)',
+          eyebrow: t.eyebrow || '',
+          heading: t.heading || '',
+          headingOrange: t.headingOrange || '',
+          body: t.body || '',
+          payFor: t.payFor || '',
+          bullets: t.bullets?.map(b => b.text).filter(Boolean) || [],
+          notes: t.notes?.map(n => n.text).filter(Boolean) || [],
+        }))
+      : []
+
     return (
       <main>
         <PricingHero data={data} />
         <Pricing heading={data?.pricingHeading} cards={data?.pricingCards} />
+        {tiers.length > 0 && (
+          <section className="hub-services-section pricing-tiers">
+            <div className="hub-alt-grid">
+              {tiers.map((tier, i) => {
+                const imgCell = (
+                  <div
+                    key={`${tier.id}-img`}
+                    className="hub-alt-img"
+                    style={{ background: tier.gradient }}
+                  >
+                    <span className="hub-alt-label">{tier.label}</span>
+                  </div>
+                )
+                const contentCell = (
+                  <div key={`${tier.id}-content`} className="hub-alt-content" id={tier.id}>
+                    <p className="pt-eyebrow">{tier.eyebrow}</p>
+                    <h2>
+                      {tier.heading}
+                      <span className="text-orange">{tier.headingOrange}</span>
+                    </h2>
+                    <p>{tier.body}</p>
+                    {tier.payFor && <p className="pt-pay-for">{tier.payFor}</p>}
+                    <ul className="pt-bullets">
+                      {tier.bullets.map((b, j) => <li key={j}>{b}</li>)}
+                    </ul>
+                    {tier.notes.map((note, j) => (
+                      <p key={j} className="pt-note-line">{note}</p>
+                    ))}
+                    <div className="hub-alt-actions">
+                      <a href="/contact-us" className="btn-dark-sm">START NOW</a>
+                    </div>
+                  </div>
+                )
+                return i % 2 === 0
+                  ? [contentCell, imgCell]
+                  : [imgCell, contentCell]
+              })}
+            </div>
+          </section>
+        )}
       </main>
     )
   }
