@@ -28,7 +28,13 @@ const STATIC_HUB_DATA = {
   'hoa-electrical-services':         servicePages.hoa,
 }
 
-const BASE = process.env.CMS_URL || 'http://localhost:3001'
+// CMS_URL is server-only. NEXT_PUBLIC_CMS_URL is baked in at build time and
+// available on the client. Using both means any accidental client-side fetch
+// hits the real CMS instead of falling back to localhost:3001.
+const BASE =
+  process.env.CMS_URL ||
+  process.env.NEXT_PUBLIC_CMS_URL ||
+  'http://localhost:3001'
 
 // ── Fetch helpers ──────────────────────────────────────────────────────────
 
