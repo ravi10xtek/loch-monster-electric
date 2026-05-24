@@ -5,7 +5,7 @@ import ServiceDetailPage from '../../../components/ServiceDetailPage'
 
 const PAYLOAD_URL = process.env.NEXT_PUBLIC_CMS_URL || 'http://localhost:3001'
 
-export default function ServicePreviewClient({ initialData }) {
+export default function ServicePreviewClient({ initialData, initialFaqs }) {
   const { data } = useLivePreview({
     initialData,
     serverURL: PAYLOAD_URL,
@@ -18,5 +18,6 @@ export default function ServicePreviewClient({ initialData }) {
   // receives hero, whenDoYouNeed, seo in the shape it expects
   const normalised = normalizeService(data)
 
-  return <ServiceDetailPage data={normalised} />
+  // Pass FAQs fetched server-side — prevents client-side fetch to CMS
+  return <ServiceDetailPage data={normalised} prefetchedFaqs={initialFaqs} />
 }
