@@ -1,3 +1,5 @@
+import HeroForm from './HeroForm'
+
 export default function AboutHero() {
   return (
     <section className="hero about-hero" id="home">
@@ -28,7 +30,12 @@ export default function AboutHero() {
             the tools, and the mindset to do it right. Different trade. Same neighbors. Same you.
           </p>
         </div>
-        <div className="about-hero-photo"></div>
+        <div className="hero-form-wrap">
+          <div className="hero-form-header">
+            <strong>Phone Is Usually The Fastest Way To Reach You,</strong>{' '}But We&apos;re Happy To Follow Up However Works Best.
+          </div>
+          <HeroForm />
+        </div>
       </div>
     </section>
   );
