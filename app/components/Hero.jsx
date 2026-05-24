@@ -21,7 +21,7 @@ export default function Hero() {
         </div>
         <div className="hero-form-wrap">
           <div className="hero-form-header">
-            <strong>Phone Is Usually The Fastest Way To Reach You,</strong> But We&apos;re Happy To Follow Up However Works Best.
+            <strong>Phone Is Usually The Fastest Way To Reach You,</strong>{' '}But We&apos;re Happy To Follow Up However Works Best.
           </div>
           <HeroForm />
         </div>

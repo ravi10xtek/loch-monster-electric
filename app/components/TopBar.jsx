@@ -10,7 +10,6 @@ export default function TopBar() {
         <a href="tel:7632921191" className="top-bar-phone">
           <PhoneIcon /> <span>CALL NOW!&nbsp; 763-292-1191</span>
         </a>
-        <a href="#" className="top-bar-right">Login</a>
       </div>
     </div>
   );

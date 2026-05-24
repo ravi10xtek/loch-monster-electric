@@ -2748,6 +2748,7 @@ textarea { resize: vertical; }
   font-family: var(--OB);
   font-weight: 600;
   letter-spacing: 0.03em;
+  text-transform: uppercase;
 }
 .breadcrumb li:not(:last-child)::after {
   content: '→';
