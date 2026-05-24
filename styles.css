@@ -2626,19 +2626,32 @@ textarea { resize: vertical; }
 .fc-map {
   margin-top: 18px;
   width: 100%;
-  aspect-ratio: 4 / 3;
-  max-height: 240px;
-  background: #111;
-  border-radius: 4px;
-  overflow: hidden;
-  border: 1px solid rgba(255,255,255,0.08);
 }
 .fc-map iframe {
   width: 100%;
-  height: 100%;
+  height: 220px;
   border: 0;
   display: block;
+  border-radius: 4px;
+  background: #111;
+  border: 1px solid rgba(255,255,255,0.08);
   filter: grayscale(0.2) contrast(1.05);
+}
+.fc-map-link {
+  display: inline-block;
+  margin-top: 8px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: rgba(255,255,255,0.7);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(255,255,255,0.2);
+  padding-bottom: 1px;
+  transition: color 0.15s, border-color 0.15s;
+}
+.fc-map-link:hover {
+  color: var(--orange);
+  border-color: var(--orange);
 }
 .fc-meta {
   font-size: 0.7rem;

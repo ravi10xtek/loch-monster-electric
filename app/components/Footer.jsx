@@ -62,11 +62,19 @@ export default async function Footer() {
             <div className="fc-map">
               <iframe
                 title={`${copyrightName} on Google Maps`}
-                src={`https://www.google.com/maps?q=${encodeURIComponent(address)}&output=embed`}
+                src="https://www.google.com/maps?cid=7246154297261210273&output=embed"
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
                 allowFullScreen
               />
+              <a
+                className="fc-map-link"
+                href="https://www.google.com/maps/place/Loch+Monster+Electric/@44.9552941,-93.3789942,17z/data=!4m6!3m5!1s0x52b335f6c847b343:0x648f82f10becbaa1!8m2!3d44.9552941!4d-93.3764193"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                View on Google Maps&nbsp;&rarr;
+              </a>
             </div>
           </div>
 
