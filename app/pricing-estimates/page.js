@@ -1,4 +1,4 @@
-import { buildPageMetadata, getPageSEO } from '../lib/cms'
+import { buildPageMetadata, getPageSEO, getGlobal } from '../lib/cms'
 import JsonLd from '../components/JsonLd'
 import HomeInteractions from '../ui/home-interactions'
 import SmartBreadcrumb from '../ui/smart-breadcrumb'
@@ -16,7 +16,20 @@ export async function generateMetadata() {
   })
 }
 
-const TIERS = [
+// Fallback hero content
+const FALLBACK_EYEBROW = 'Pricing & Estimates'
+const FALLBACK_TITLE_LINES = [
+  'PRICING &amp;',
+  '<span class="text-orange">ESTIMATES</span>',
+]
+const FALLBACK_TAGLINE = 'Honest Work. Clear Costs. No Surprises.'
+const FALLBACK_BODY =
+  "We don't want customers on your doorstep at 7am yelling about their invoice. We'll show you " +
+  "exactly what we plan to charge before we start, and if something changes on-site, we call you " +
+  "first—every time."
+
+// Fallback tier content
+const FALLBACK_TIERS = [
   {
     id: 'time-materials',
     label: 'Time & Materials',
@@ -99,7 +112,37 @@ const TIERS = [
 ]
 
 export default async function PricingPage() {
-  const seo = await getPageSEO('pricing-estimates')
+  const [seo, pricingData] = await Promise.all([
+    getPageSEO('pricing-estimates'),
+    getGlobal('pricing-page'),
+  ])
+
+  // Hero fields
+  const d = pricingData || {}
+  const heroEyebrow = d.heroEyebrow || FALLBACK_EYEBROW
+  const titleLines = d.heroTitleLines?.length
+    ? d.heroTitleLines.map(l => l.line).filter(Boolean)
+    : FALLBACK_TITLE_LINES
+  const heroTagline = d.heroTagline || FALLBACK_TAGLINE
+  const heroBody = d.heroBody || FALLBACK_BODY
+  const bgImage = d.heroImage?.url || null
+
+  // Tier sections
+  const tiers = d.tiers?.length
+    ? d.tiers.map(t => ({
+        id: t.id,
+        label: t.label,
+        gradient: t.gradient || 'linear-gradient(160deg,#1a1a1a,#2e2e2e)',
+        eyebrow: t.eyebrow || '',
+        heading: t.heading || '',
+        headingOrange: t.headingOrange || '',
+        body: t.body || '',
+        payFor: t.payFor || '',
+        bullets: t.bullets?.map(b => b.text).filter(Boolean) || [],
+        notes: t.notes?.map(n => n.text).filter(Boolean) || [],
+      }))
+    : FALLBACK_TIERS
+
   return (
     <>
       {seo?.schemaMarkup && <JsonLd schema={seo.schemaMarkup} />}
@@ -108,19 +151,31 @@ export default async function PricingPage() {
 
         {/* ── Hero ──────────────────────────────────────────── */}
         <section className="hero" id="home">
-          <div className="hero-bg"></div>
+          <div
+            className="hero-bg"
+            style={
+              bgImage
+                ? {
+                    backgroundImage: `linear-gradient(90deg, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.62) 45%, rgba(0,0,0,0.68) 100%), url('${bgImage}')`,
+                  }
+                : undefined
+            }
+          />
           <SmartBreadcrumb />
           <div className="hero-inner">
             <div className="hero-left">
-              <p className="hero-eyebrow">Pricing &amp; Estimates</p>
+              <p className="hero-eyebrow">{heroEyebrow}</p>
               <h1>
-                <span className="hero-title-line">PRICING &amp;</span>
-                <span className="hero-title-line"><span className="text-orange">ESTIMATES</span></span>
+                {titleLines.map((line, i) => (
+                  <span
+                    key={i}
+                    className="hero-title-line"
+                    dangerouslySetInnerHTML={{ __html: line }}
+                  />
+                ))}
               </h1>
-              <p className="hero-tagline">Honest Work. Clear Costs. No Surprises.</p>
-              <p className="hero-body">
-                We don't want customers on your doorstep at 7am yelling about their invoice. We'll show you exactly what we plan to charge before we start, and if something changes on-site, we call you first—every time.
-              </p>
+              <p className="hero-tagline">{heroTagline}</p>
+              <p className="hero-body">{heroBody}</p>
             </div>
             <div className="hero-form-wrap">
               <div className="hero-form-header">
@@ -144,7 +199,7 @@ export default async function PricingPage() {
         {/* ── Detailed tier sections — hub-alt layout ──────── */}
         <section className="hub-services-section pricing-tiers">
           <div className="hub-alt-grid">
-            {TIERS.map((tier, i) => {
+            {tiers.map((tier, i) => {
               const imgCell = (
                 <div
                   key={`${tier.id}-img`}

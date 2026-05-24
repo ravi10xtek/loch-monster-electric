@@ -1,4 +1,4 @@
-import { buildPageMetadata, getLocations, getPageSEO } from '../lib/cms'
+import { buildPageMetadata, getLocations, getPageSEO, getGlobal } from '../lib/cms'
 import JsonLd from '../components/JsonLd'
 import HomeInteractions from '../ui/home-interactions'
 import ServiceAreaHero from '../components/ServiceAreaHero'
@@ -18,10 +18,21 @@ export async function generateMetadata() {
   })
 }
 
+const FALLBACK_HEADING = 'WE SERVE THE ENTIRE TWIN CITIES METRO'
+const FALLBACK_SUBHEADING = 'Keeping the Lights On, the Heat, and the Wi-Fi.'
+const FALLBACK_BODY =
+  "Your home runs on electricity—and when something goes wrong, it can throw your whole day off. " +
+  "That's why Loch Monster Electric is here to make sure your power's reliable, your setup's safe, " +
+  "and your stress level stays nice and low. We work with homeowners all over the Twin Cities to fix " +
+  "the little things, handle the big jobs, and modernize older homes to keep up with the way we live " +
+  "today. Whether you're dealing with flickering lights, mystery outlets, or adding an EV charger in " +
+  "the garage, we'll get it sorted—fast and without a bunch of guesswork."
+
 export default async function ServiceAreasPage() {
-  const [cities, seo] = await Promise.all([
+  const [cities, seo, areasData] = await Promise.all([
     getLocations().then(r => r ?? allCities),
     getPageSEO('service-areas'),
+    getGlobal('service-areas-page'),
   ])
   return (
     <>
@@ -29,10 +40,11 @@ export default async function ServiceAreasPage() {
       <HomeInteractions />
       <main>
         <ServiceAreaHero
-          heading="WE SERVE THE ENTIRE TWIN CITIES METRO"
-          subheading="Keeping the Lights On, the Heat, and the Wi-Fi."
-          body="Your home runs on electricity—and when something goes wrong, it can throw your whole day off. That's why Loch Monster Electric is here to make sure your power's reliable, your setup's safe, and your stress level stays nice and low. We work with homeowners all over the Twin Cities to fix the little things, handle the big jobs, and modernize older homes to keep up with the way we live today. Whether you're dealing with flickering lights, mystery outlets, or adding an EV charger in the garage, we'll get it sorted—fast and without a bunch of guesswork."
+          heading={areasData?.heroHeading || FALLBACK_HEADING}
+          subheading={areasData?.heroSubheading || FALLBACK_SUBHEADING}
+          body={areasData?.heroBody || FALLBACK_BODY}
           breadcrumb={[{ label: 'Home', href: '/' }, { label: 'Service Areas' }]}
+          heroImage={areasData?.heroImage?.url || null}
         />
         <CityGrid cities={cities} />
         <ServiceAreaMap cities={cities} />

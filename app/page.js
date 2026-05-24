@@ -1,4 +1,4 @@
-import { buildPageMetadata, getPageSEO } from './lib/cms'
+import { buildPageMetadata, getPageSEO, getGlobal } from './lib/cms'
 import HomeInteractions from "./ui/home-interactions";
 import Hero from "./components/Hero";
 import Services from "./components/Services";
@@ -34,14 +34,17 @@ export async function generateMetadata() {
 }
 
 export default async function HomePage() {
-  const seo = await getPageSEO('/')
+  const [seo, homeData] = await Promise.all([
+    getPageSEO('/'),
+    getGlobal('home-page'),
+  ])
   return (
     <>
       <JsonLd schema={websiteSchema} />
       {seo?.schemaMarkup && <JsonLd schema={seo.schemaMarkup} />}
       <HomeInteractions />
       <main>
-        <Hero />
+        <Hero data={homeData} />
         <Services />
         <OrangeBanner />
         <ServiceAreas />

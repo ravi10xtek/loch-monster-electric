@@ -70,7 +70,7 @@ export default async function AboutPage() {
       <AboutHero data={aboutData} />
 
       {/* 2 — Story split */}
-      <AboutStory />
+      <AboutStory data={aboutData} />
 
       {/* 3 — Orange banner */}
       <OrangeBanner />
