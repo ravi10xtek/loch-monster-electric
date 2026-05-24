@@ -796,65 +796,6 @@ textarea { resize: vertical; }
   padding: 6px 12px 12px;
 }
 
-/* Sub-service pills inside each card. The card stops being a single <a>; the
-   image+title+body region links to the hub, each pill links to one service. */
-.scard-link {
-  display: flex;
-  flex-direction: column;
-  color: inherit;
-  text-decoration: none;
-}
-.scard-pills {
-  list-style: none;
-  padding: 6px 10px 12px;
-  margin: 0;
-  background: #efefef;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  flex: 1;
-}
-.scard-pill {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-  padding: 7px 12px;
-  background: #fff;
-  border: 1px solid #d8d8d8;
-  border-radius: 999px;
-  color: #1c1c1c;
-  font-size: 0.78rem;
-  font-weight: 600;
-  letter-spacing: 0.01em;
-  line-height: 1.25;
-  text-decoration: none;
-  transition: background 0.15s, border-color 0.15s, color 0.15s, transform 0.15s;
-}
-.scard-pill span:first-child {
-  text-align: left;
-  flex: 1;
-  min-width: 0;
-}
-.scard-pill-arrow {
-  flex-shrink: 0;
-  opacity: 0.55;
-  font-size: 0.9rem;
-  transition: transform 0.15s, opacity 0.15s;
-}
-.scard-pill:hover {
-  background: #1c1c1c;
-  border-color: #1c1c1c;
-  color: #fff;
-}
-.scard-pill:hover .scard-pill-arrow {
-  opacity: 1;
-  transform: translateX(2px);
-}
-@media (max-width: 768px) {
-  .scard-pill { font-size: 0.85rem; padding: 9px 14px; }
-}
-
 .scard-read-more {
   display: block;
   background: #1c1c1c;
