@@ -45,8 +45,8 @@ export default async function AboutPage() {
       {/* 6 — Why choose us / reviews */}
       <WhyChooseUs />
 
-      {/* 7 — Stay connected (shared with Media page) */}
-      <StayConnected posts={socialPosts} />
+      {/* 7 — Stay connected (shared with Media page, light variant for about-us) */}
+      <StayConnected posts={socialPosts} variant="light" />
     </>
   )
 }

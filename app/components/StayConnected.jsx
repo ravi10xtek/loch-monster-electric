@@ -3,9 +3,10 @@ import { formatDate } from '../lib/utils'
 const PLATFORM_LABEL = { facebook: 'Facebook', instagram: 'Instagram', tiktok: 'TikTok' }
 const PLATFORM_COLOR = { facebook: '#1877F2', instagram: '#E1306C', tiktok: '#010101' }
 
-export default function StayConnected({ posts = [] }) {
+export default function StayConnected({ posts = [], variant = 'dark' }) {
+  const className = `stay-connected${variant === 'light' ? ' stay-connected--light' : ''}`
   return (
-    <section className="stay-connected" id="stay-connected">
+    <section className={className} id="stay-connected">
       <div className="wrap">
         <p className="eyebrow-center">Social</p>
         <h2 className="center-heading">STAY <span className="text-orange">CONNECTED</span></h2>

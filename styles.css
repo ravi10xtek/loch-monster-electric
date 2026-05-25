@@ -4010,6 +4010,25 @@ textarea { resize: vertical; }
   padding-top: 8px;
 }
 
+/* Light variant — used on /about-us so the section blends with the rest
+   of that page's light-themed sections. Keep dark variant as the default
+   on /media for visual contrast against the project scroller. */
+.stay-connected--light { background: #fff; }
+.stay-connected--light .eyebrow-center { color: #888; }
+.stay-connected--light .center-heading { color: #1a1a1a; }
+.stay-connected--light .stay-connected-sub { color: #555; }
+.stay-connected--light .social-posts-empty { color: #888; }
+.stay-connected--light .social-post-card {
+  background: #fafafa;
+  border: 1px solid #ebebeb;
+}
+.stay-connected--light .social-post-card:hover { box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+.stay-connected--light .social-post-thumb,
+.stay-connected--light .social-post-thumb-placeholder { background: #ebebeb; }
+.stay-connected--light .social-post-caption { color: #333; }
+.stay-connected--light .social-post-date { color: #888; }
+.stay-connected--light .social-post-cta { color: var(--orange); }
+
 /* Media page responsive */
 @media (max-width: 1024px) {
   .social-posts-grid { grid-template-columns: repeat(3, 1fr); }
