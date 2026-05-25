@@ -22,30 +22,26 @@ export default function ServicesGridBlock({ heading, cards = [] }) {
       <div className="hub-alt-grid">
         {cards.map((card, i) => {
           const [para1, para2] = splitBody(card.body)
-          const imgCell = (
-            <div
-              key={`${card.label}-img`}
-              className="hub-alt-img"
-              style={{ background: card.gradient || card.color }}
-            >
-              <span className="hub-alt-label">{card.label}</span>
-            </div>
-          )
-          const contentCell = (
-            <div key={`${card.label}-content`} className="hub-alt-content">
-              <h2>{card.heading}</h2>
-              {card.tagline && <p className="hub-alt-tagline">{card.tagline}</p>}
-              {para1 && <p>{para1}</p>}
-              {para2 && <p>{para2}</p>}
-              <div className="hub-alt-actions">
-                <a href="tel:7632921191" className="btn-dark-sm">CALL NOW</a>
-                {card.href && <a href={card.href} className="btn-outline-sm">LEARN MORE</a>}
+          return (
+            <div key={card.label} className={`hub-alt-row${i % 2 !== 0 ? ' hub-alt-row--reverse' : ''}`}>
+              <div
+                className="hub-alt-img"
+                style={{ background: card.gradient || card.color }}
+              >
+                <span className="hub-alt-label">{card.label}</span>
+              </div>
+              <div className="hub-alt-content">
+                <h2>{card.heading}</h2>
+                {card.tagline && <p className="hub-alt-tagline">{card.tagline}</p>}
+                {para1 && <p>{para1}</p>}
+                {para2 && <p>{para2}</p>}
+                <div className="hub-alt-actions">
+                  <a href="tel:7632921191" className="btn-dark-sm">CALL NOW</a>
+                  {card.href && <a href={card.href} className="btn-outline-sm">LEARN MORE</a>}
+                </div>
               </div>
             </div>
           )
-          return i % 2 === 0
-            ? [imgCell, contentCell]
-            : [contentCell, imgCell]
         })}
       </div>
     </section>

@@ -29,19 +29,21 @@ export default function AboutStory({ data }) {
 
   return (
     <div className="hub-alt-grid about-story">
+      <div className="hub-alt-row">
 
-      {/* Left — crew photo */}
-      <div className="hub-alt-img about-story-img"></div>
+        {/* Left — crew photo */}
+        <div className="hub-alt-img about-story-img"></div>
 
-      {/* Right — copy */}
-      <div className="hub-alt-content about-story-content">
-        <p className="about-story-eyebrow">{eyebrow}</p>
-        <h2 dangerouslySetInnerHTML={{ __html: headingHtml }} />
-        {paragraphs.map((p, i) => <p key={i}>{p}</p>)}
-        <p className="about-story-cta-label">Having an Electrical Problem?</p>
-        <div className="hub-alt-actions">
-          <a href={ctaHref} className="btn-dark-sm">{ctaLabel}</a>
-          <a href={ctaSecondaryHref} className="btn-outline-sm">{ctaSecondaryLabel}</a>
+        {/* Right — copy */}
+        <div className="hub-alt-content about-story-content">
+          <p className="about-story-eyebrow">{eyebrow}</p>
+          <h2 dangerouslySetInnerHTML={{ __html: headingHtml }} />
+          {paragraphs.map((p, i) => <p key={i}>{p}</p>)}
+          <p className="about-story-cta-label">Having an Electrical Problem?</p>
+          <div className="hub-alt-actions">
+            <a href={ctaHref} className="btn-dark-sm">{ctaLabel}</a>
+            <a href={ctaSecondaryHref} className="btn-outline-sm">{ctaSecondaryLabel}</a>
+          </div>
         </div>
       </div>
     </div>

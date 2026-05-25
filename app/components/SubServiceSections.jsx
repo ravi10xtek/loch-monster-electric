@@ -12,33 +12,29 @@ export default function SubServiceSections({ subServices }) {
       <div className="hub-alt-grid">
         {subServices.map((service, i) => {
           const [para1, para2] = splitBody(service.body);
-          const imgCell = (
-            <div
-              key={`${service.label}-img`}
-              className="hub-alt-img"
-              style={service.image
-                ? { backgroundImage: `url('${service.image}')`, backgroundSize: 'cover', backgroundPosition: 'center' }
-                : { background: service.gradient || service.color }
-              }
-            >
-              <span className="hub-alt-label">{service.label}</span>
-            </div>
-          );
-          const contentCell = (
-            <div key={`${service.label}-content`} className="hub-alt-content">
-              <h2>{service.heading}</h2>
-              {service.tagline && <p className="hub-alt-tagline">{service.tagline}</p>}
-              <p>{para1}</p>
-              {para2 && <p>{para2}</p>}
-              <div className="hub-alt-actions">
-                <a href="tel:7632921191" className="btn-dark-sm">CALL NOW</a>
-                <a href={service.readMoreHref} className="btn-outline-sm">LEARN MORE</a>
+          return (
+            <div key={service.label} className={`hub-alt-row${i % 2 !== 0 ? ' hub-alt-row--reverse' : ''}`}>
+              <div
+                className="hub-alt-img"
+                style={service.image
+                  ? { backgroundImage: `url('${service.image}')`, backgroundSize: 'cover', backgroundPosition: 'center' }
+                  : { background: service.gradient || service.color }
+                }
+              >
+                <span className="hub-alt-label">{service.label}</span>
+              </div>
+              <div className="hub-alt-content">
+                <h2>{service.heading}</h2>
+                {service.tagline && <p className="hub-alt-tagline">{service.tagline}</p>}
+                <p>{para1}</p>
+                {para2 && <p>{para2}</p>}
+                <div className="hub-alt-actions">
+                  <a href="tel:7632921191" className="btn-dark-sm">CALL NOW</a>
+                  <a href={service.readMoreHref} className="btn-outline-sm">LEARN MORE</a>
+                </div>
               </div>
             </div>
           );
-          return i % 2 === 0
-            ? [imgCell, contentCell]
-            : [contentCell, imgCell];
         })}
       </div>
     </section>

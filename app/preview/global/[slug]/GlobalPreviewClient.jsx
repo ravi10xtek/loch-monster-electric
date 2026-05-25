@@ -139,18 +139,12 @@ export default function GlobalPreviewClient({ slug, initialData, hubImages = {} 
         {tiers.length > 0 && (
           <section className="hub-services-section pricing-tiers">
             <div className="hub-alt-grid">
-              {tiers.map((tier, i) => {
-                const imgCell = (
-                  <div
-                    key={`${tier.id}-img`}
-                    className="hub-alt-img"
-                    style={{ background: tier.gradient }}
-                  >
+              {tiers.map((tier, i) => (
+                <div key={tier.id} className={`hub-alt-row${i % 2 === 0 ? ' hub-alt-row--reverse' : ''}`}>
+                  <div className="hub-alt-img" style={{ background: tier.gradient }}>
                     <span className="hub-alt-label">{tier.label}</span>
                   </div>
-                )
-                const contentCell = (
-                  <div key={`${tier.id}-content`} className="hub-alt-content" id={tier.id}>
+                  <div className="hub-alt-content" id={tier.id}>
                     <p className="pt-eyebrow">{tier.eyebrow}</p>
                     <h2>
                       {tier.heading}
@@ -168,11 +162,8 @@ export default function GlobalPreviewClient({ slug, initialData, hubImages = {} 
                       <a href="/contact-us" className="btn-dark-sm">START NOW</a>
                     </div>
                   </div>
-                )
-                return i % 2 === 0
-                  ? [contentCell, imgCell]
-                  : [imgCell, contentCell]
-              })}
+                </div>
+              ))}
             </div>
           </section>
         )}
