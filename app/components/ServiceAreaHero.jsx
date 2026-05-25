@@ -1,6 +1,6 @@
 import ServiceAreaHeroForm from './ServiceAreaHeroForm'
 
-export default function ServiceAreaHero({ heading, subheading, body, breadcrumb, heroImage, heroImageAlt }) {
+export default function ServiceAreaHero({ heading, subheading, body, body2, breadcrumb, heroImage, heroImageAlt }) {
   return (
     <section className="hero" id="home">
       <div
@@ -29,6 +29,7 @@ export default function ServiceAreaHero({ heading, subheading, body, breadcrumb,
           <h1 className="sa-city-title">{heading}</h1>
           {subheading && <p className="hero-tagline">{subheading}</p>}
           <p className="hero-body">{body}</p>
+          {body2 && <p className="hero-body">{body2}</p>}
         </div>
         <div className="hero-form-wrap">
           <div className="hero-form-header">

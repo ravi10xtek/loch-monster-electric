@@ -76,6 +76,7 @@ export default async function CityPage({ params }) {
           heading={`${cityData.name}, ${cityData.state}`}
           subheading={cityData.heroTagline || 'Keeping the Lights On, the Heat, and the Wi-Fi.'}
           body={cityData.heroIntro || cityData.blurb}
+          body2={cityData.heroIntro2 || null}
           heroImage={cityData.heroImage || null}
           heroImageAlt={cityData.heroImageAlt || null}
           breadcrumb={[

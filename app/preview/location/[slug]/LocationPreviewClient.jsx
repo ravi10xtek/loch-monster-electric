@@ -33,8 +33,9 @@ export default function LocationPreviewClient({ initialData, servicesSlot }) {
     <main>
       <ServiceAreaHero
         heading={`${city.name}, ${city.state}`}
-        subheading="Keeping the Lights On, the Heat, and the Wi-Fi."
-        body={city.blurb}
+        subheading={city.heroTagline || 'Keeping the Lights On, the Heat, and the Wi-Fi.'}
+        body={city.heroIntro || city.blurb}
+        body2={city.heroIntro2 || null}
         breadcrumb={[
           { label: 'Home', href: '/' },
           { label: 'Service Areas', href: '/service-areas' },

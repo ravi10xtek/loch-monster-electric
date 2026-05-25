@@ -497,6 +497,7 @@ ul { list-style: none; }
   max-width: 520px;
   line-height: 1.58;
 }
+.hero-body + .hero-body { margin-top: 14px; }
 
 /* Hero form box — solid orange panel, white fields, black CTA */
 .hero-form-wrap {
