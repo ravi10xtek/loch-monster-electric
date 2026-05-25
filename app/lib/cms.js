@@ -198,8 +198,11 @@ export async function getPageSEO(slug) {
     metaTitle: doc.metaTitle || null,
     metaDescription: doc.metaDescription || null,
     // ogImage may be a populated Media object or null.
-    // Use mediaUrl() — it handles both absolute (Supabase S3) and relative URLs.
-    ogImage: doc.ogImage?.url ? mediaUrl(doc.ogImage.url) : null,
+    // Prefer the og-sized PNG variant (1200x630, social-platform compatible);
+    // fall back to the original upload URL if the variant doesn't exist yet.
+    ogImage: doc.ogImage?.sizes?.og?.url
+      ? mediaUrl(doc.ogImage.sizes.og.url)
+      : (doc.ogImage?.url ? mediaUrl(doc.ogImage.url) : null),
     canonicalUrl: doc.canonicalUrl || null,
     noIndex: doc.noIndex || false,
     schemaMarkup: doc.schemaMarkup || null,
