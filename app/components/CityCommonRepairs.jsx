@@ -51,8 +51,8 @@ export default function CityCommonRepairs({ city }) {
       <JsonLd schema={itemListSchema} />
       <div className="wrap">
         <p className="eyebrow-center">Most Common Electrical Repairs</p>
-        <h2 className="center-heading">
-          What We Fix Most Often In{' '}
+        <h2 className="center-heading ccr-heading">
+          WHAT WE FIX MOST OFTEN IN{' '}
           <span className="text-orange">{cityName.toUpperCase()}</span>
         </h2>
         <p className="ccr-sub">
