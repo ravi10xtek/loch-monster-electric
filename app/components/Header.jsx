@@ -360,8 +360,6 @@ export default function Header({ hubImages, navigation }) {
         {/* Service Areas accordion */}
         <MobileServiceAreasAccordion openKey={mobileOpen} setOpenKey={setMobileOpen} />
 
-        <div className="mobile-nav-divider" />
-
         {/* Remaining flat links (Pricing, Blog, Media, etc.) */}
         {topLinks.map((link) => (
           <a key={link.href} href={link.href}>{link.label}</a>
