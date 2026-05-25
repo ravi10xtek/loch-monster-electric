@@ -3938,6 +3938,45 @@ textarea { resize: vertical; }
   max-width: 480px;
   margin: 0 auto 36px;
 }
+/* Social icon row — shown above the posts grid on all 3 pages */
+.stay-connected-icons {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  margin: 0 auto 36px;
+  flex-wrap: wrap;
+}
+.stay-connected-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.15);
+  color: rgba(255,255,255,0.85);
+  text-decoration: none;
+  transition: background 0.15s, color 0.15s, transform 0.15s;
+}
+.stay-connected-icon:hover {
+  background: var(--orange);
+  border-color: var(--orange);
+  color: #fff;
+  transform: translateY(-2px);
+}
+/* Light-variant overrides */
+.stay-connected--light .stay-connected-icon {
+  background: #f4f4f4;
+  border-color: #e2e2e2;
+  color: #333;
+}
+.stay-connected--light .stay-connected-icon:hover {
+  background: var(--orange);
+  border-color: var(--orange);
+  color: #fff;
+}
+
 .social-posts-empty { text-align: center; color: rgba(255,255,255,0.35); padding: 40px 0; }
 .social-posts-grid {
   display: grid;
