@@ -823,6 +823,45 @@ textarea { resize: vertical; }
   transition: transform .2s, box-shadow .2s;
 }
 .scard:hover { transform: translateY(-2px); box-shadow: 0 5px 16px rgba(0,0,0,0.08); }
+
+/* Sub-service pills inside each card. The card stops being a single <a>; the
+   image+title+body region links to the hub, each pill links to one service. */
+.scard-link {
+  display: flex;
+  flex-direction: column;
+  color: inherit;
+  text-decoration: none;
+}
+.scard-pills {
+  list-style: none;
+  padding: 6px 10px 12px;
+  margin: 0;
+  background: #efefef;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+}
+.scard-pill {
+  display: block;
+  padding: 7px 14px;
+  background: #fff;
+  border: 1px solid #d8d8d8;
+  border-radius: 999px;
+  color: #1c1c1c;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  line-height: 1.25;
+  text-align: center;
+  text-decoration: none;
+  transition: background 0.15s, border-color 0.15s, color 0.15s, transform 0.15s;
+}
+.scard-pill:hover {
+  background: #1c1c1c;
+  border-color: #1c1c1c;
+  color: #fff;
+}
 .scard-img {
   position: relative;
   height: 210px;

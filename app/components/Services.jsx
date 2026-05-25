@@ -1,4 +1,4 @@
-import { getCategoryHubCardImages } from '../lib/cms'
+import { getCategoryHubCardImages, getCategoryHubSubServices } from '../lib/cms'
 
 const serviceCards = {
   residential: [
@@ -56,26 +56,39 @@ function slugFromHref(href) {
   return parts[parts.length - 1] || ''
 }
 
-function ServiceCards({ tabId, ctaCard, ctaHref, cardImages }) {
+function ServiceCards({ tabId, ctaCard, ctaHref, cardImages, subServicesByHub }) {
   return (
     <div className="service-cards-grid service-cards-grid--home">
       {serviceCards[tabId].map((card) => {
-        const img = cardImages?.[slugFromHref(card.href)]
+        const hubSlug = slugFromHref(card.href)
+        const img = cardImages?.[hubSlug]
+        const subs = (subServicesByHub?.[hubSlug] || []).slice(0, 4)
         return (
-          <a className="scard" key={card.label} href={card.href}>
-            <div className="scard-img" style={{ backgroundColor: card.color }}>
-              {img ? (
-                <>
-                  <img className="scard-photo" src={img.url} alt={img.alt} />
-                  <div className="scard-photo-overlay"></div>
-                </>
-              ) : (
-                <div className="scard-img-inner" style={{ background: card.gradient }}></div>
-              )}
-              <div className="scard-label">{card.label}</div>
-            </div>
-            <div className="scard-body">{card.body}</div>
-          </a>
+          <div className="scard" key={card.label}>
+            <a className="scard-link" href={card.href} aria-label={`${card.label} — view all`}>
+              <div className="scard-img" style={{ backgroundColor: card.color }}>
+                {img ? (
+                  <>
+                    <img className="scard-photo" src={img.url} alt={img.alt} />
+                    <div className="scard-photo-overlay"></div>
+                  </>
+                ) : (
+                  <div className="scard-img-inner" style={{ background: card.gradient }}></div>
+                )}
+                <div className="scard-label">{card.label}</div>
+              </div>
+              <div className="scard-body">{card.body}</div>
+            </a>
+            {subs.length > 0 && (
+              <ul className="scard-pills" aria-label={`${card.label} services`}>
+                {subs.map((s) => (
+                  <li key={s.href}>
+                    <a className="scard-pill" href={s.href}>{s.label}</a>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
         )
       })}
       <a href={ctaHref} className="services-cta-card">
@@ -86,10 +99,13 @@ function ServiceCards({ tabId, ctaCard, ctaHref, cardImages }) {
   );
 }
 
-export default async function Services({ cardImages: cardImagesProp } = {}) {
-  // Accept pre-fetched cardImages from server pages (avoids re-fetch loops
-  // when this component is rendered inside live-preview client trees).
-  const cardImages = cardImagesProp ?? await getCategoryHubCardImages()
+export default async function Services({ cardImages: cardImagesProp, subServicesByHub: subProp } = {}) {
+  // Accept pre-fetched data from server pages (avoids re-fetch loops when
+  // this component is rendered inside live-preview client trees).
+  const [cardImages, subServicesByHub] = await Promise.all([
+    cardImagesProp !== undefined ? Promise.resolve(cardImagesProp) : getCategoryHubCardImages(),
+    subProp !== undefined ? Promise.resolve(subProp) : getCategoryHubSubServices(),
+  ])
   return (
     <section className="services-section" id="residential">
       <div className="wrap">
@@ -115,7 +131,7 @@ export default async function Services({ cardImages: cardImagesProp } = {}) {
                 <a href="/contact-us" className="btn-orange-sm">{tab.cta}</a>
               </div>
             </div>
-            <ServiceCards tabId={tab.id} ctaCard={tab.ctaCard} ctaHref={tab.ctaHref} cardImages={cardImages} />
+            <ServiceCards tabId={tab.id} ctaCard={tab.ctaCard} ctaHref={tab.ctaHref} cardImages={cardImages} subServicesByHub={subServicesByHub} />
           </div>
         ))}
       </div>

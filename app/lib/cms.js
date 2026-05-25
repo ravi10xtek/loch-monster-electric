@@ -307,6 +307,27 @@ export async function getCategoryHubCardImages() {
 }
 
 /**
+ * Returns a { [hubSlug]: [{ label, href }, ...] } map of CategoryHub subServices.
+ * Used by the homepage Services tabs to render per-card sub-service pills
+ * pointing at individual service pages.
+ */
+export async function getCategoryHubSubServices() {
+  const params = new URLSearchParams({ limit: '50', depth: '0' })
+  const data = await fetchAPI(`/api/category-hubs?${params}`, {
+    next: { tags: ['category-hubs'] },
+  })
+  if (!data?.docs?.length) return {}
+  const map = {}
+  for (const doc of data.docs) {
+    if (!doc.slug || !Array.isArray(doc.subServices)) continue
+    map[doc.slug] = doc.subServices
+      .filter((s) => s?.label && s?.readMoreHref)
+      .map((s) => ({ label: s.label, href: s.readMoreHref }))
+  }
+  return map
+}
+
+/**
  * Fetches all individual services and returns a slug → heroImage URL map.
  * Used as a fallback when a CategoryHub subService has no explicit image set.
  * Matches against the last path segment of each subService's readMoreHref.
