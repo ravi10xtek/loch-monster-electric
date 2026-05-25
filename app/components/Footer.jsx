@@ -167,7 +167,7 @@ export default async function Footer() {
         <div className="wrap footer-bottom-inner">
           <span>&copy; 2026 {copyrightName}. All Rights Reserved.</span>
           <div className="fb-links">
-            <a href="#">Privacy Policy</a>
+            <a href="/privacy-policy">Privacy Policy</a>
             <a href="#">Terms of Service</a>
             <a href="/sitemap.xml">Sitemap</a>
           </div>
