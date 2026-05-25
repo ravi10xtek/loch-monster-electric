@@ -168,7 +168,7 @@ export default async function Footer() {
           <span>&copy; 2026 {copyrightName}. All Rights Reserved.</span>
           <div className="fb-links">
             <a href="/privacy-policy">Privacy Policy</a>
-            <a href="#">Terms of Service</a>
+            <a href="/privacy-policy">Terms of Service</a>
             <a href="/sitemap.xml">Sitemap</a>
           </div>
           <span>MN LIC: {licenseMN} &middot; WI LIC: {licenseWI}</span>
