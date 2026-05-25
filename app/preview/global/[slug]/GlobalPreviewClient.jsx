@@ -158,7 +158,7 @@ export default function GlobalPreviewClient({ slug, initialData, hubImages = {},
                       <p key={j} className="pt-note-line">{note}</p>
                     ))}
                     <div className="hub-alt-actions">
-                      <a href="/contact-us" className="btn-dark-sm">START NOW</a>
+                      <a href="tel:7632921191" className="btn-dark-sm">CALL NOW</a>
                     </div>
                   </div>
                 </div>
