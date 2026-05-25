@@ -191,7 +191,9 @@ export async function getAllPageSlugs() {
  */
 export async function getPageSEO(slug) {
   const params = new URLSearchParams({ 'where[slug][equals]': slug, depth: '1', limit: '1' })
-  const data = await fetchAPI(`/api/page-seo?${params}`)
+  const data = await fetchAPI(`/api/page-seo?${params}`, {
+    next: { tags: ['page-seo', `page-seo:${slug}`] },
+  })
   const doc = data?.docs?.[0]
   if (!doc) return null
   return {
