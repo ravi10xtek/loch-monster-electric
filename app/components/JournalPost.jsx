@@ -1,5 +1,6 @@
 import OrangeBannerView from './OrangeBannerView';
 import FaqAccordion from './FaqAccordion';
+import AuthorCard from './AuthorCard';
 
 function formatDate(iso) {
   const d = new Date(iso);
@@ -66,6 +67,9 @@ export default function JournalPost({ post, related }) {
 
           {/* FAQ accordion — populated from CMS */}
           <FaqAccordion items={post.faq} title={post.faqTitle} />
+
+          {/* Author bio card */}
+          <AuthorCard authorSlug={post.authorSlug} />
 
           {/* Tags + share */}
           <div className="jp-post-footer">
