@@ -133,6 +133,8 @@ export default async function PricingPage() {
         id: t.id,
         label: t.label,
         gradient: t.gradient || 'linear-gradient(160deg,#1a1a1a,#2e2e2e)',
+        image: t.image?.url || null,
+        imageAlt: t.image?.alt || null,
         eyebrow: t.eyebrow || '',
         heading: t.heading || '',
         headingOrange: t.headingOrange || '',
@@ -203,7 +205,19 @@ export default async function PricingPage() {
               // Even rows: image RIGHT, content LEFT → --reverse
               // Odd rows:  image LEFT, content RIGHT → default
               <div key={tier.id} className={`hub-alt-row${i % 2 === 0 ? ' hub-alt-row--reverse' : ''}`}>
-                <div className="hub-alt-img" style={{ background: tier.gradient }}>
+                <div
+                  className="hub-alt-img"
+                  style={tier.image
+                    ? {
+                        backgroundImage: `url('${tier.image}')`,
+                        backgroundSize: 'cover',
+                        backgroundPosition: 'center',
+                      }
+                    : { background: tier.gradient }
+                  }
+                  role={tier.image ? 'img' : undefined}
+                  aria-label={tier.image ? (tier.imageAlt || tier.label) : undefined}
+                >
                   <span className="hub-alt-label">{tier.label}</span>
                 </div>
                 <div className="hub-alt-content" id={tier.id}>
