@@ -31,8 +31,17 @@ export default function AboutStory({ data }) {
     <div className="hub-alt-grid about-story">
       <div className="hub-alt-row">
 
-        {/* Left — crew photo */}
-        <div className="hub-alt-img about-story-img"></div>
+        {/* Left — YouTube video */}
+        <div className="hub-alt-img about-story-video">
+          <iframe
+            src="https://www.youtube-nocookie.com/embed/v_VTPohPgDI?rel=0"
+            title="About Loch Monster Electric"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowFullScreen
+            loading="lazy"
+            referrerPolicy="strict-origin-when-cross-origin"
+          />
+        </div>
 
         {/* Right — copy */}
         <div className="hub-alt-content about-story-content">
