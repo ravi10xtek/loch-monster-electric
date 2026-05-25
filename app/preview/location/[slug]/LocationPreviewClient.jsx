@@ -32,7 +32,7 @@ export default function LocationPreviewClient({ initialData, servicesSlot }) {
   return (
     <main>
       <ServiceAreaHero
-        heading={`${city.name}, ${city.state}`}
+        heading={`${city.name}'s Trusted Electrician`}
         subheading={city.heroTagline || 'Keeping the Lights On, the Heat, and the Wi-Fi.'}
         body={city.heroIntro || city.blurb}
         body2={city.heroIntro2 || null}

@@ -73,7 +73,7 @@ export default async function CityPage({ params }) {
       <HomeInteractions />
       <main>
         <ServiceAreaHero
-          heading={`${cityData.name}, ${cityData.state}`}
+          heading={`${cityData.name}'s Trusted Electrician`}
           subheading={cityData.heroTagline || 'Keeping the Lights On, the Heat, and the Wi-Fi.'}
           body={cityData.heroIntro || cityData.blurb}
           body2={cityData.heroIntro2 || null}
