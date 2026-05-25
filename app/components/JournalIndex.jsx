@@ -49,7 +49,13 @@ export default function JournalIndex({ posts }) {
             <a href={`/blog/${featured.slug}`} className="btn-outline-sm">READ MORE</a>
           </div>
         </div>
-        <div className="ji-feat-img" style={{ background: featured.coverGradient }} />
+        <div
+          className="ji-feat-img"
+          style={featured.coverImage
+            ? { backgroundImage: `url('${featured.coverImage}')`, backgroundSize: 'cover', backgroundPosition: 'center' }
+            : { background: featured.coverGradient }
+          }
+        />
       </section>
 
       {/* ── Filter sidebar + article list ─────────────────── */}
@@ -84,7 +90,15 @@ export default function JournalIndex({ posts }) {
           )}
           {visible.map(post => (
             <article key={post.slug} className="ji-card">
-              <a href={`/blog/${post.slug}`} className="ji-card-img" style={{ background: post.coverGradient }} aria-hidden="true" />
+              <a
+                href={`/blog/${post.slug}`}
+                className="ji-card-img"
+                style={post.coverImage
+                  ? { backgroundImage: `url('${post.coverImage}')`, backgroundSize: 'cover', backgroundPosition: 'center' }
+                  : { background: post.coverGradient }
+                }
+                aria-hidden="true"
+              />
               <div className="ji-card-content">
                 <div className="ji-card-tags">
                   {post.tags.map(t => (

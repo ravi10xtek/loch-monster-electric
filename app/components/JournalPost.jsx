@@ -94,7 +94,13 @@ export default function JournalPost({ post, related }) {
         <aside className="jp-sidebar">
           {related.map(rel => (
             <div key={rel.slug} className="jp-sidebar-card">
-              <div className="jp-sidebar-card-img" style={{ background: rel.coverGradient }} />
+              <div
+                className="jp-sidebar-card-img"
+                style={rel.coverImage
+                  ? { backgroundImage: `url('${rel.coverImage}')`, backgroundSize: 'cover', backgroundPosition: 'center' }
+                  : { background: rel.coverGradient }
+                }
+              />
               <div className="jp-sidebar-card-body">
                 <div className="ji-card-tags">
                   {rel.tags.map(t => (
@@ -132,7 +138,13 @@ export default function JournalPost({ post, related }) {
             {related.concat(related).slice(0, 4).map((rel, i) => (
               <article className="jcard" key={`${rel.slug}-${i}`}>
                 <h4 className="jcard-title">{rel.title}</h4>
-                <div className="jcard-img" style={{ background: rel.coverGradient }} />
+                <div
+                  className="jcard-img"
+                  style={rel.coverImage
+                    ? { backgroundImage: `url('${rel.coverImage}')`, backgroundSize: 'cover', backgroundPosition: 'center' }
+                    : { background: rel.coverGradient }
+                  }
+                />
                 <p className="jcard-excerpt">{rel.excerpt}</p>
                 <a href={`/blog/${rel.slug}`} className="jcard-cta">READ MORE</a>
               </article>
