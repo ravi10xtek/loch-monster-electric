@@ -4,13 +4,21 @@ import { normalizeLocation } from '../../../lib/normalize'
 import ServiceAreaHero from '../../../components/ServiceAreaHero'
 import CityLocalSection from '../../../components/CityLocalSection'
 import Expect from '../../../components/Expect'
-import Services from '../../../components/Services'
 import WhyChooseUs from '../../../components/WhyChooseUs'
 import OrangeBanner from '../../../components/OrangeBannerView'
 
 const PAYLOAD_URL = process.env.NEXT_PUBLIC_CMS_URL || 'http://localhost:3001'
 
-export default function LocationPreviewClient({ initialData }) {
+/**
+ * Live-preview client for Location docs.
+ *
+ * IMPORTANT: We never render async server components (Services, Journal, etc.)
+ * directly here — useLivePreview re-renders on every CMS keystroke, which
+ * would re-invoke the async function and spam the CMS API. Instead, the
+ * server page renders Services once and passes the result via the
+ * `servicesSlot` prop.
+ */
+export default function LocationPreviewClient({ initialData, servicesSlot }) {
   const { data } = useLivePreview({
     initialData,
     serverURL: PAYLOAD_URL,
@@ -35,7 +43,7 @@ export default function LocationPreviewClient({ initialData }) {
       />
       <CityLocalSection city={city} />
       <Expect dark />
-      <Services />
+      {servicesSlot}
       <WhyChooseUs />
       <OrangeBanner
         heading='WHERE <span class="ob-white">MINNESOTA</span> &amp; WISCONSIN<br /><span class="ob-white">LIVE, WORK &amp; MANAGE</span>&mdash;WE&apos;RE THERE'

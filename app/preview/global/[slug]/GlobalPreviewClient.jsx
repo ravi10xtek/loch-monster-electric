@@ -2,7 +2,6 @@
 
 import { useLivePreview } from '@payloadcms/live-preview-react'
 import Hero from '../../../components/Hero'
-import Services from '../../../components/Services'
 import OrangeBanner from '../../../components/OrangeBannerView'
 import Expect from '../../../components/Expect'
 import WhyChooseUs from '../../../components/WhyChooseUs'
@@ -76,7 +75,7 @@ function ServiceAreaHeroPreview({ data }) {
   )
 }
 
-export default function GlobalPreviewClient({ slug, initialData, hubImages = {} }) {
+export default function GlobalPreviewClient({ slug, initialData, hubImages = {}, servicesSlot = null }) {
   const { data } = useLivePreview({
     initialData,
     serverURL: CMS_URL,
@@ -87,7 +86,7 @@ export default function GlobalPreviewClient({ slug, initialData, hubImages = {} 
     return (
       <main>
         <Hero data={data} />
-        <Services data={data} />
+        {servicesSlot}
         <OrangeBanner
           heading={data?.bannerHeading}
           body={data?.bannerBody}

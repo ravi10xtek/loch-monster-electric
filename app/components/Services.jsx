@@ -86,8 +86,10 @@ function ServiceCards({ tabId, ctaCard, ctaHref, cardImages }) {
   );
 }
 
-export default async function Services() {
-  const cardImages = await getCategoryHubCardImages()
+export default async function Services({ cardImages: cardImagesProp } = {}) {
+  // Accept pre-fetched cardImages from server pages (avoids re-fetch loops
+  // when this component is rendered inside live-preview client trees).
+  const cardImages = cardImagesProp ?? await getCategoryHubCardImages()
   return (
     <section className="services-section" id="residential">
       <div className="wrap">
