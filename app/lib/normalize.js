@@ -128,6 +128,30 @@ export function normalizePost(p) {
   }
 }
 
+// Maps a service's parentHub slug → URL path prefix.
+// Mirrors HUB_PARENT in app/sitemap.js so we don't import from a Node-only module.
+const HUB_PARENT = {
+  'electrical-repairs':        'residential-electrical-services',
+  'electrical-upgrades':       'residential-electrical-services',
+  'installations':             'residential-electrical-services',
+  'safety-compliance':         'residential-electrical-services',
+  'commercial-repairs':        'commercial-electrical-services',
+  'power-distribution':        'commercial-electrical-services',
+  'lighting-systems':          'commercial-electrical-services',
+  'compliance-infrastructure': 'commercial-electrical-services',
+  'hoa-common-areas':          'hoa-electrical-services',
+  'hoa-emergency-repairs':     'hoa-electrical-services',
+  'hoa-ev-charging':           'hoa-electrical-services',
+  'hoa-inspections':           'hoa-electrical-services',
+}
+
+function serviceUrl(svc) {
+  if (!svc || !svc.slug || !svc.parentHub) return null
+  const parent = HUB_PARENT[svc.parentHub]
+  if (!parent) return null
+  return `/${parent}/${svc.parentHub}/${svc.slug}`
+}
+
 export function normalizeLocation(p) {
   return {
     ...p,
@@ -136,6 +160,17 @@ export function normalizeLocation(p) {
     heroImageAlt: p.heroImage?.alt || null,
     cityImage: p.cityImage?.url ? mediaUrl(p.cityImage.url) : null,
     cityImageAlt: p.cityImage?.alt || null,
+    commonRepairs: (p.commonRepairs || [])
+      .map(r => {
+        const svc = typeof r.service === 'object' ? r.service : null
+        if (!svc) return null
+        return {
+          label: svc.title || svc.name || '',
+          href: serviceUrl(svc),
+          cityContext: r.cityContext || '',
+        }
+      })
+      .filter(r => r && r.href),
   }
 }
 

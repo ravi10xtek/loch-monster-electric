@@ -4,6 +4,7 @@ import { allCities, getCityBySlug } from '../../data/serviceAreas'
 import HomeInteractions from '../../ui/home-interactions'
 import ServiceAreaHero from '../../components/ServiceAreaHero'
 import CityLocalSection from '../../components/CityLocalSection'
+import CityCommonRepairs from '../../components/CityCommonRepairs'
 import OrangeBanner from '../../components/OrangeBanner'
 import Expect from '../../components/Expect'
 import Services from '../../components/Services'
@@ -86,6 +87,7 @@ export default async function CityPage({ params }) {
           ]}
         />
         <CityLocalSection city={cityData} />
+        <CityCommonRepairs city={cityData} />
         <FAQ tag="service-areas" />
         <Expect dark />
         <Services />
