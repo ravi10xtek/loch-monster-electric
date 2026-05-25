@@ -6,15 +6,19 @@ const placeholderReviews = [
   { initial: 'D', name: 'David Peterson', time: '5 months ago', text: "Best electrical experience I've had. Professional, on time, and they took the time to make sure everything was perfect before leaving." },
 ];
 
-export default function WhyChooseUs() {
+const FALLBACK_HEADING =
+  'WE OFFER A WIDE RANGE OF <span class="text-orange">ELECTRICAL SERVICES</span>,<br />FROM NEW CONSTRUCTION TO TROUBLESHOOTING.'
+
+export default function WhyChooseUs({ heading }) {
+  const headingHtml = heading || FALLBACK_HEADING
   return (
     <section className="why-section">
       <div className="wrap">
         <p className="eyebrow-center light-eye">Why Choose Us</p>
-        <h2 className="center-heading white-head">
-          WE OFFER A WIDE RANGE OF <span className="text-orange">ELECTRICAL SERVICES</span>,<br />
-          FROM NEW CONSTRUCTION TO TROUBLESHOOTING.
-        </h2>
+        <h2
+          className="center-heading white-head"
+          dangerouslySetInnerHTML={{ __html: headingHtml }}
+        />
         <div className="reviews-row">
           <button className="cnav-btn cnav-side" id="wPrev" aria-label="Previous reviews">&#8249;</button>
           <div className="why-carousel-wrap">

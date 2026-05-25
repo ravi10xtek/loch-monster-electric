@@ -23,18 +23,24 @@ function PricingHero({ data }) {
     : [{ line: 'PRICING &' }, { line: 'ESTIMATES' }]
   const tagline = data?.heroTagline || 'Honest Work. Clear Costs. No Surprises.'
   const body = data?.heroBody || ''
+  const bgImage = data?.heroImage?.url || null
 
   return (
     <section className="hero" id="home">
-      <div className="hero-bg" />
+      <div
+        className="hero-bg"
+        style={bgImage ? {
+          backgroundImage: `linear-gradient(90deg, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.62) 45%, rgba(0,0,0,0.68) 100%), url('${bgImage}')`,
+        } : undefined}
+      />
       <div className="hero-inner">
         <div className="hero-left">
           <p className="hero-eyebrow">{eyebrow}</p>
           <h1>
             {lines.map((t, i) => (
-              <span key={i} className="hero-title-line">
-                {i === 0 ? t.line : <span className="text-orange">{t.line}</span>}
-              </span>
+              <span key={i} className="hero-title-line"
+                dangerouslySetInnerHTML={{ __html: t.line }}
+              />
             ))}
           </h1>
           <p className="hero-tagline">{tagline}</p>
@@ -49,10 +55,16 @@ function ServiceAreaHeroPreview({ data }) {
   const heading = data?.heroHeading || 'WE SERVE THE ENTIRE TWIN CITIES METRO'
   const subheading = data?.heroSubheading || ''
   const body = data?.heroBody || ''
+  const bgImage = data?.heroImage?.url || null
 
   return (
     <section className="hero" id="home">
-      <div className="hero-bg" />
+      <div
+        className="hero-bg"
+        style={bgImage ? {
+          backgroundImage: `linear-gradient(90deg, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.62) 45%, rgba(0,0,0,0.68) 100%), url('${bgImage}')`,
+        } : undefined}
+      />
       <div className="hero-inner">
         <div className="hero-left">
           <h1 className="sa-city-title">{heading}</h1>

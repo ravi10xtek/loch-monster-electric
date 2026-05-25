@@ -48,10 +48,10 @@ export default async function HomePage() {
         <Services />
         <OrangeBanner />
         <ServiceAreas />
-        <Expect />
-        <WhyChooseUs />
-        <Pricing />
-        <OurStory />
+        <Expect items={homeData?.expectItems} />
+        <WhyChooseUs heading={homeData?.whyHeading} />
+        <Pricing heading={homeData?.pricingHeading} cards={homeData?.pricingCards} />
+        <OurStory data={homeData} />
         <Journal />
         <FAQ tag="home" />
       </main>

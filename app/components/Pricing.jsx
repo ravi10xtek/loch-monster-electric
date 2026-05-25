@@ -1,4 +1,7 @@
-const cards = [
+const FALLBACK_HEADING = 'HOW WE <span class="text-orange">PRICE</span> JOBS'
+
+// Fallback cards match what was previously hardcoded in this component
+const FALLBACK_CARDS = [
   {
     featured: true,
     badge: { text: 'FOR MOST JOBS', style: 'orange' },
@@ -46,13 +49,31 @@ const cards = [
       'Optional add-on to any pricing tier.',
     ],
   },
-];
+]
 
-export default function Pricing() {
+// Transform CMS card shape → component shape
+function normaliseCmsCards(cmsCards) {
+  return cmsCards.map(c => ({
+    featured: c.featured || false,
+    badge: c.badgeText ? { text: c.badgeText, style: c.badgeStyle || '' } : null,
+    title: c.title,
+    anchor: c.anchor,
+    items: c.items?.map(item => item.text).filter(Boolean) || [],
+    ctaStyle: c.featured ? 'orange' : '',
+  }))
+}
+
+export default function Pricing({ heading, cards: cmsProp }) {
+  const sectionHeading = heading || FALLBACK_HEADING
+  const cards = cmsProp?.length ? normaliseCmsCards(cmsProp) : FALLBACK_CARDS
+
   return (
     <section className="pricing-section" id="pricing">
       <div className="wrap">
-        <h2 className="pricing-heading">HOW WE <span className="text-orange">PRICE</span> JOBS</h2>
+        <h2
+          className="pricing-heading"
+          dangerouslySetInnerHTML={{ __html: sectionHeading }}
+        />
         <div className="pricing-grid">
           {cards.map((card, i) => (
             <div key={i} className={`pc${card.featured ? ' pc-featured' : ''}`}>

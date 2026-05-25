@@ -1,23 +1,38 @@
-export default function OurStory() {
+// Fallback text matches what was previously hardcoded in this component
+const FALLBACK_EYEBROW = 'Our Story'
+const FALLBACK_HEADING =
+  'FROM PIPES TO POWER&mdash;<span class="text-orange">SAME CREW, SAME HEART.</span>'
+const FALLBACK_PARAGRAPHS = [
+  "Loch Monster started in plumbing. One truck. One goal: do the kind of work we'd want done in our own homes. Over the years, customers kept asking the same thing: “Do you guys do electrical too?” Now we do.",
+  "Loch Monster Electric brings the same mindset to wiring — honest pricing, respectful service, and a crew that shows up when they say they will. Different trade. Same commitment to doing the job right.",
+]
+const FALLBACK_CTA_LABEL = 'LEARN MORE'
+const FALLBACK_CTA_HREF = '/about-us'
+
+export default function OurStory({ data }) {
+  const d = data || {}
+  const eyebrow = d.storyEyebrow || FALLBACK_EYEBROW
+  const headingHtml = d.storyHeading || FALLBACK_HEADING
+  const paragraphs = d.storyParagraphs?.length
+    ? d.storyParagraphs.map(p => p.text).filter(Boolean)
+    : FALLBACK_PARAGRAPHS
+  const ctaLabel = d.storyCtaLabel || FALLBACK_CTA_LABEL
+  const ctaHref = d.storyCtaHref || FALLBACK_CTA_HREF
+
   return (
     <section className="pipes-section" id="story">
       <div className="wrap">
         <div className="pipes-grid">
           <div className="pipes-text">
-            <p className="pipes-eyebrow">Our Story</p>
-            <h2 className="pipes-heading">
-              FROM PIPES TO POWER&mdash;<span className="text-orange">SAME CREW, SAME HEART.</span>
-            </h2>
-            <p className="pipes-body">
-              Loch Monster started in plumbing. One truck. One goal: do the kind of work we&rsquo;d want done in
-              our own homes. Over the years, customers kept asking the same thing: &ldquo;Do you guys do electrical
-              too?&rdquo; Now we do.
-            </p>
-            <p className="pipes-body">
-              Loch Monster Electric brings the same mindset to wiring &mdash; honest pricing, respectful service,
-              and a crew that shows up when they say they will. Different trade. Same commitment to doing the job right.
-            </p>
-            <a href="/about-us" className="pipes-cta">LEARN MORE</a>
+            <p className="pipes-eyebrow">{eyebrow}</p>
+            <h2
+              className="pipes-heading"
+              dangerouslySetInnerHTML={{ __html: headingHtml }}
+            />
+            {paragraphs.map((p, i) => (
+              <p key={i} className="pipes-body">{p}</p>
+            ))}
+            <a href={ctaHref} className="pipes-cta">{ctaLabel}</a>
           </div>
           <div className="pipes-video">
             <div className="pipes-video-frame">
