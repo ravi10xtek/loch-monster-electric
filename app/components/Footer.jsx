@@ -154,7 +154,7 @@ export default async function Footer() {
               <ul>
                 <li><a href="/privacy-policy">Privacy Policy</a></li>
                 <li><a href="/privacy-policy">Terms &amp; Conditions</a></li>
-                <li><a href="#">Cookie Policy</a></li>
+                <li><a href="/cookie-policy">Cookie Policy</a></li>
                 <li><a href="/privacy-policy">Disclaimer</a></li>
               </ul>
             </div>

@@ -42,6 +42,7 @@ export default async function sitemap() {
     { url: `${BASE}/hoa-electrical-services`,               priority: 0.8, changeFrequency: 'monthly' },
     { url: `${BASE}/electrical-glossary`,                   priority: 0.7, changeFrequency: 'yearly'  },
     { url: `${BASE}/privacy-policy`,                        priority: 0.3, changeFrequency: 'yearly'  },
+    { url: `${BASE}/cookie-policy`,                         priority: 0.3, changeFrequency: 'yearly'  },
   ].map(p => ({ ...p, lastModified: now }))
 
   // ── Hub landing pages (e.g. /residential-electrical-services/electrical-repairs) ──
