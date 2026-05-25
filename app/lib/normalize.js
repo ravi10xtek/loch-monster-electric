@@ -69,8 +69,41 @@ function serializeNode(node) {
     return `<blockquote>${serializeChildren(node.children)}</blockquote>`
   }
   if (type === 'horizontalrule') return '<hr />'
+  if (type === 'upload') return serializeUploadNode(node)
   // Unknown — render children
   return serializeChildren(node.children)
+}
+
+/**
+ * Renders an upload (inline image) node from the Lexical editor.
+ * Mirrors the converter in lme-cms/src/collections/Posts.ts so the
+ * client-side render matches what Payload generates server-side.
+ */
+function serializeUploadNode(node) {
+  const media = node.value
+  if (!media) return ''
+
+  const rawUrl = typeof media === 'object' ? media.url : null
+  if (!rawUrl) return ''
+
+  const src = mediaUrl(rawUrl)
+  const alt = escapeHtml(media.alt || media.filename || '')
+  const widthPct = node.fields?.width || '100'
+  const align    = node.fields?.align || 'center'
+  const caption  = node.fields?.caption || media.caption || ''
+
+  let style = `width:${widthPct}%;`
+  if (align === 'center')     style += 'display:block;margin-left:auto;margin-right:auto;'
+  else if (align === 'left')  style += 'float:left;margin:0 1.5rem 1rem 0;'
+  else if (align === 'right') style += 'float:right;margin:0 0 1rem 1.5rem;'
+
+  const img = `<img src="${escapeHtml(src)}" alt="${alt}" loading="lazy" style="${style}" class="jp-inline-img" />`
+
+  if (caption) {
+    const figStyle = align === 'center' ? 'text-align:center;' : ''
+    return `<figure class="jp-inline-figure" style="${figStyle}">${img}<figcaption>${escapeHtml(caption)}</figcaption></figure>`
+  }
+  return img
 }
 
 function lexicalToHtml(body) {
