@@ -54,7 +54,19 @@ export default function CityLocalSection({ city }) {
             </p>
           )}
         </div>
-        <div className="city-local-img" style={{ background: 'linear-gradient(160deg,#1a1a1a,#2e2e2e)' }}></div>
+        <div
+          className="city-local-img"
+          style={city.cityImage
+            ? {
+                backgroundImage: `url('${city.cityImage}')`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+              }
+            : { background: 'linear-gradient(160deg,#1a1a1a,#2e2e2e)' }
+          }
+          role={city.cityImage ? 'img' : undefined}
+          aria-label={city.cityImage ? (city.cityImageAlt || `Electrician working in ${city.name}`) : undefined}
+        />
       </section>
     </>
   )

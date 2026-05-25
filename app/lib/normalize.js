@@ -101,6 +101,8 @@ export function normalizeLocation(p) {
     nearby: (p.nearby || []).map(n => (typeof n === 'object' ? n.slug : n)),
     heroImage: p.heroImage?.url ? mediaUrl(p.heroImage.url) : null,
     heroImageAlt: p.heroImage?.alt || null,
+    cityImage: p.cityImage?.url ? mediaUrl(p.cityImage.url) : null,
+    cityImageAlt: p.cityImage?.alt || null,
   }
 }
 
