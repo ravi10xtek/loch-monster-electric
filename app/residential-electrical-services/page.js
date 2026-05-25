@@ -38,7 +38,7 @@ function mapHubToPageData(cms) {
       imageAlt: cms.heroImage?.alt || null,
     },
     whatWeHandle: {
-      eyebrow: 'Our Services',
+      eyebrow: cms.whatEyebrow || 'Our Services',
       heading: cms.whatHeading,
       body: cms.whatBody,
       cta: cms.whatCta,
