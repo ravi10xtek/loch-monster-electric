@@ -75,12 +75,13 @@ ul { list-style: none; }
 @media (max-width: 768px) {
   .top-bar-inner {
     grid-template-columns: 1fr;
-    gap: 6px;
-    padding: 0 26px;
+    gap: 0;
+    padding: 0 20px;
+    justify-items: center;
   }
-  .top-bar-left { text-align: center; }
-  .top-bar-phone { font-size: 1.15rem; }
-  .top-bar-right { justify-self: center; }
+  .top-bar-left { display: none; }
+  .top-bar-phone { font-size: 1.1rem; justify-self: center; }
+  .top-bar-right { display: none; }
 }
 
 /* ===== HEADER ===== */
@@ -156,25 +157,90 @@ ul { list-style: none; }
   background: var(--dark);
   z-index: 1100;
   flex-direction: column;
-  padding: 60px 28px 28px;
+  padding: 60px 0 28px;
   gap: 0;
+  overflow-y: auto;
 }
 .mobile-nav.open { display: flex; }
-.mobile-nav a {
+.mobile-nav > a {
   font-family: var(--OH);
-  font-size: 1.3rem;
+  font-size: 1.15rem;
   color: #fff;
-  padding: 14px 0;
-  border-bottom: 1px solid rgba(255,255,255,0.1);
+  padding: 13px 28px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
   letter-spacing: 0.05em;
 }
-.mobile-nav a:hover { color: var(--orange); }
+.mobile-nav > a:hover { color: var(--orange); }
 .mobile-close {
   position: absolute;
   top: 14px; right: 22px;
   background: none; border: none;
   color: #fff; font-size: 2.5rem;
   cursor: pointer; line-height: 1;
+}
+
+/* Mobile accordion (service mega menus) */
+.mobile-accordion {
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.mobile-acc-header {
+  display: flex;
+  align-items: stretch;
+}
+.mobile-acc-label {
+  flex: 1;
+  font-family: var(--OH);
+  font-size: 1.15rem;
+  color: #fff !important;
+  padding: 13px 28px !important;
+  border-bottom: none !important;
+  letter-spacing: 0.05em;
+}
+.mobile-acc-label:hover { color: var(--orange) !important; }
+.mobile-acc-toggle {
+  background: none;
+  border: none;
+  border-left: 1px solid rgba(255,255,255,0.08);
+  color: #fff;
+  font-size: 1.4rem;
+  padding: 0 22px;
+  cursor: pointer;
+  line-height: 1;
+  flex-shrink: 0;
+}
+.mobile-acc-toggle:hover { color: var(--orange); }
+.mobile-acc-body {
+  padding: 4px 0 10px;
+  background: rgba(0,0,0,0.25);
+}
+.mobile-acc-hub {
+  padding: 6px 0 2px;
+}
+.mobile-acc-hub-link {
+  display: block;
+  font-family: var(--OH);
+  font-size: 0.72rem;
+  color: var(--orange) !important;
+  letter-spacing: 0.1em;
+  font-weight: 700;
+  padding: 6px 28px 3px !important;
+  border-bottom: none !important;
+}
+.mobile-acc-service-link {
+  display: block;
+  font-family: var(--OH);
+  font-size: 0.88rem;
+  color: rgba(255,255,255,0.7) !important;
+  padding: 5px 28px 5px 40px !important;
+  letter-spacing: 0.03em;
+  border-bottom: none !important;
+}
+.mobile-acc-service-link:hover { color: #fff !important; }
+.mobile-nav-divider {
+  height: 1px;
+  background: rgba(255,255,255,0.15);
+  margin: 6px 0;
+  flex-shrink: 0;
 }
 
 /* ===== NAV ITEM WRAP & MEGA MENU ===== */

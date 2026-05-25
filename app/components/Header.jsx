@@ -193,6 +193,37 @@ function MegaMenu({ menuKey, menus }) {
   );
 }
 
+function MobileAccordion({ menuKey, label, topHref, hubs, openKey, setOpenKey }) {
+  const isOpen = openKey === menuKey
+  return (
+    <div className="mobile-accordion">
+      <div className="mobile-acc-header">
+        <a href={topHref} className="mobile-acc-label">{label}</a>
+        <button
+          className="mobile-acc-toggle"
+          onClick={() => setOpenKey(isOpen ? null : menuKey)}
+          aria-expanded={isOpen}
+          aria-label={`${isOpen ? 'Collapse' : 'Expand'} ${label} menu`}
+        >
+          {isOpen ? '−' : '+'}
+        </button>
+      </div>
+      {isOpen && (
+        <div className="mobile-acc-body">
+          {hubs.map(hub => (
+            <div key={hub.href} className="mobile-acc-hub">
+              <a href={hub.href} className="mobile-acc-hub-link">{hub.label}</a>
+              {hub.services?.map(s => (
+                <a key={s.href} href={s.href} className="mobile-acc-service-link">{s.label}</a>
+              ))}
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  )
+}
+
 function ServiceAreasMegaMenu() {
   const col1 = allCities.slice(0, 6);
   const col2 = allCities.slice(6, 12);
@@ -224,6 +255,7 @@ function ServiceAreasMegaMenu() {
 
 export default function Header({ hubImages, navigation }) {
   const [openMenu, setOpenMenu] = useState(null);
+  const [mobileOpen, setMobileOpen] = useState(null);
   const closeTimer = useRef(null);
 
   const menus = buildMenus(navigation)
@@ -277,7 +309,27 @@ export default function Header({ hubImages, navigation }) {
       </header>
       <div className="mobile-nav" id="mobileNav">
         <button className="mobile-close" id="mobileClose">&times;</button>
-        {mobileLinks.map((link) => (
+
+        {/* Service mega menus as accordions */}
+        {Object.entries(menus).map(([key, menu]) => (
+          <MobileAccordion
+            key={key}
+            menuKey={key}
+            label={menu.label || key.toUpperCase()}
+            topHref={menu.topHref}
+            hubs={menu.hubs}
+            openKey={mobileOpen}
+            setOpenKey={setMobileOpen}
+          />
+        ))}
+
+        {/* Service Areas — flat link */}
+        <a href="/service-areas">SERVICE AREAS</a>
+
+        <div className="mobile-nav-divider" />
+
+        {/* Remaining flat links (Pricing, Blog, Media, etc.) */}
+        {topLinks.map((link) => (
           <a key={link.href} href={link.href}>{link.label}</a>
         ))}
       </div>

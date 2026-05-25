@@ -243,11 +243,10 @@ export default function HomeInteractions() {
     cleanups.push(() => hamburger?.removeEventListener("click", openMobile));
     cleanups.push(() => mobileClose?.removeEventListener("click", closeMobile));
 
-    document.querySelectorAll(".mobile-nav a").forEach((a) => {
-      const onClick = () => closeMobile();
-      a.addEventListener("click", onClick);
-      cleanups.push(() => a.removeEventListener("click", onClick));
-    });
+    // Event delegation — catches dynamically-rendered accordion links too
+    const mobileNavClick = (e) => { if (e.target.tagName === 'A') closeMobile(); };
+    mobileNav?.addEventListener("click", mobileNavClick);
+    cleanups.push(() => mobileNav?.removeEventListener("click", mobileNavClick));
 
     const cityButtons = document.querySelectorAll(".city-btn");
     const mapCanvas = document.getElementById("saMap");
