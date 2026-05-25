@@ -224,6 +224,40 @@ function MobileAccordion({ menuKey, label, topHref, hubs, openKey, setOpenKey })
   )
 }
 
+function MobileServiceAreasAccordion({ openKey, setOpenKey }) {
+  const isOpen = openKey === 'serviceAreas'
+  return (
+    <div className="mobile-accordion">
+      <div className="mobile-acc-header">
+        <a href="/service-areas" className="mobile-acc-label">SERVICE AREAS</a>
+        <button
+          className="mobile-acc-toggle"
+          onClick={() => setOpenKey(isOpen ? null : 'serviceAreas')}
+          aria-expanded={isOpen}
+          aria-label={`${isOpen ? 'Collapse' : 'Expand'} Service Areas menu`}
+        >
+          {isOpen ? '−' : '+'}
+        </button>
+      </div>
+      {isOpen && (
+        <div className="mobile-acc-body">
+          <div className="mobile-acc-hub">
+            {allCities.map(city => (
+              <a
+                key={city.slug}
+                href={`/service-areas/${city.slug}`}
+                className="mobile-acc-service-link"
+              >
+                {city.name.toUpperCase()}, {city.state}
+              </a>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  )
+}
+
 function ServiceAreasMegaMenu() {
   const col1 = allCities.slice(0, 6);
   const col2 = allCities.slice(6, 12);
@@ -323,8 +357,8 @@ export default function Header({ hubImages, navigation }) {
           />
         ))}
 
-        {/* Service Areas — flat link */}
-        <a href="/service-areas">SERVICE AREAS</a>
+        {/* Service Areas accordion */}
+        <MobileServiceAreasAccordion openKey={mobileOpen} setOpenKey={setMobileOpen} />
 
         <div className="mobile-nav-divider" />
 
