@@ -1,14 +1,30 @@
-import { getCategoryHubCardImages, getNavigation } from '../lib/cms'
+import { getCategoryHubCardImages, getNavigation, getLocations } from '../lib/cms'
 import Header from './Header'
 
 /**
- * Server component — fetches CategoryHub card images and CMS navigation
- * data, then passes both to the client Header component.
+ * Server component — fetches CategoryHub card images, CMS navigation
+ * data, and per-city hero images, then passes everything to the
+ * client Header component.
  */
 export default async function HeaderWrapper() {
-  const [hubImages, navigation] = await Promise.all([
+  const [hubImages, navigation, locations] = await Promise.all([
     getCategoryHubCardImages(),
     getNavigation(),
+    getLocations(),
   ])
-  return <Header hubImages={hubImages} navigation={navigation} />
+
+  // Build { slug: { url, alt, name, state } } map for the mega-menu hover preview
+  const cityImages = {}
+  for (const loc of locations || []) {
+    if (loc.heroImage) {
+      cityImages[loc.slug] = {
+        url: loc.heroImage,
+        alt: loc.heroImageAlt || `${loc.name}, ${loc.state}`,
+        name: loc.name,
+        state: loc.state,
+      }
+    }
+  }
+
+  return <Header hubImages={hubImages} navigation={navigation} cityImages={cityImages} />
 }

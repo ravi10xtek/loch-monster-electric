@@ -343,6 +343,29 @@ ul { list-style: none; }
   color: var(--orange);
   background: #fafafa;
 }
+/* Preview tile in the 4th column of the Service Areas mega menu —
+   swaps to the hovered city's hero image */
+.mega-img {
+  position: relative;
+  border-radius: 3px;
+  overflow: hidden;
+  margin: 16px 0;
+  transition: background-image 0.25s ease;
+  display: flex;
+  align-items: flex-end;
+}
+.mega-img-label {
+  position: relative;
+  padding: 16px;
+  font-family: var(--OH);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: #fff;
+  text-transform: uppercase;
+  text-shadow: 0 1px 6px rgba(0,0,0,0.6);
+  width: 100%;
+}
 
 /* ===== BUTTONS ===== */
 .btn-orange-full {

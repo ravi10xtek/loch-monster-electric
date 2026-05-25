@@ -258,10 +258,24 @@ function MobileServiceAreasAccordion({ openKey, setOpenKey }) {
   )
 }
 
-function ServiceAreasMegaMenu() {
+function ServiceAreasMegaMenu({ cityImages = {} }) {
   const col1 = allCities.slice(0, 6);
   const col2 = allCities.slice(6, 12);
   const col3 = allCities.slice(12, 18);
+
+  // Find the first city that has an image to use as the default preview
+  const firstWithImage = allCities.find(c => cityImages[c.slug])?.slug || null
+  const [hoveredSlug, setHoveredSlug] = useState(firstWithImage)
+
+  const active = hoveredSlug && cityImages[hoveredSlug]
+  const previewStyle = active
+    ? {
+        backgroundImage: `linear-gradient(160deg, rgba(0,0,0,0.25), rgba(0,0,0,0.55)), url('${active.url}')`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+      }
+    : { background: 'linear-gradient(160deg,#1a1a1a,#2e2e2e)' }
+  const previewLabel = active ? `${active.name}, ${active.state}` : 'Twin Cities Metro'
 
   return (
     <div className="mega-menu">
@@ -273,21 +287,23 @@ function ServiceAreasMegaMenu() {
                 key={city.slug}
                 href={`/service-areas/${city.slug}`}
                 className="mega-city-item"
+                onMouseEnter={() => cityImages[city.slug] && setHoveredSlug(city.slug)}
+                onFocus={() => cityImages[city.slug] && setHoveredSlug(city.slug)}
               >
                 {city.name.toUpperCase()}, {city.state}
               </a>
             ))}
           </div>
         ))}
-        <div className="mega-img" style={{ background: 'linear-gradient(160deg,#1a1a1a,#2e2e2e)' }}>
-          <div className="mega-img-label">Twin Cities Metro</div>
+        <div className="mega-img" style={previewStyle}>
+          <div className="mega-img-label">{previewLabel}</div>
         </div>
       </div>
     </div>
   );
 }
 
-export default function Header({ hubImages, navigation }) {
+export default function Header({ hubImages, navigation, cityImages = {} }) {
   const [openMenu, setOpenMenu] = useState(null);
   const [mobileOpen, setMobileOpen] = useState(null);
   const closeTimer = useRef(null);
@@ -332,7 +348,7 @@ export default function Header({ hubImages, navigation }) {
               onMouseLeave={handleLeave}
             >
               <a href="/service-areas" className="nav-top-link">SERVICE AREAS</a>
-              {openMenu === 'serviceAreas' && <ServiceAreasMegaMenu />}
+              {openMenu === 'serviceAreas' && <ServiceAreasMegaMenu cityImages={cityImages} />}
             </div>
             {topLinks.map((link) => (
               <a key={link.href} href={link.href}>{link.label}</a>
