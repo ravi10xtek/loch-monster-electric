@@ -1,6 +1,7 @@
 import OrangeBannerView from './OrangeBannerView';
 import FaqAccordion from './FaqAccordion';
 import AuthorCard from './AuthorCard';
+import { DEFAULT_AUTHOR } from '../data/authors';
 
 function formatDate(iso) {
   const d = new Date(iso);
@@ -41,7 +42,10 @@ export default function JournalPost({ post, related }) {
                 <span key={t} className="jbadge">{t.toUpperCase()}</span>
               ))}
             </div>
-            <p className="jp-hero-meta">{formatDate(post.date)} &nbsp;·&nbsp; {post.readTime}</p>
+            <p className="jp-hero-meta">
+              <span className="jp-hero-author">By {post.authorName || DEFAULT_AUTHOR.name}</span>
+              &nbsp;·&nbsp; {formatDate(post.date)} &nbsp;·&nbsp; {post.readTime}
+            </p>
             <h1 className="jp-hero-title">{post.title}</h1>
             <p className="jp-post-updated">Updated: {formatDate(post.date)}</p>
             <p className="jp-hero-excerpt">{post.excerpt}</p>

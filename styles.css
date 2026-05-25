@@ -2079,6 +2079,7 @@ textarea { resize: vertical; }
 }
 .jp-hero-tags { display: flex; gap: 8px; flex-wrap: wrap; }
 .jp-hero-meta { font-size: 0.8rem; color: #aaa; }
+.jp-hero-author { color: var(--orange); font-weight: 700; }
 .jp-hero-title {
   font-family: var(--OH);
   font-size: clamp(1.4rem, 2.2vw, 2rem);
