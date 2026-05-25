@@ -197,8 +197,9 @@ export async function getPageSEO(slug) {
   return {
     metaTitle: doc.metaTitle || null,
     metaDescription: doc.metaDescription || null,
-    // ogImage may be a populated Media object or null
-    ogImage: doc.ogImage?.url ? `${BASE}${doc.ogImage.url}` : null,
+    // ogImage may be a populated Media object or null.
+    // Use mediaUrl() — it handles both absolute (Supabase S3) and relative URLs.
+    ogImage: doc.ogImage?.url ? mediaUrl(doc.ogImage.url) : null,
     canonicalUrl: doc.canonicalUrl || null,
     noIndex: doc.noIndex || false,
     schemaMarkup: doc.schemaMarkup || null,
