@@ -152,10 +152,10 @@ export default async function Footer() {
             <div className="fl-block">
               <h5>LEGAL &amp; POLICIES</h5>
               <ul>
-                <li><a href="#">Privacy Policy</a></li>
-                <li><a href="#">Terms &amp; Conditions</a></li>
+                <li><a href="/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/privacy-policy">Terms &amp; Conditions</a></li>
                 <li><a href="#">Cookie Policy</a></li>
-                <li><a href="#">Disclaimer</a></li>
+                <li><a href="/privacy-policy">Disclaimer</a></li>
               </ul>
             </div>
             <div className="fl-block fl-block--empty" aria-hidden="true"></div>

@@ -4209,6 +4209,7 @@ textarea { resize: vertical; }
 }
 .legal-section p:last-child { margin-bottom: 0; }
 .legal-section ul {
+  list-style: disc;
   margin: 10px 0 18px 0;
   padding-left: 22px;
   display: flex;
@@ -4219,6 +4220,7 @@ textarea { resize: vertical; }
   font-size: 0.96rem;
   line-height: 1.75;
   color: #444;
+  list-style: disc;
 }
 .legal-section ul li::marker { color: var(--orange); }
 .legal-contact {
