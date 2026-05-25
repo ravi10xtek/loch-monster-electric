@@ -2786,7 +2786,7 @@ textarea { resize: vertical; }
   .hero-inner { grid-template-columns: 1fr; padding: 40px 24px; }
   .hero-title-line { white-space: normal; }
   .hero-form-wrap { order: -1; padding: 24px 20px 26px; }
-  .service-cards-grid { grid-template-columns: repeat(auto-fit, minmax(160px, 240px)); justify-content: center; }
+  .service-cards-grid { grid-template-columns: 1fr; justify-content: stretch; }
   .service-cards-grid--home { grid-template-columns: repeat(2, 1fr); justify-content: stretch; }
   .tabs-row { overflow-x: auto; flex-wrap: nowrap; justify-content: flex-start; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
   .tabs-row::-webkit-scrollbar { display: none; }
