@@ -48,7 +48,7 @@ export default async function PostPage({ params }) {
     description: post.excerpt || '',
     datePublished: post.date || post.publishedAt || '',
     dateModified: post.updatedAt || post.date || post.publishedAt || '',
-    url: `${BASE}/journal/${slug}`,
+    url: `${BASE}/blog/${slug}`,
     image: post.coverImage || null,
     author: {
       '@type': 'Organization',

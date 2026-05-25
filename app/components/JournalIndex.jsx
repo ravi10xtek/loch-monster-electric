@@ -33,7 +33,7 @@ export default function JournalIndex({ posts }) {
           <nav aria-label="breadcrumb">
             <ol className="breadcrumb ji-breadcrumb">
               <li><a href="/">Home</a></li>
-              <li aria-current="page">Journal</li>
+              <li aria-current="page">Blog</li>
             </ol>
           </nav>
           <p className="ji-feat-eyebrow">Featuring</p>
@@ -45,8 +45,8 @@ export default function JournalIndex({ posts }) {
           <h1 className="ji-feat-title">{featured.title}</h1>
           <p className="ji-feat-excerpt">{featured.excerpt}</p>
           <div className="ji-feat-actions">
-            <a href="/journal" className="btn-dark-sm">MORE ARTICLES</a>
-            <a href={`/journal/${featured.slug}`} className="btn-outline-sm">READ MORE</a>
+            <a href="/blog" className="btn-dark-sm">MORE ARTICLES</a>
+            <a href={`/blog/${featured.slug}`} className="btn-outline-sm">READ MORE</a>
           </div>
         </div>
         <div className="ji-feat-img" style={{ background: featured.coverGradient }} />
@@ -84,7 +84,7 @@ export default function JournalIndex({ posts }) {
           )}
           {visible.map(post => (
             <article key={post.slug} className="ji-card">
-              <a href={`/journal/${post.slug}`} className="ji-card-img" style={{ background: post.coverGradient }} aria-hidden="true" />
+              <a href={`/blog/${post.slug}`} className="ji-card-img" style={{ background: post.coverGradient }} aria-hidden="true" />
               <div className="ji-card-content">
                 <div className="ji-card-tags">
                   {post.tags.map(t => (
@@ -92,11 +92,11 @@ export default function JournalIndex({ posts }) {
                   ))}
                 </div>
                 <h2 className="ji-card-title">
-                  <a href={`/journal/${post.slug}`}>{post.title}</a>
+                  <a href={`/blog/${post.slug}`}>{post.title}</a>
                 </h2>
                 <p className="ji-card-meta">Updated: {formatDate(post.date)}</p>
                 <p className="ji-card-excerpt">{post.excerpt}</p>
-                <a href={`/journal/${post.slug}`} className="ji-card-cta">READ MORE</a>
+                <a href={`/blog/${post.slug}`} className="ji-card-cta">READ MORE</a>
               </div>
             </article>
           ))}

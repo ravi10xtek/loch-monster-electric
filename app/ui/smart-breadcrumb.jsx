@@ -18,7 +18,7 @@ const LABELS = {
   'hoa-ev-charging': 'EV Charging',
   'hoa-inspections': 'Inspections',
   'service-areas': 'Service Areas',
-  'journal': 'Journal',
+  'blog': 'Blog',
   'pricing-estimates': 'Pricing & Estimates',
   'about-us': 'About Us',
   'media': 'Media',

@@ -6,7 +6,7 @@ import JsonLd from '../components/JsonLd'
 import { posts as staticPosts } from '../data/journal'
 
 export async function generateMetadata() {
-  return buildPageMetadata('journal', {
+  return buildPageMetadata('blog', {
     title: 'Electrical Journal | Loch Monster Electric',
     description: 'Electrical tips, safety guides, and how-to articles for Minnesota & Wisconsin homeowners from the licensed electricians at Loch Monster Electric.',
   })
@@ -18,7 +18,7 @@ export const dynamic = 'force-dynamic'
 export default async function JournalPage() {
   const [posts, seo] = await Promise.all([
     getPosts().then(r => r ?? staticPosts),
-    getPageSEO('journal'),
+    getPageSEO('blog'),
   ])
   return (
     <>

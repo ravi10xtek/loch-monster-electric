@@ -133,7 +133,7 @@ const STATIC_MENUS = {
 
 const STATIC_TOP_LINKS = [
   { label: 'PRICING', href: '/pricing-estimates' },
-  { label: 'JOURNAL', href: '/journal' },
+  { label: 'JOURNAL', href: '/blog' },
   { label: 'MEDIA', href: '/media' },
   { label: 'GLOSSARY', href: '/electrical-glossary' },
   { label: 'ABOUT US', href: '/about-us' },
@@ -146,7 +146,7 @@ const STATIC_MOBILE_LINKS = [
   { label: 'HOA', href: '/hoa-electrical-services' },
   { label: 'SERVICE AREAS', href: '/service-areas' },
   { label: 'PRICING', href: '/pricing-estimates' },
-  { label: 'JOURNAL', href: '/journal' },
+  { label: 'JOURNAL', href: '/blog' },
   { label: 'ABOUT US', href: '/about-us' },
   { label: 'CONTACT US', href: '/contact-us' },
 ]

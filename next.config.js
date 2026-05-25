@@ -22,6 +22,22 @@ const nextConfig = {
     ],
   },
 
+  // 301 redirects — preserve SEO equity from old /journal URLs
+  async redirects() {
+    return [
+      {
+        source: '/journal',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
+        source: '/journal/:slug*',
+        destination: '/blog/:slug*',
+        permanent: true,
+      },
+    ]
+  },
+
   // Allow the Payload CMS admin to embed /preview/* routes in an iframe
   async headers() {
     return [

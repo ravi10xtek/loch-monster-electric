@@ -1,5 +1,5 @@
 import { getAllPostSlugs, getAllLocationSlugs, getServiceSlugsByHub } from './lib/cms'
-import { posts } from './data/journal'
+import { posts } from './data/blog'
 import { allCities } from './data/serviceAreas'
 import { serviceDetails } from './data/serviceDetails'
 
@@ -36,7 +36,7 @@ export default async function sitemap() {
     { url: `${BASE}/contact-us`,                            priority: 0.9, changeFrequency: 'monthly' },
     { url: `${BASE}/pricing-estimates`,                     priority: 0.7, changeFrequency: 'monthly' },
     { url: `${BASE}/service-areas`,                         priority: 0.8, changeFrequency: 'monthly' },
-    { url: `${BASE}/journal`,                               priority: 0.8, changeFrequency: 'weekly'  },
+    { url: `${BASE}/blog`,                               priority: 0.8, changeFrequency: 'weekly'  },
     { url: `${BASE}/residential-electrical-services`,       priority: 0.8, changeFrequency: 'monthly' },
     { url: `${BASE}/commercial-electrical-services`,        priority: 0.8, changeFrequency: 'monthly' },
     { url: `${BASE}/hoa-electrical-services`,               priority: 0.8, changeFrequency: 'monthly' },
@@ -84,7 +84,7 @@ export default async function sitemap() {
   const cmsPostSlugs = await getAllPostSlugs()
   const postSlugs = cmsPostSlugs ?? posts.map(p => p.slug)
   const postPages = postSlugs.map(slug => ({
-    url: `${BASE}/journal/${slug}`,
+    url: `${BASE}/blog/${slug}`,
     lastModified: now,
     changeFrequency: 'weekly',
     priority: 0.7,

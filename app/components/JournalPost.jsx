@@ -20,7 +20,7 @@ export default function JournalPost({ post, related }) {
           <div className="wrap">
             <ol className="breadcrumb">
               <li><a href="/">Home</a></li>
-              <li><a href="/journal">Journal</a></li>
+              <li><a href="/blog">Blog</a></li>
               <li aria-current="page">{post.title}</li>
             </ol>
           </div>
@@ -76,8 +76,8 @@ export default function JournalPost({ post, related }) {
             </div>
             <div className="jp-share">
               <span className="jp-share-label">Share:</span>
-              <a href={`https://facebook.com/sharer/sharer.php?u=${encodeURIComponent('https://lochmonsterelectric.com/journal/' + post.slug)}`} target="_blank" rel="noopener noreferrer" className="jp-share-btn" aria-label="Share on Facebook">f</a>
-              <a href={`https://twitter.com/intent/tweet?url=${encodeURIComponent('https://lochmonsterelectric.com/journal/' + post.slug)}&text=${encodeURIComponent(post.title)}`} target="_blank" rel="noopener noreferrer" className="jp-share-btn" aria-label="Share on X">𝕏</a>
+              <a href={`https://facebook.com/sharer/sharer.php?u=${encodeURIComponent('https://lochmonsterelectric.com/blog/' + post.slug)}`} target="_blank" rel="noopener noreferrer" className="jp-share-btn" aria-label="Share on Facebook">f</a>
+              <a href={`https://twitter.com/intent/tweet?url=${encodeURIComponent('https://lochmonsterelectric.com/blog/' + post.slug)}&text=${encodeURIComponent(post.title)}`} target="_blank" rel="noopener noreferrer" className="jp-share-btn" aria-label="Share on X">𝕏</a>
             </div>
           </div>
         </article>
@@ -94,9 +94,9 @@ export default function JournalPost({ post, related }) {
                   ))}
                 </div>
                 <h3 className="jp-sidebar-card-title">
-                  <a href={`/journal/${rel.slug}`}>{rel.title}</a>
+                  <a href={`/blog/${rel.slug}`}>{rel.title}</a>
                 </h3>
-                <a href={`/journal/${rel.slug}`} className="ji-card-cta">READ MORE</a>
+                <a href={`/blog/${rel.slug}`} className="ji-card-cta">READ MORE</a>
               </div>
             </div>
           ))}
@@ -118,7 +118,7 @@ export default function JournalPost({ post, related }) {
         <div className="wrap">
           <div className="journal-header">
             <h2 className="journal-heading" style={{ color: '#1a1a1a' }}>RECENT <span className="text-orange">POSTS</span></h2>
-            <a href="/journal" className="explore-btn" style={{ borderColor: '#1a1a1a', color: '#1a1a1a' }}>EXPLORE</a>
+            <a href="/blog" className="explore-btn" style={{ borderColor: '#1a1a1a', color: '#1a1a1a' }}>EXPLORE</a>
           </div>
           <div className="journal-track jp-recent-track">
             {related.concat(related).slice(0, 4).map((rel, i) => (
@@ -126,7 +126,7 @@ export default function JournalPost({ post, related }) {
                 <h4 className="jcard-title">{rel.title}</h4>
                 <div className="jcard-img" style={{ background: rel.coverGradient }} />
                 <p className="jcard-excerpt">{rel.excerpt}</p>
-                <a href={`/journal/${rel.slug}`} className="jcard-cta">READ MORE</a>
+                <a href={`/blog/${rel.slug}`} className="jcard-cta">READ MORE</a>
               </article>
             ))}
           </div>

@@ -24,7 +24,7 @@ const SECRET = process.env.REVALIDATION_SECRET
 const COLLECTION_MAP = {
   posts: {
     tag: 'posts',
-    path: (slug) => slug ? `/journal/${slug}` : '/journal',
+    path: (slug) => slug ? `/blog/${slug}` : '/blog',
   },
   locations: {
     tag: 'locations',
