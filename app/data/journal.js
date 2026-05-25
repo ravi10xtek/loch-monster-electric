@@ -10,7 +10,7 @@ export const ALL_TAGS = [
 
 export const posts = [
   {
-    slug: 'why-are-my-lights-flickering',
+    slug: 'why-are-my-lights-flickering-causes-dangers-and-fixes-for-minnesota-wisconsin-homes',
     title: 'Why Are My Lights Flickering? Causes, Dangers, and Fixes for Minnesota & Wisconsin Homes',
     excerpt: "Flickering lights aren't just a nuisance — they're often an early sign of electrical issues. Learn what causes light flicker in Minnesota and Wisconsin homes, from loose bulbs to wiring or panel problems, and when to call a licensed electrician.",
     date: '2025-10-23',

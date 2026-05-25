@@ -5,7 +5,7 @@ const FALLBACK_ARTICLES = [
     title: 'WHY ARE MY LIGHTS FLICKERING? CAUSES, DANGERS, AND FIXES FOR MINNESOTA & WISCONSIN HOMES',
     img: 'bulb',
     excerpt: "Flickering lights aren't just a nuisance — they're often an early sign of electrical issues. Learn what causes light flicker in Minnesota and Wisconsin homes, from loose bulbs to wiring or panel problems, and when to call a licensed electrician.",
-    href: '/blog/why-are-my-lights-flickering',
+    href: '/blog/why-are-my-lights-flickering-causes-dangers-and-fixes-for-minnesota-wisconsin-homes',
   },
   {
     title: 'PANEL UPGRADES: WHEN YOUR HOME IS ASKING FOR MORE POWER',
