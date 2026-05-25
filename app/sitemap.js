@@ -1,5 +1,5 @@
 import { getAllPostSlugs, getAllLocationSlugs, getServiceSlugsByHub } from './lib/cms'
-import { posts } from './data/blog'
+import { posts } from './data/journal'
 import { allCities } from './data/serviceAreas'
 import { serviceDetails } from './data/serviceDetails'
 
