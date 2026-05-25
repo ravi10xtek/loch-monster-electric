@@ -8,7 +8,7 @@ export const authors = {
     name: 'Ryan Solberg',
     title: 'Master Electrician, Loch Monster Electric',
     bio: 'Ryan Solberg is a master electrician at Loch Monster Electric with years of hands-on experience across residential, commercial, and HOA electrical work in the Twin Cities metro. He writes about electrical safety, code changes, and practical advice for Minnesota and Wisconsin homeowners.',
-    photo: '/authors/ryan-solberg.jpg', // Place photo at public/authors/ryan-solberg.jpg
+    photo: '/authors/ryan-solberg.png',
     initials: 'RS',
   },
 }
