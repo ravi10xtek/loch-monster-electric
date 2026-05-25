@@ -14,8 +14,6 @@ export default function MediaHero({ data }) {
   const cta1Href   = d.heroCta1Href   || '#projects'
   const cta2Label  = d.heroCta2Label  || 'FOLLOW US'
   const cta2Href   = d.heroCta2Href   || '#stay-connected'
-  const formTitle  = d.heroFormTitle  || 'GET A FREE ESTIMATE'
-  const formSub    = d.heroFormSubtitle || 'Fast response. No obligation.'
   const bgImage    = d.heroImage?.url || null
 
   return (
@@ -47,8 +45,7 @@ export default function MediaHero({ data }) {
         </div>
         <div className="hero-form-wrap">
           <div className="hero-form-header">
-            <strong>{formTitle}</strong>
-            {formSub && <p style={{ marginTop: '6px', fontWeight: 400 }}>{formSub}</p>}
+            <strong>Phone Is Usually The Fastest Way To Reach You,</strong>{' '}But We&apos;re Happy To Follow Up However Works Best.
           </div>
           <HeroForm />
         </div>
