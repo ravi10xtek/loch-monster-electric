@@ -19,7 +19,12 @@ export async function generateMetadata({ params }) {
   const { service } = await params
   const d = (await getServiceBySlug(service)) ?? serviceDetails[service]
   if (!d) return {}
-  return { title: d.seo.title, description: d.seo.description }
+  const SITE = process.env.SITE_URL || 'https://lochmonsterelectric.com'
+  return {
+    title: d.seo.title,
+    description: d.seo.description,
+    alternates: { canonical: `${SITE}/hoa-electrical-services/${PARENT_HUB}/${service}` },
+  }
 }
 
 export default async function Page({ params }) {

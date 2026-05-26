@@ -443,9 +443,14 @@ export async function buildPageMetadata(pageSlug, fallback = {}) {
 
   const metadata = { title, description }
 
-  if (seo?.canonicalUrl) {
-    metadata.alternates = { canonical: seo.canonicalUrl }
-  }
+  // Canonical: prefer the CMS value, otherwise build a default from pageSlug.
+  // Default canonical points to the production domain so search engines
+  // consolidate ranking signals regardless of which deployment URL they
+  // crawl (e.g. *.vercel.app preview vs lochmonsterelectric.com).
+  const SITE = process.env.SITE_URL || 'https://lochmonsterelectric.com'
+  const path = pageSlug === '/' ? '' : `/${String(pageSlug).replace(/^\/+/, '')}`
+  metadata.alternates = { canonical: seo?.canonicalUrl || `${SITE}${path}` }
+
   if (seo?.noIndex) {
     metadata.robots = { index: false, follow: false }
   }

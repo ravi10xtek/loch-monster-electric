@@ -17,9 +17,11 @@ export async function generateMetadata({ params }) {
   const slugStr = Array.isArray(slug) ? slug.join('/') : slug
   const page = await getPageBySlug(slugStr)
   if (!page) return {}
+  const SITE = process.env.SITE_URL || 'https://lochmonsterelectric.com'
   return {
     title: page.seo?.title || page.title,
     description: page.seo?.description || '',
+    alternates: { canonical: page.seo?.canonicalUrl || `${SITE}/${slugStr}` },
     ...(page.seo?.noIndex ? { robots: { index: false, follow: false } } : {}),
     ...(page.seo?.ogImage ? { openGraph: { images: [{ url: page.seo.ogImage }] } } : {}),
   }

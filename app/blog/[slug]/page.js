@@ -24,9 +24,11 @@ export async function generateMetadata({ params }) {
   const { slug } = await params
   const post = (await getPostBySlug(slug)) ?? staticGetPost(slug)
   if (!post) return {}
+  const SITE = process.env.SITE_URL || 'https://lochmonsterelectric.com'
   return {
     title: post.metaTitle || `${post.title} | Loch Monster Electric`,
     description: post.metaDescription || post.excerpt,
+    alternates: { canonical: `${SITE}/blog/${slug}` },
   }
 }
 

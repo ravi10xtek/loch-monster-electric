@@ -26,11 +26,13 @@ export async function generateMetadata({ params }) {
   const { city } = await params
   const c = (await getLocationBySlug(city)) ?? getCityBySlug(city)
   if (!c) return {}
+  const SITE = process.env.SITE_URL || 'https://lochmonsterelectric.com'
   return {
     title: c.metaTitle || `Electrician in ${c.name}, ${c.state} | Loch Monster Electric`,
     description:
       c.metaDescription ||
       `Licensed electrician serving ${c.name}, ${c.state}. Residential & commercial electrical services. Call 763-292-1191.`,
+    alternates: { canonical: `${SITE}/service-areas/${city}` },
   }
 }
 
