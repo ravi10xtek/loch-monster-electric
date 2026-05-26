@@ -12,7 +12,7 @@ import WhyChooseUs from '../../components/WhyChooseUs'
 import JsonLd from '../../components/JsonLd'
 import FAQ from '../../components/FAQ'
 
-const BASE = process.env.SITE_URL || 'https://lochmonsterelectric.com'
+const BASE = process.env.SITE_URL || 'https://www.lochmonsterelectric.com'
 
 export const dynamicParams = true
 
@@ -26,7 +26,7 @@ export async function generateMetadata({ params }) {
   const { city } = await params
   const c = (await getLocationBySlug(city)) ?? getCityBySlug(city)
   if (!c) return {}
-  const SITE = process.env.SITE_URL || 'https://lochmonsterelectric.com'
+  const SITE = process.env.SITE_URL || 'https://www.lochmonsterelectric.com'
   return {
     title: c.metaTitle || `Electrician in ${c.name}, ${c.state} | Loch Monster Electric`,
     description:

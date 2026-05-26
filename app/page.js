@@ -12,7 +12,7 @@ import Journal from "./components/Journal";
 import FAQ from "./components/FAQ";
 import JsonLd from "./components/JsonLd";
 
-const BASE = process.env.SITE_URL || 'https://lochmonsterelectric.com'
+const BASE = process.env.SITE_URL || 'https://www.lochmonsterelectric.com'
 
 const websiteSchema = {
   '@context': 'https://schema.org',

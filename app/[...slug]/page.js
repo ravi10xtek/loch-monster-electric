@@ -17,7 +17,7 @@ export async function generateMetadata({ params }) {
   const slugStr = Array.isArray(slug) ? slug.join('/') : slug
   const page = await getPageBySlug(slugStr)
   if (!page) return {}
-  const SITE = process.env.SITE_URL || 'https://lochmonsterelectric.com'
+  const SITE = process.env.SITE_URL || 'https://www.lochmonsterelectric.com'
   return {
     title: page.seo?.title || page.title,
     description: page.seo?.description || '',

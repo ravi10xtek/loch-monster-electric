@@ -13,7 +13,7 @@ const workSans = Work_Sans({
   display: 'swap',
 })
 
-const BASE = process.env.SITE_URL || 'https://lochmonsterelectric.com'
+const BASE = process.env.SITE_URL || 'https://www.lochmonsterelectric.com'
 
 const localBusiness = {
   '@context': 'https://schema.org',
@@ -65,7 +65,7 @@ const localBusiness = {
 }
 
 export const metadata = {
-  metadataBase: new URL(process.env.SITE_URL || 'https://lochmonsterelectric.com'),
+  metadataBase: new URL(process.env.SITE_URL || 'https://www.lochmonsterelectric.com'),
   title: "Loch Monster Electric | Legendary Electrical Work, Done Right",
   description: "Licensed electrical contractor serving the Twin Cities metro. Residential, commercial & HOA electrical services. Call 763-292-1191.",
   openGraph: {

@@ -1,4 +1,4 @@
-const BASE = process.env.SITE_URL || 'https://lochmonsterelectric.com'
+const BASE = process.env.SITE_URL || 'https://www.lochmonsterelectric.com'
 
 export default function robots() {
   return {

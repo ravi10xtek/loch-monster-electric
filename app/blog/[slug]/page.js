@@ -9,7 +9,7 @@ import {
 } from '../../data/journal'
 import { notFound } from 'next/navigation'
 
-const BASE = process.env.SITE_URL || 'https://lochmonsterelectric.com'
+const BASE = process.env.SITE_URL || 'https://www.lochmonsterelectric.com'
 
 // Pre-generate known slugs; allow new ones to be rendered on demand
 export const dynamicParams = true
@@ -24,7 +24,7 @@ export async function generateMetadata({ params }) {
   const { slug } = await params
   const post = (await getPostBySlug(slug)) ?? staticGetPost(slug)
   if (!post) return {}
-  const SITE = process.env.SITE_URL || 'https://lochmonsterelectric.com'
+  const SITE = process.env.SITE_URL || 'https://www.lochmonsterelectric.com'
   return {
     title: post.metaTitle || `${post.title} | Loch Monster Electric`,
     description: post.metaDescription || post.excerpt,

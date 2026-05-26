@@ -11,7 +11,7 @@ import Journal from "./Journal";
 import JsonLd from "./JsonLd";
 import { getFaqs } from "../lib/cms";
 
-const BASE = process.env.SITE_URL || 'https://lochmonsterelectric.com'
+const BASE = process.env.SITE_URL || 'https://www.lochmonsterelectric.com'
 
 const provider = {
   '@type': 'ElectricalContractor',

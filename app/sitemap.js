@@ -3,7 +3,7 @@ import { posts } from './data/journal'
 import { allCities } from './data/serviceAreas'
 import { serviceDetails } from './data/serviceDetails'
 
-const BASE = process.env.SITE_URL || 'https://lochmonsterelectric.com'
+const BASE = process.env.SITE_URL || 'https://www.lochmonsterelectric.com'
 
 /**
  * Maps every parentHub slug to its category URL prefix.

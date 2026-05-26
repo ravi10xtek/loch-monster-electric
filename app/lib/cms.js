@@ -447,7 +447,7 @@ export async function buildPageMetadata(pageSlug, fallback = {}) {
   // Default canonical points to the production domain so search engines
   // consolidate ranking signals regardless of which deployment URL they
   // crawl (e.g. *.vercel.app preview vs lochmonsterelectric.com).
-  const SITE = process.env.SITE_URL || 'https://lochmonsterelectric.com'
+  const SITE = process.env.SITE_URL || 'https://www.lochmonsterelectric.com'
   const path = pageSlug === '/' ? '' : `/${String(pageSlug).replace(/^\/+/, '')}`
   metadata.alternates = { canonical: seo?.canonicalUrl || `${SITE}${path}` }
 

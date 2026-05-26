@@ -19,7 +19,7 @@ export async function generateMetadata({ params }) {
   const { service } = await params
   const d = (await getServiceBySlug(service)) ?? serviceDetails[service]
   if (!d) return {}
-  const SITE = process.env.SITE_URL || 'https://lochmonsterelectric.com'
+  const SITE = process.env.SITE_URL || 'https://www.lochmonsterelectric.com'
   return {
     title: d.seo.title,
     description: d.seo.description,
