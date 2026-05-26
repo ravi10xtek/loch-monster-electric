@@ -1,29 +1,44 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 /**
  * Blog post share buttons: Facebook, X/Twitter, LinkedIn, Email, Copy Link.
  *
  * Props:
- *   - url: the canonical URL to share (full https://... — use production domain)
- *   - title: the post title (used for X tweet text + email subject)
+ *   - url: canonical URL fallback (used during SSR + before hydration).
+ *          Should be the production canonical (https://www.lochmonster...).
+ *   - title: post title (used for X tweet text + email subject)
+ *
+ * On the client we override `url` with `window.location.href` so share
+ * dialogs use the URL the visitor is actually on. This matters pre-launch
+ * because the canonical production domain still serves the old Wix site
+ * (so Facebook's scraper 404s when it fetches that URL).
  */
 export default function ShareButtons({ url, title }) {
   const [copied, setCopied] = useState(false)
+  const [liveUrl, setLiveUrl] = useState(url)
+
+  useEffect(() => {
+    if (typeof window !== 'undefined' && window.location?.href) {
+      // Strip hash/query so share previews don't pull random params
+      setLiveUrl(window.location.href.split('#')[0].split('?')[0])
+    }
+  }, [])
+
   const enc = (s) => encodeURIComponent(s)
-  const shareUrl = enc(url)
+  const shareUrl = enc(liveUrl)
   const shareTitle = enc(title)
 
   const handleCopy = async () => {
     try {
-      await navigator.clipboard.writeText(url)
+      await navigator.clipboard.writeText(liveUrl)
       setCopied(true)
       setTimeout(() => setCopied(false), 2000)
     } catch {
       // Fallback for older browsers / non-https contexts
       const ta = document.createElement('textarea')
-      ta.value = url
+      ta.value = liveUrl
       document.body.appendChild(ta)
       ta.select()
       try { document.execCommand('copy'); setCopied(true); setTimeout(() => setCopied(false), 2000) } catch {}
