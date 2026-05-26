@@ -1,3 +1,8 @@
+
+# Local report drafts — never commit
+reports/
+~$*
+
 # Dependencies
 node_modules/
 
