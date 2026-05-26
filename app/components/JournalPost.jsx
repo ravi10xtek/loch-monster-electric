@@ -1,6 +1,7 @@
 import OrangeBannerView from './OrangeBannerView';
 import FaqAccordion from './FaqAccordion';
 import AuthorCard from './AuthorCard';
+import ShareButtons from './ShareButtons';
 import { DEFAULT_AUTHOR } from '../data/authors';
 
 function formatDate(iso) {
@@ -82,11 +83,10 @@ export default function JournalPost({ post, related }) {
                 <span key={t} className="jbadge">{t.toUpperCase()}</span>
               ))}
             </div>
-            <div className="jp-share">
-              <span className="jp-share-label">Share:</span>
-              <a href={`https://facebook.com/sharer/sharer.php?u=${encodeURIComponent('https://lochmonsterelectric.com/blog/' + post.slug)}`} target="_blank" rel="noopener noreferrer" className="jp-share-btn" aria-label="Share on Facebook">f</a>
-              <a href={`https://twitter.com/intent/tweet?url=${encodeURIComponent('https://lochmonsterelectric.com/blog/' + post.slug)}&text=${encodeURIComponent(post.title)}`} target="_blank" rel="noopener noreferrer" className="jp-share-btn" aria-label="Share on X">𝕏</a>
-            </div>
+            <ShareButtons
+              url={`https://www.lochmonsterelectric.com/blog/${post.slug}`}
+              title={post.title}
+            />
           </div>
         </article>
 
