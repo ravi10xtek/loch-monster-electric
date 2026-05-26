@@ -3,19 +3,15 @@ import HeroForm from './HeroForm'
 // Fallback text matches what was previously hardcoded in this component
 const FALLBACK_TITLE_HTML =
   'FROM PIPES TO POWER&mdash;<br /><span class="text-orange">SAME CREW, SAME HEART.</span>'
-const FALLBACK_AUTHOR = 'By Mike Lochner Jr.'
 const FALLBACK_PARAGRAPHS = [
-  'Because we kept hearing it.',
-  '"Do you do electrical?"',
-  '"I wish you could just handle the whole thing."',
-  "So now we can. If we're already the crew you trust for plumbing, it makes sense to handle the rest. Remodels, panel upgrades, service calls—we've got the team, the tools, and the mindset to do it right. Different trade. Same neighbors. Same you.",
+  'We started with plumbing. Customers kept asking if we did electrical too — so now we do.',
+  "Same truck out front. Same crew at the door. Same straightforward, time-and-materials pricing. We're not trying to be the biggest electrical company in the Twin Cities — just the one your neighbors keep telling you about.",
 ]
 
 export default function AboutHero({ data }) {
   const d = data || {}
 
   const titleHtml = d.heroTitle || FALLBACK_TITLE_HTML
-  const author = d.heroAuthor || FALLBACK_AUTHOR
   const paragraphs =
     d.heroParagraphs?.length
       ? d.heroParagraphs.map(p => p.text).filter(Boolean)
@@ -50,7 +46,6 @@ export default function AboutHero({ data }) {
             className="about-hero-h1"
             dangerouslySetInnerHTML={{ __html: titleHtml }}
           />
-          <p className="about-hero-author">{author}</p>
           {paragraphs.map((p, i) => {
             // Treat lines that start and end with a quote as quote-styled
             const isQuote = /^["“].*["”]$/.test(p)
