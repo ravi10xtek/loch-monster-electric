@@ -25,6 +25,17 @@ export default function YouTubeFacade({
 }) {
   const [loaded, setLoaded] = useState(false)
 
+  // Try the HD maxresdefault (1280x720) first; fall back to hqdefault
+  // (480x360) if it 404s — maxresdefault isn't generated for every video.
+  const [posterSrc, setPosterSrc] = useState(
+    poster || `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`
+  )
+  const handlePosterError = () => {
+    if (!poster && !posterSrc.includes('hqdefault')) {
+      setPosterSrc(`https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`)
+    }
+  }
+
   if (loaded) {
     return (
       <iframe
@@ -38,11 +49,6 @@ export default function YouTubeFacade({
     )
   }
 
-  // hqdefault is the most reliable YouTube auto-thumb (always 480x360, no
-  // black bars). maxresdefault is higher-res but isn't generated for every
-  // video, so it can 404.
-  const posterSrc = poster || `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`
-
   return (
     <button
       type="button"
@@ -54,6 +60,7 @@ export default function YouTubeFacade({
         src={posterSrc}
         alt={title}
         loading="lazy"
+        onError={handlePosterError}
         className="yt-facade-poster"
       />
       <span className="yt-facade-button" aria-hidden="true">
