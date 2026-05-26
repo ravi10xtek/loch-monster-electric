@@ -1,3 +1,5 @@
+import YouTubeFacade from './YouTubeFacade'
+
 // Fallback text matches what was previously hardcoded in this component
 const FALLBACK_EYEBROW = 'About Loch Monster Electric'
 const FALLBACK_HEADING =
@@ -31,15 +33,13 @@ export default function AboutStory({ data }) {
     <div className="hub-alt-grid about-story">
       <div className="hub-alt-row">
 
-        {/* Left — YouTube video */}
+        {/* Left — YouTube video (click-to-play facade — keeps play button
+            out of the face area on the auto-thumbnail) */}
         <div className="hub-alt-img about-story-video">
-          <iframe
-            src="https://www.youtube-nocookie.com/embed/v_VTPohPgDI?rel=0"
+          <YouTubeFacade
+            videoId="v_VTPohPgDI"
             title="About Loch Monster Electric"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowFullScreen
-            loading="lazy"
-            referrerPolicy="strict-origin-when-cross-origin"
+            buttonPosition="bottom-right"
           />
         </div>
 
