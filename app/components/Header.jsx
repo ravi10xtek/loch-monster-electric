@@ -299,6 +299,15 @@ function ServiceAreasMegaMenu({ cityImages = {} }) {
           <div className="mega-img-label">{previewLabel}</div>
         </div>
       </div>
+      {/* Preload every city's image the moment the menu opens.
+          Hidden but the browser still fetches + caches them, so every
+          subsequent hover is instant instead of waiting for a fresh network
+          round-trip per city. */}
+      <div aria-hidden="true" style={{ position: 'absolute', width: 0, height: 0, overflow: 'hidden', pointerEvents: 'none' }}>
+        {Object.values(cityImages).map((img) => (
+          <img key={img.url} src={img.url} alt="" loading="eager" />
+        ))}
+      </div>
     </div>
   );
 }

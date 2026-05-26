@@ -158,6 +158,12 @@ export function normalizeLocation(p) {
     nearby: (p.nearby || []).map(n => (typeof n === 'object' ? n.slug : n)),
     heroImage: p.heroImage?.url ? mediaUrl(p.heroImage.url) : null,
     heroImageAlt: p.heroImage?.alt || null,
+    // Smaller pre-generated card variant (800x600 WebP) — used by the
+    // Service Areas mega menu so it doesn't download the full hero image
+    // for a 220px-wide preview tile.
+    heroImageCard: p.heroImage?.sizes?.card?.url
+      ? mediaUrl(p.heroImage.sizes.card.url)
+      : null,
     cityImage: p.cityImage?.url ? mediaUrl(p.cityImage.url) : null,
     cityImageAlt: p.cityImage?.alt || null,
     commonRepairs: (p.commonRepairs || [])

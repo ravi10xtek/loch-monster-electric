@@ -13,12 +13,15 @@ export default async function HeaderWrapper() {
     getLocations(),
   ])
 
-  // Build { slug: { url, alt, name, state } } map for the mega-menu hover preview
+  // Build { slug: { url, alt, name, state } } map for the mega-menu hover preview.
+  // Prefer the small card variant (800x600 WebP, ~50KB) over the full hero
+  // (1920x800, ~150KB+) — the preview tile only needs ~220x180.
   const cityImages = {}
   for (const loc of locations || []) {
-    if (loc.heroImage) {
+    const url = loc.heroImageCard || loc.heroImage
+    if (url) {
       cityImages[loc.slug] = {
-        url: loc.heroImage,
+        url,
         alt: loc.heroImageAlt || `${loc.name}, ${loc.state}`,
         name: loc.name,
         state: loc.state,
